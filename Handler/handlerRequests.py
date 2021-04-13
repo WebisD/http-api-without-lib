@@ -1,5 +1,6 @@
 from server import *
 from threading import Thread
+from Handler import requestParser
 
 class Handler(Thread):
     def __init__ (self, server):
@@ -16,10 +17,12 @@ class Handler(Thread):
                 if not request: 
                     break
                 else:
-                   print(request)
-                   
-                   break
+                    requestObj = requestParser.parse(request)
+                    print(requestObj)
+                    
+                    break
                    
             print("close connection...")
             connectionSocket.close()
+            break
             
