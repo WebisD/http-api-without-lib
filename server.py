@@ -1,7 +1,7 @@
 from socket import *
 from threading import Thread
 import sys
-from handlerRequests import Handler
+from Handler.handlerRequests import Handler
 
 class Server():
     def __init__(self, ip, port):
