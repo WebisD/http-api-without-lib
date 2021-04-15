@@ -1,4 +1,4 @@
-def parse (request):
+def parse(request):
     requestObj = {}
     splitRequest = [line.strip('\r') for line in request.split('\n')]
     header = splitRequest[0].split(' ')
