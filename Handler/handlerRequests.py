@@ -3,10 +3,10 @@ from threading import Thread
 
 from Message.parserMessage import ParserMessage
 from Message.request import Request
-from Methods.GET import Get
-from Methods.POST import Post
-from Methods.PUT import Put
-from Methods.DELETE import Delete
+from Methods.GET import GET
+from Methods.POST import POST
+from Methods.PUT import PUT
+from Methods.DELETE import DELETE
 
 from Handler.handlerErrors import HandlerErrors
 
@@ -25,20 +25,20 @@ class Handler(Thread):
                 if not request: 
                     break
                 else:
-                    msg = Request(ParserMessage.parse(request))
-                    msg.setIp(addr)
+                    request = Request(ParserMessage.parseRequest(request))
+                    request.setIp(addr)
                     
-                    self.checkTypeRequest(msg, connectionSocket)
+                    self.checkTypeRequest(request, connectionSocket)
                     break
 
-    def checkTypeRequest(self, msg, connectionSocket):
-        if msg.type == 'GET':
-            Get.response(msg, connectionSocket)
-        elif msg.type == 'POST':
-            Post.response(msg, connectionSocket)
-        elif msg.type == 'PUT':
-            Put.response(msg, connectionSocket)
-        elif msg.type == 'DELETE':
-            Delete.response(msg, connectionSocket)
-        else:
-            HandlerErrors.sendErrorCode(msg, connectionSocket)
+    def checkTypeRequest(self, request, connectionSocket):
+        response = ""
+        try:
+            response = eval(request.type).response(request)
+        except:
+            response = HandlerErrors.sendErrorCode(request)
+
+        response = (("HTTP/1.1 200 OK\n").encode())
+
+        connectionSocket.send(response)
+        connectionSocket.close()

@@ -1,7 +1,6 @@
 from Message.request import Request
 
-class Post():
+class POST():
     @staticmethod
-    def response(msg, connectionSocket):
-        statusOperation = HandlerObj.post(msg)
-        print(requestBody)
+    def response(request):
+        print(request)

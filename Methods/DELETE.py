@@ -1,9 +1,7 @@
 from Message.request import Request
-from Handler.handlerObj import HandlerObj
 
-class Delete():
+class DELETE():
     @staticmethod
-    def response(msg, connectionSocket):
-        statusOperation = HandlerObj.delete(msg)
-        connectionSocket.send(("HTTP/1.1 200 OK\n").encode())
-        connectionSocket.close()
+    def response(request):
+        print(request)
+

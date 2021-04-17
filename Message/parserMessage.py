@@ -1,7 +1,7 @@
 class ParserMessage():
     
     @staticmethod
-    def parse(request):
+    def parseRequest(request):
         requestObj = {}
         splitRequest = [line.strip('\r') for line in request.split('\n')]
         header = splitRequest[0].split(' ')

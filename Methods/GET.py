@@ -1,6 +1,6 @@
 from Message.request import Request
 
-class Get():
+class GET():
     @staticmethod
-    def response(msg, connectionSocket):
-        print(msg)
+    def response(request):
+        print(request)
