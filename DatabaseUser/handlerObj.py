@@ -7,19 +7,15 @@ class HandlerObj():
     @staticmethod
     def get(msg):
        print("get")
-       return true
 
     @staticmethod
     def put(msg):
         print("put")
-       return true
 
     @staticmethod
     def post(msg):
        print("post")
-       return true
 
     @staticmethod
     def delete(msg):
        print("delete")
-       return true

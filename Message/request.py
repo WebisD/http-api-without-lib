@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from Message.message import Message
 
-
 class Request(Message):
     def __init__(self, requestMessage):
         self.type = requestMessage['Request-Type']

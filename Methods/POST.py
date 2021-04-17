@@ -1,4 +1,3 @@
-from Methods.method import Method
 from Message.request import Request
 
 class Post():
