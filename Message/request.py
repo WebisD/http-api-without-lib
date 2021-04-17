@@ -21,3 +21,6 @@ class Request(Message):
 
     def __str__(self):
         return f'{self.type, self.URI, self.http_version, self.host, self.body}...'
+
+    def setIp(self, ip):
+        self.ip = ip
