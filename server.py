@@ -3,7 +3,8 @@ from threading import Thread
 import sys
 from Handler.handlerRequests import Handler
 
-class Server():
+
+class Server:
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
@@ -28,8 +29,9 @@ class Server():
     def deleteMethod(self):
         print("delete method")
 
+
 def startServer():
     serverHttp = Server('localhost', 8080)
     print("Server started on " + serverHttp.ip + ":" + str(serverHttp.port))
 
-#criar um objeto -> retornar como html
+# criar um objeto -> retornar como html
