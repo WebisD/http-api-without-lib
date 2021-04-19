@@ -1,21 +1,24 @@
 from server import *
 from threading import Thread
 from Message.request import Request
+from DatabaseUser.objectUser import UserObj
+import json
 
-class HandlerObj():
+class HandlerDatabase():
+   databaseFile = 'DatabaseUser/database.json'
+   database = {}
 
-    @staticmethod
-    def get(msg):
-       print("get")
+   @staticmethod
+   def addNewObj(obj):
+      value = (json.dumps(obj._dict_)).strip('"')
+      print(value)
 
-    @staticmethod
-    def put(msg):
-        print("put")
-
-    @staticmethod
-    def post(msg):
-       print("post")
-
-    @staticmethod
-    def delete(msg):
-       print("delete")
+      try:
+         with open(HandlerDatabase.databaseFile, 'r+') as file:
+            HandlerDatabase.database = json.load(file)
+            HandlerDatabase.database["usersObj"].append(value)
+            file.seek(0)
+            json.dump(HandlerDatabase.database, file)
+            return "200"
+      except:
+         return "500"
