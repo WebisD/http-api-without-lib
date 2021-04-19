@@ -10,12 +10,23 @@ class HandlerDatabase():
 
    @staticmethod
    def addNewObj(obj):
-      value = (json.dumps(obj._dict_)).strip('"')
-      print(value)
-
       try:
          with open(HandlerDatabase.databaseFile, 'r+') as file:
             HandlerDatabase.database = json.load(file)
+
+            lastId = 0
+            readObjs = HandlerDatabase.database["usersObj"]
+
+            if len(readObjs) > 0:
+               lastId = readObjs[len(readObjs) - 1]['id']
+
+            value = {
+               "id" : lastId + 1,
+               "name" : obj.name,
+               "phone": obj.phone,
+               "pokemon" : obj.pokemon
+            }
+
             HandlerDatabase.database["usersObj"].append(value)
             file.seek(0)
             json.dump(HandlerDatabase.database, file)
