@@ -34,7 +34,44 @@ class HandlerDatabase():
             return "200"
       except:
          return "500"
-      
+
+   @staticmethod
+   def deleteObj(id):
+      try:
+         with open(HandlerDatabase.databaseFile, 'r+') as file:
+            HandlerDatabase.database = json.load(file)
+
+            status = "200"
+            if(HandlerDatabase.database["usersObj"][id] == {}):
+               status = "304"
+
+            HandlerDatabase.database["usersObj"][id] = {}
+
+            file.seek(0)
+            json.dump(HandlerDatabase.database, file, indent=4)
+            file.truncate() 
+            return status
+      except:
+         return "500" 
+
+   @staticmethod
+   def deleteAllObj():
+      try:
+         with open(HandlerDatabase.databaseFile, 'r+') as file:
+            HandlerDatabase.database = json.load(file)
+
+            status = "200"
+            if(HandlerDatabase.database["usersObj"] == []):
+               status = "304"
+            HandlerDatabase.database["usersObj"]= []
+
+            file.seek(0)
+            json.dump(HandlerDatabase.database, file, indent=4)
+            file.truncate() 
+            return "200"
+      except:
+         return "500" 
+   
    @staticmethod
    def getSizeList():
       try:
