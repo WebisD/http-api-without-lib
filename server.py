@@ -2,7 +2,10 @@ from socket import *
 from threading import Thread
 import sys
 from Handler.handlerRequests import Handler
-
+from Methods.GET import GET
+from Methods.POST import POST
+from Methods.PUT import PUT
+from Methods.DELETE import DELETE
 
 class Server:
     def __init__(self, ip, port):
@@ -17,21 +20,6 @@ class Server:
         self.handler = Handler(self)
         self.handler.start()     
 
-    def getMethod(self):
-        print("get method")
-    
-    def putMethod(self):
-        print("put method")
-
-    def postMethod(self):
-        print("post method")
-
-    def deleteMethod(self):
-        print("delete method")
-
-
 def startServer():
     serverHttp = Server('localhost', 8080)
     print("Server started on " + serverHttp.ip + ":" + str(serverHttp.port))
-
-# criar um objeto -> retornar como html
