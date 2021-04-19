@@ -32,13 +32,9 @@ class Handler(Thread):
                     break
 
     def checkTypeRequest(self, request, connectionSocket):
-        response = ""
-        try:
-            response = eval(request.type).response(request)
-        except:
-            response = HandlerErrors.sendErrorCode(request)
-
-        response = (("HTTP/1.1 200 OK\n").encode())
-
+        response = {}
+       
+        response = eval(request.type).response(request)
+      
         connectionSocket.send(response)
         connectionSocket.close()
