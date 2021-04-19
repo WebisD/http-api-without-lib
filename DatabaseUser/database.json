@@ -1,1 +1,16 @@
-{"usersObj": []}
+{
+    "usersObj": [
+        {
+            "id": 0,
+            "name": "joao",
+            "phone": 9999999999,
+            "pokemon": "Pikachu"
+        },
+        {
+            "id": 1,
+            "name": "joao",
+            "phone": 9999999999,
+            "pokemon": "Pikachu"
+        }
+    ]
+}

@@ -4,3 +4,6 @@ class UserObj():
         self.phone = phone
         self.pokemon = pokemon
 
+    def setId(self, idObj):
+        self.id = idObj
+

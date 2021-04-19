@@ -9,27 +9,38 @@ class HandlerDatabase():
    database = {}
 
    @staticmethod
-   def addNewObj(obj):
+   def insertObj(obj):
       try:
          with open(HandlerDatabase.databaseFile, 'r+') as file:
             HandlerDatabase.database = json.load(file)
-
-            lastId = 0
-            readObjs = HandlerDatabase.database["usersObj"]
-
-            if len(readObjs) > 0:
-               lastId = readObjs[len(readObjs) - 1]['id']
-
+            
             value = {
-               "id" : lastId + 1,
+               "id" : obj.id,
                "name" : obj.name,
                "phone": obj.phone,
                "pokemon" : obj.pokemon
             }
 
-            HandlerDatabase.database["usersObj"].append(value)
+            #new obj
+            if obj.id == HandlerDatabase.getSizeList():
+                  HandlerDatabase.database["usersObj"].append(value)
+            #update obj
+            else:
+               HandlerDatabase.database["usersObj"][obj.id] = value
+
             file.seek(0)
-            json.dump(HandlerDatabase.database, file)
+            json.dump(HandlerDatabase.database, file, indent=4)
+            file.truncate() 
             return "200"
       except:
          return "500"
+      
+   @staticmethod
+   def getSizeList():
+      try:
+         with open(HandlerDatabase.databaseFile, 'r+') as file:
+            HandlerDatabase.database = json.load(file)
+            return int(len(HandlerDatabase.database["usersObj"]))
+           
+      except:
+         return int(-1)
