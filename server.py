@@ -1,11 +1,6 @@
 from socket import *
-from threading import Thread
-import sys
-from Handler.handlerRequests import Handler
-from Methods.GET import GET
-from Methods.POST import POST
-from Methods.PUT import PUT
-from Methods.DELETE import DELETE
+from handler.HandlerRequests import Handler
+
 
 class Server:
     def __init__(self, ip, port):
@@ -19,6 +14,7 @@ class Server:
 
         self.handler = Handler(self)
         self.handler.start()     
+
 
 def startServer():
     serverHttp = Server('localhost', 8080)

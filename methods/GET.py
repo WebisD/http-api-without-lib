@@ -1,9 +1,9 @@
-from Message.request import Request
+from message.Request import Request
 
 class GET():
 
     @staticmethod
     def response(request):
         print("to aqui")
-        response ={}
+        response = ""
         return response.encode()

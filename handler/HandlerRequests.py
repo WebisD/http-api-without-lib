@@ -1,14 +1,15 @@
 from server import *
 from threading import Thread
 
-from Message.parserMessage import ParserMessage
-from Message.request import Request
-from Methods.GET import GET
-from Methods.POST import POST
-from Methods.PUT import PUT
-from Methods.DELETE import DELETE
+from message.ParserMessage import ParserMessage
+from message.Request import Request
+from methods.GET import GET
+from methods.POST import POST
+from methods.PUT import PUT
+from methods.DELETE import DELETE
 
-from Handler.handlerErrors import HandlerErrors
+from handler.HandlerErrors import HandlerErrors
+
 
 class Handler(Thread):
     def __init__(self, server):

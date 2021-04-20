@@ -1,0 +1,12 @@
+{
+    "usersObj": [
+        {},
+        {
+            "id": 1,
+            "name": "Ana",
+            "phone": 588584,
+            "pokemon": "Raiuxu"
+        },
+        {}
+    ]
+}
