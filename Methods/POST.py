@@ -8,8 +8,8 @@ class POST():
     @staticmethod
     def response(request):
         data = json.loads(request.body)
-        if data['name'] != "" and data['phone'] != "" and data['pokemon'] != "":
-            obj = UserObj(data['name'], data['phone'], data['pokemon'])
+        if data['name'] != "" and data['phone'] != "" and data['pokemon'] != "" and data['image'] != "":
+            obj = UserObj(data['name'], data['phone'], data['pokemon'], data['image'])
             #new obj -> last index
             obj.setId(HandlerDatabase.getSizeList())
             status = HandlerDatabase.insertObj(obj)

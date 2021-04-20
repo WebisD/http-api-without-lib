@@ -13,8 +13,8 @@ class PUT():
         lastId = HandlerDatabase.getSizeList()
 
         if idUrl >= 0 and idUrl <= lastId:
-            if data['name'] != "" and data['phone'] != "" and data['pokemon'] != "":
-                obj = UserObj(data['name'], data['phone'], data['pokemon'])
+            if data['name'] != "" and data['phone'] != "" and data['pokemon'] != "" and data['image'] != "":
+                obj = UserObj(data['name'], data['phone'], data['pokemon'], data['image'])
                 #old obj -> based on index
                 obj.setId(idUrl)
                 status = HandlerDatabase.insertObj(obj)
