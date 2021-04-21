@@ -1,23 +1,16 @@
 from datetime import datetime
-
+from message.StatusCode import StatusCode
 
 class Response:
     def __init__(self, status_code, body, header):
-        self.protocol = "HTTP/1.1"
-        self.status_code = status_code
-        self.body = body
-        self.headers = header
-        self.status_code = status_code.value
-        self.server = "Apache/2.22.14 (Ubuntu-20.04)"
-        self.time = datetime.now()
+        self.protocol: str = "HTTP/1.1"
+        self.status_code: StatusCode.StatusCode = status_code
+        self.body: str = body
+        self.headers: dict = header
+        self.server: str = "Apache/2.22.14 (Ubuntu-20.04)"
 
     def encodeResponse(self):
-        response = ""
-        response += self.statusLine()
-        response += self.headerLine()
-        response += self.server
-        response += '\n'
-        response += self.body
+        response = self.__str__()
 
         return response.encode()
 
@@ -25,7 +18,7 @@ class Response:
         """
         :return: HTTP/1.1 200 OK
         """
-        return f'{self.protocol} {self.status_code[0]} {self.status_code[1]}'
+        return f'{self.protocol} {self.status_code.value[0]} {self.status_code.value[1]}'
 
     def headerLine(self):
         """
@@ -36,7 +29,7 @@ class Response:
                  Connection: Closed
         """
         header = ""
-        header += Response.getDate()
+        header += Response.getDate() + "\n"
 
         for key in self.headers:
             header += f'{key}: {self.headers[key]}'
@@ -54,3 +47,13 @@ class Response:
         date = time.strftime("%d %b %Y %H:%M:%S GMT")
 
         return f'{current_day}, {date}'
+
+    def __str__(self):
+        response = ""
+        response += self.statusLine() + "\n"
+        response += self.headerLine()
+        response += self.server + "\n"
+        response += "\n"
+        response += self.body
+
+        return response
