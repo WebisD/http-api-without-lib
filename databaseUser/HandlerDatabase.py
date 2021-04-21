@@ -43,8 +43,7 @@ class HandlerDatabase:
         try:
             with open(HandlerDatabase.databaseFile, 'r+') as file:
                 HandlerDatabase.database = json.load(file)
-                print("AAAAAa")
-
+                
                 status = StatusCode.OK
                 idIterator = 0
                 for obj in HandlerDatabase.database["usersObj"]:
