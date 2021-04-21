@@ -1,7 +1,7 @@
 from databaseUser.HandlerDatabase import HandlerDatabase
 from handler.HandlerErrors import HandlerErrors
 from message.Response import Response
-
+from message.StatusCode import StatusCode
 
 class DELETE:
     @staticmethod
@@ -14,22 +14,21 @@ class DELETE:
 
             if 0 <= idUrl <= lastId:
                 status = HandlerDatabase.deleteObj(idUrl)
-
-                lastMod = 'Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT'
                 body = '<html><head></head><body><h1>Hello World<h1></body></html>'
                 header = {
                     "Content-Length": "88",
                     "Content-Type": "text/html",
-                    "Connection": "Closed"
+                    "Connection": "Closed",
+                    "Last-Modified": "Wed, 22 Jul 2009 19:15:56 GMT"
                 }
-                response = Response(status_code=status, last_modified=lastMod, body=body, header=header)
+                response = Response(status_code=status, body=body, header=header)
 
-                return response.sendResponse()
+                return response.encodeResponse()
         else:
             status = HandlerDatabase.deleteAllObj()
             return status.encode()
 
-        return HandlerErrors.sendErrorCode(request)
+        return HandlerErrors.sendErrorCode(request, StatusCode.BAD_REQUEST)
 
     @staticmethod
     def getIdOfUrl(URI):
