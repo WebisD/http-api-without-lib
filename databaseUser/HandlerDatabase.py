@@ -20,7 +20,8 @@ class HandlerDatabase:
                     "id": obj.id,
                     "name": obj.name,
                     "phone": obj.phone,
-                    "pokemon": obj.pokemon
+                    "pokemon": obj.pokemon,
+                    "image": obj.image
                 }
 
                 # new obj
