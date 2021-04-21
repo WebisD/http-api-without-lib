@@ -1,4 +1,4 @@
-class ParserMessage():
+class ParserMessage:
     
     @staticmethod
     def parseRequest(request):
@@ -29,4 +29,3 @@ class ParserMessage():
         requestObj['body'] = '\n'.join(splitRequest[index:])
     
         return requestObj
-    
