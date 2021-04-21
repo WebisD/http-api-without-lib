@@ -5,7 +5,8 @@ import os
 from datetime import datetime
 from handler.HandlerErrors import HandlerErrors
 
-class GET():
+
+class GET:
     urlTable = {
         "/": {"type": "text/html", "filePath": "./assets/index.html"},
         "/post": {"type": "text/html", "filePath": "./assets/post.html"},
@@ -13,9 +14,9 @@ class GET():
         "/database": {"type": "application/json", "filePath": "./databaseUser/database.json"},
         "/bootstrap.min.css": {"type": "text/css", "filePath": "./assets/bootstrap.min.css"},
         "/dashboard.css": {"type": "text/css", "filePath": "./assets/dashboard.css"},
-        "/bootstrap-4.0.0/assets/js/vendor/popper.min.js": {"type": "text/css", "filePath": "./assets/bootstrap-4.0.0/assets/js/vendor/popper.min.js"},
-        "/bootstrap-4.0.0/dist/js/bootstrap.min.js": {"type": "text/css", "filePath": "./assets/bootstrap-4.0.0/dist/js/bootstrap.min.js"},
-        "/favicon.ico": {"type": "text/css", "filePath": "./assets/bootstrap-4.0.0/favicon.ico"},
+        "/popper.min.js": {"type": "text/css", "filePath": "./assets/popper.min.js"},
+        "/bootstrap.min.js": {"type": "text/css", "filePath": "./assets/bootstrap.min.js"},
+        "/database": {"type": "application/json", "filePath": "./databaseUser/database.json"},
     }
 
     @staticmethod
@@ -31,6 +32,7 @@ class GET():
 
                 response.headers["Last-Modified"] = lastModified
                 # response.headers["Content-Length"] = contentLength
+
                 response.headers["Content-Type"] = GET.urlTable[request.URI]["type"]
                 response.headers["Connection"] = "Closed"
 

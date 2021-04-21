@@ -1,4 +1,4 @@
-class UserObj():
+class UserObj:
     def __init__(self, name, phone, pokemon, image):
         self.id = 0
         self.name = name
