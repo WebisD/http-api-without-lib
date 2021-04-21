@@ -1,5 +1,6 @@
 import enum
 
+
 class StatusCode(enum.Enum):
     # Successful 2xx
     OK = ["200", "OK"]

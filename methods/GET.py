@@ -13,9 +13,9 @@ class GET:
         "/list": {"type": "text/html", "filePath": "./assets/list.html"},
         "/bootstrap.min.css": {"type": "text/css", "filePath": "./assets/bootstrap.min.css"},
         "/dashboard.css": {"type": "text/css", "filePath": "./assets/dashboard.css"},
-        "/popper.min.js": {"type": "text/css", "filePath": "./assets/bootstrap-4.0.0/assets/js/vendor/popper.min.js"},
-        "/bootstrap.min.js": {"type": "text/css", "filePath": "./assets/bootstrap-4.0.0/dist/js/bootstrap.min.js"},
-        "/datatabase": {"type": "application/json", "filePath": "./databaseUser/database.json"},
+        "/popper.min.js": {"type": "text/css", "filePath": "./assets/popper.min.js"},
+        "/bootstrap.min.js": {"type": "text/css", "filePath": "./assets/bootstrap.min.js"},
+        "/database": {"type": "application/json", "filePath": "./databaseUser/database.json"},
     }
 
     @staticmethod
@@ -26,11 +26,10 @@ class GET:
             with open(GET.urlTable[request.URI]["filePath"], 'r', encoding='utf-8', errors='replace') as file:
                 response.status_code = StatusCode.OK
                 response.body = "".join(file.readlines())
-                contentLength = os.stat(file.name).st_size
-                lastModified = datetime.fromtimestamp(os.stat(file.name).st_mtime).strftime("%d %b %Y %H:%M:%S GMT")
+                lastModified = Response.getDateFromSeconds(os.stat(file.name).st_mtime)
 
                 response.headers["Last-Modified"] = lastModified
-                # response.headers["Content-Length"] = contentLength
+                response.headers["Content-Length"] = len(response.body)
                 response.headers["Content-Type"] = GET.urlTable[request.URI]["type"]
                 response.headers["Connection"] = "Closed"
 

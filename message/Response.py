@@ -1,6 +1,7 @@
 from datetime import datetime
 from message.StatusCode import StatusCode
 
+
 class Response:
     def __init__(self, status_code, body, header):
         self.protocol: str = "HTTP/1.1"
@@ -42,6 +43,17 @@ class Response:
         days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
         time = datetime.now()
 
+        current_day = days[time.weekday()]
+
+        date = time.strftime("%d %b %Y %H:%M:%S GMT")
+
+        return f'{current_day}, {date}'
+
+    @staticmethod
+    def getDateFromSeconds(seconds):
+        days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+        time = datetime.fromtimestamp(seconds)
         current_day = days[time.weekday()]
 
         date = time.strftime("%d %b %Y %H:%M:%S GMT")
