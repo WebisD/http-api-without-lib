@@ -11,6 +11,7 @@ class GET:
         "/": {"type": "text/html", "filePath": "./assets/index.html"},
         "/post": {"type": "text/html", "filePath": "./assets/post.html"},
         "/list": {"type": "text/html", "filePath": "./assets/list.html"},
+        "/database": {"type": "application/json", "filePath": "./databaseUser/database.json"},
         "/bootstrap.min.css": {"type": "text/css", "filePath": "./assets/bootstrap.min.css"},
         "/dashboard.css": {"type": "text/css", "filePath": "./assets/dashboard.css"},
         "/popper.min.js": {"type": "text/css", "filePath": "./assets/popper.min.js"},

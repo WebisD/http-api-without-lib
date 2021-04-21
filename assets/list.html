@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="./bootstrap-4.0.0/favicon.ico">
 
-    <title>Adicionar novo</title>
+    <title>Lista de contatos</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="./bootstrap.min.css" >
@@ -27,15 +27,15 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="/">
+                <a class="nav-link" href="/">
                   <span data-feather="home"></span>
-                  Home <span class="sr-only">(current)</span>
+                  Home
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/list">
+                <a class="nav-link active" href="/list">
                   <span data-feather="file"></span>
-                  Listar
+                  Listar <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
@@ -50,34 +50,12 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-          <h1 class="h2">Adicionar novo amigo</h1>
+          <h1 class="h2">Sua lista de amigos</h1>
           </div>
-          <div class="row">
-          <div class="col-md-6 hidden-lg float-left">
-          <form id="myform" action="/" method="POST">
-            <div class="form-group">
-              <label for="nameInputName">Nome</label>
-              <input name="name" type="text" class="form-control" id="nameInputName" placeholder="Pedrinho222">
-            </div>
-            <div class="form-group">
-              <label for="phoneInputName">Telefone</label>
-              <input name="phone" type="number" class="form-control" id="phoneInputName" placeholder="111111111">
-            </div>
-            <div class="form-group">
-              <label for="pokemonInputName">Pokemon</label>
-              <input name="pokemon" type="text" class="form-control" id="pokemonInputName" placeholder="Charmander">
-            </div>
-            <div class="form-group">
-              <label for="imageInputName">Imagem</label>
-              <input name="image" type="text" class="form-control" id="imageInputName" placeholder="Link para imagem">
-            </div>
-            <button type="submit" class="btn btn-primary" onclick="submitform()">Adicionar</button>
-          </form>
+          <div id="cards" class="row">
+              <p id="demo"></p>
           </div>
-          <div class="col-md-6 hidden-lg">
-            <img src="https://static.quizur.com/i/b/57c1c26fc0b812.5998420157c1c26fb156c9.51498011.png" class="img-responsive" alt="logo" width="75%"/>
-          </div>
-          </div>
+  
         </main>
       </div>
     </div>
@@ -95,13 +73,30 @@
     <script>
       feather.replace()
     </script>
-
+    
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script>
-          $('myform').submit(function() {
-            console.log($(this).formToJson());
-            JSON.stringify($("form").formToJson())
-            return false;
-          });
+      $.getJSON("/database", function(data) {
+        for(var i = 0; i <  data['usersObj'].length; i++){
+
+        document.getElementById("demo").innerHTML += `<div class="card-body" id="${data['usersObj'][i]['id']}">
+                                                      <img class="card-img-top" src="${data['usersObj'][i]['image']}" alt="Card image cap">
+                                                      <h5 class="card-title">${data['usersObj'][i]['name']}</h5>
+                                                      <h6 class="card-subtitle mb-2 text-muted">${data['usersObj'][i]['pokemon']}</h6>
+                                                      <p class="card-text">${data['usersObj'][i]['phone']}</p>
+                                                      <a href="#" class="card-link">Editar</a>
+                                                      <a href="/" onclick="sendDelete(event, ${i})" class="card-link">Deletar</a>
+                                                    </div>`;
+        }
+
+        function sendDelete(event, url){
+              event.preventDefault();
+              xhttp.open("DELETE", "/?id=" + url, true);
+              xhttp.send(null);
+          }
+    });
+
+
     </script>
   </body>
 </html>

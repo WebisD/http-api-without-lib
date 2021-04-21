@@ -6,8 +6,6 @@ from message.StatusCode import StatusCode
 class DELETE:
     @staticmethod
     def response(request):
-        # data = json.loads(request.body)
-
         if request.URI != "/":
             idUrl = DELETE.getIdOfUrl(request.URI)
             lastId = HandlerDatabase.getSizeList()
