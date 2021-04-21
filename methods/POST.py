@@ -24,6 +24,7 @@ class POST:
 
     @staticmethod
     def response(request):
+        
         try:
             data = POST.parseRequestBody(request.body)
             if data['name'] != "" and data['phone'] != "" and data['pokemon'] != "" and data['image'] != "":

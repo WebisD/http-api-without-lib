@@ -34,6 +34,7 @@ class Handler(Thread):
 
     def checkTypeRequest(self, request, connectionSocket):
         response = {}
+        
         response = eval(request.type).response(request)
       
         connectionSocket.send(response)

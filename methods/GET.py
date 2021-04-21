@@ -27,12 +27,10 @@ class GET:
             with open(GET.urlTable[request.URI]["filePath"], 'r', encoding='utf-8', errors='replace') as file:
                 response.status_code = StatusCode.OK
                 response.body = "".join(file.readlines())
-                contentLength = os.stat(file.name).st_size
-                lastModified = datetime.fromtimestamp(os.stat(file.name).st_mtime).strftime("%d %b %Y %H:%M:%S GMT")
+                lastModified = Response.getDateFromSeconds(os.stat(file.name).st_mtime)
 
                 response.headers["Last-Modified"] = lastModified
-                # response.headers["Content-Length"] = contentLength
-
+                response.headers["Content-Length"] = len(response.body)
                 response.headers["Content-Type"] = GET.urlTable[request.URI]["type"]
                 response.headers["Connection"] = "Closed"
 

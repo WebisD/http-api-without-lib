@@ -1,6 +1,7 @@
 from datetime import datetime
 from message.StatusCode import StatusCode
 
+
 class Response:
     def __init__(self, status_code, body, header):
         self.protocol: str = "HTTP/1.1"
