@@ -18,6 +18,6 @@ HTTP/1.1 200 OK
 Accept: text/html,text/css,text/javascript
 Content-Type: {GET.urlTable[request.URI]["type"]}; charset:utf-8
 '''
-        with open(GET.urlTable[request.URI]["filePath"], 'r', encoding='utf-8') as file:
+        with open(GET.urlTable[request.URI]["filePath"], 'r', encoding='utf-8', errors='replace') as file:
             response += "".join(file.readlines())
         return response.encode()
