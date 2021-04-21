@@ -1,9 +1,5 @@
 from datetime import datetime
 from message.StatusCode import StatusCode
-<<<<<<< HEAD
-=======
-
->>>>>>> feat_create_GET_method
 
 class Response:
     def __init__(self, status_code, body, header):
