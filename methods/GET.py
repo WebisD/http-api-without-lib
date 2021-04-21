@@ -3,12 +3,13 @@ from message.Request import Request
 class GET():
     urlTable = {
         "/": {"type": "text/html", "filePath": "./assets/index.html"},
+        "/post": {"type": "text/html", "filePath": "./assets/post.html"},
+        "/list": {"type": "text/html", "filePath": "./assets/list.html"},
         "/bootstrap.min.css": {"type": "text/css", "filePath": "./assets/bootstrap.min.css"},
         "/dashboard.css": {"type": "text/css", "filePath": "./assets/dashboard.css"},
         "/bootstrap-4.0.0/assets/js/vendor/popper.min.js": {"type": "text/css", "filePath": "./assets/bootstrap-4.0.0/assets/js/vendor/popper.min.js"},
         "/bootstrap-4.0.0/dist/js/bootstrap.min.js": {"type": "text/css", "filePath": "./assets/bootstrap-4.0.0/dist/js/bootstrap.min.js"},
         "/favicon.ico": {"type": "text/css", "filePath": "./assets/bootstrap-4.0.0/favicon.ico"},
-        
     }
 
     @staticmethod

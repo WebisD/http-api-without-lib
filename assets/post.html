@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./bootstrap-4.0.0/favicon.ico">
+
+    <title>Adicionar novo</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap.min.css" >
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="./dashboard.css">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">PikaPika</a>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="/">
+                  <span data-feather="home"></span>
+                  Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/list">
+                  <span data-feather="file"></span>
+                  Listar
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="/post">
+                  <span data-feather="shopping-cart"></span>
+                  Adicionar <span class="sr-only">(current)</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+          <h1 class="h2">Adicionar novo amigo</h1>
+          </div>
+          <div class="row">
+          <div class="col-md-6 hidden-lg float-left">
+            <form id="test" enctype='application/json' action="/" method="post">
+            <div class="form-group">
+              <label for="exampleInputName">Nome</label>
+              <input name="name" type="text" class="form-control" id="exampleInputName" placeholder="Pedrinho222">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputName">Telefone</label>
+              <input name="phone" type="text" class="form-control" id="exampleInputName" placeholder="(11) 11111-1111">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputName">Pokemon</label>
+              <input name="pokemon" type="text" class="form-control" id="exampleInputName" placeholder="Charmander">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputName">Imagem</label>
+              <input name="image" type="text" class="form-control" id="exampleInputName" placeholder="Link para imagem">
+            </div>
+            <button type="submit" class="btn btn-primary">Adicionar</button>
+          </form>
+
+          </div>
+          <div class="col-md-6 hidden-lg">
+            <img src="https://static.quizur.com/i/b/57c1c26fc0b812.5998420157c1c26fb156c9.51498011.png" class="img-responsive" alt="logo" width="75%"/>
+          </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="./bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="./bootstrap-4.0.0/assets/js/vendor/popper.min.js"></script>
+    <script src="./bootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+    <script>
+
+    (function() {
+	function toJSONString( form ) {
+		var obj = {};
+		var elements = form.querySelectorAll( "input, select, textarea" );
+		for( var i = 0; i < elements.length; ++i ) {
+			var element = elements[i];
+			var name = element.name;
+			var value = element.value;
+
+			if( name ) {
+				obj[ name ] = value;
+			}
+		}
+
+		return JSON.stringify( obj );
+	}
+
+	document.addEventListener( "DOMContentLoaded", function() {
+		var form = document.getElementById( "test" );
+		var output = document.getElementById( "output" );
+		form.addEventListener( "submit", function( e ) {
+			e.preventDefault();
+			var json = toJSONString( this );
+
+      let xhr = new XMLHttpRequest();
+      let url = "/";
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send(json);
+		}, false);
+
+	});
+  
+})();
+
+  </script>
+  </body>
+</html>
