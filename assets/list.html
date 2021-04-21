@@ -76,24 +76,36 @@
     
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script>
-      $.getJSON("/database", function(data) {
-        for(var i = 0; i <  data['usersObj'].length; i++){
 
-        document.getElementById("demo").innerHTML += `<div class="card-body" id="${data['usersObj'][i]['id']}">
+        function sendDelete(event, url){
+              event.preventDefault();
+              let xhttp = new XMLHttpRequest();
+              xhttp.open("DELETE", "/?id=" + url, true);
+              xhttp.onload = function () {
+                  var users = JSON.parse(xhttp.responseText);
+                  if (xhttp.readyState == 4 && xhttp.status == "200") {
+                      console.table("deu certo");
+                  } else {
+                      console.error("deu erro");
+                  }
+              }
+              console.log("/?id=" + url)
+              xhttp.send(null);
+          }
+
+      $.getJSON("/database", function(data) {
+      console.log(data['usersObj'].length)
+        for(var i = 0; i <=  data['usersObj'].length; i++){
+
+        document.getElementById("demo").innerHTML += `<div class="card-body">
                                                       <img class="card-img-top" src="${data['usersObj'][i]['image']}" alt="Card image cap">
                                                       <h5 class="card-title">${data['usersObj'][i]['name']}</h5>
                                                       <h6 class="card-subtitle mb-2 text-muted">${data['usersObj'][i]['pokemon']}</h6>
-                                                      <p class="card-text">${data['usersObj'][i]['phone']}</p>
+                                                      <p class="card-text">${data['usersObj'][i]['phone']} ${data['usersObj'][i]['id']}</p>
                                                       <a href="#" class="card-link">Editar</a>
                                                       <a href="/" onclick="sendDelete(event, ${i})" class="card-link">Deletar</a>
                                                     </div>`;
         }
-
-        function sendDelete(event, url){
-              event.preventDefault();
-              xhttp.open("DELETE", "/?id=" + url, true);
-              xhttp.send(null);
-          }
     });
 
 

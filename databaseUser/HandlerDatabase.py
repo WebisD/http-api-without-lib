@@ -4,7 +4,7 @@ from message.Request import Request
 from databaseUser.ObjectUser import UserObj
 from message.StatusCode import StatusCode
 import json
-
+import numpy as np
 
 class HandlerDatabase:
     databaseFile = 'databaseUser/database.json'
@@ -43,13 +43,16 @@ class HandlerDatabase:
         try:
             with open(HandlerDatabase.databaseFile, 'r+') as file:
                 HandlerDatabase.database = json.load(file)
+                print("AAAAAa")
 
                 status = StatusCode.OK
-                if HandlerDatabase.database["usersObj"][id] == {}:
-                    status = StatusCode.NOT_MODIFIED
-
-                HandlerDatabase.database["usersObj"][id] = {}
-
+                idIterator = 0
+                for obj in HandlerDatabase.database["usersObj"]:
+                    if obj['id'] == id:
+                        HandlerDatabase.database["usersObj"].pop(idIterator)
+                        break
+                    idIterator+=1
+               
                 file.seek(0)
                 json.dump(HandlerDatabase.database, file, indent=4)
                 file.truncate()
@@ -80,7 +83,9 @@ class HandlerDatabase:
         try:
             with open(HandlerDatabase.databaseFile, 'r+') as file:
                 HandlerDatabase.database = json.load(file)
-                return int(len(HandlerDatabase.database["usersObj"]))
+                size = len(HandlerDatabase.database["usersObj"])
+                lastId = HandlerDatabase.database["usersObj"][size - 1]['id']
+                return int(lastId + 1)
 
         except:
             return int(-1)
