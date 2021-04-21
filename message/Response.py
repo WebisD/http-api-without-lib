@@ -2,19 +2,20 @@ from datetime import datetime
 
 
 class Response:
-    def __init__(self, status_code, last_modified, body, header):
+    def __init__(self, status_code, body, header):
         self.protocol = "HTTP/1.1"
         self.status_code = status_code
-        self.last_modified = last_modified
         self.body = body
         self.headers = header
         self.status_code = status_code.value
+        self.server = "Apache/2.22.14 (Ubuntu-20.04)"
         self.time = datetime.now()
 
-    def sendResponse(self):
+    def encodeResponse(self):
         response = ""
         response += self.statusLine()
         response += self.headerLine()
+        response += self.server
         response += '\n'
         response += self.body
 
@@ -35,8 +36,7 @@ class Response:
                  Connection: Closed
         """
         header = ""
-        header += self.getDate()
-        header += self.last_modified + '\n'
+        header += Response.getDate()
 
         for key in self.headers:
             header += f'{key}: {self.headers[key]}'
@@ -44,10 +44,13 @@ class Response:
 
         return header
 
-    def getDate(self):
+    @staticmethod
+    def getDate():
         days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-        current_day = days[self.time.weekday()]
+        time = datetime.now()
 
-        date = self.time.strftime("%d %b %Y %H:%M:%S GMT")
+        current_day = days[time.weekday()]
+
+        date = time.strftime("%d %b %Y %H:%M:%S GMT")
 
         return f'{current_day}, {date}'

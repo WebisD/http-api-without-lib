@@ -24,7 +24,7 @@ class DELETE:
                 }
                 response = Response(status_code=status, last_modified=lastMod, body=body, header=header)
 
-                return response.sendResponse()
+                return response.encodeResponse()
         else:
             status = HandlerDatabase.deleteAllObj()
             return status.encode()

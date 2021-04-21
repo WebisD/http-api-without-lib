@@ -24,6 +24,6 @@ class POST:
             }
             response = Response(status_code=status, last_modified=lastMod, body=body, header=header)
 
-            return response.sendResponse()
+            return response.encodeResponse()
 
         return HandlerErrors.sendErrorCode(request)

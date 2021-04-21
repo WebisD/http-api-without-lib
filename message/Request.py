@@ -7,7 +7,7 @@ class Request:
         self.connection = request_message['Connection']
         self.user_agent = request_message['User-Agent']
         self.body = request_message['body']
-        self.valid_content = request_message['Accept']
+        self.valid_content = None if 'Accept' not in request_message else request_message['Accept']
         self.accept_encoding = request_message['Accept-Encoding']
         self.accept_language = None if 'Accept-Language' not in request_message else request_message['Accept-Language']
         self.cookie = None if 'Cookie' not in request_message else request_message['Cookie']
