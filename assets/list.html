@@ -14,43 +14,6 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="./dashboard.css">
-
-     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script>
-
-        function sendDelete(event, url){
-              event.preventDefault();
-              let xhttp = new XMLHttpRequest();
-              xhttp.open("DELETE", "/?id=" + url, true);
-              xhttp.onload = function () {
-                  var users = JSON.parse(xhttp.responseText);
-                  if (xhttp.readyState == 4 && xhttp.status == "200") {
-                      console.table("deu certo");
-                  } else {
-                      console.error("deu erro");
-                  }
-              }
-              console.log("/?id=" + url)
-              xhttp.send(null);
-          }
-
-      $.getJSON("/database", function(data) {
-        for(var i = 0; i <  data['usersObj'].length; i++){
-
-        document.getElementById("demo").innerHTML += `<div class="card-body">
-                                                      <img class="card-img-top" src="${data['usersObj'][i]['image']}" alt="Card image cap">
-                                                      <h5 class="card-title">${data['usersObj'][i]['name']}</h5>
-                                                      <h6 class="card-subtitle mb-2 text-muted">${data['usersObj'][i]['pokemon']}</h6>
-                                                      <p class="card-text">${data['usersObj'][i]['phone']} ${data['usersObj'][i]['id']}</p>
-                                                      <a href="#" class="card-link">Editar</a>
-                                                      <a href="/" onclick="sendDelete(event, ${data['usersObj'][i]['id']})" class="card-link">Deletar</a>
-                                                    </div>`;
-        }
-        data = {}
-    });
-
-
-    </script>
   </head>
 
   <body>
@@ -109,6 +72,45 @@
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script>
       feather.replace()
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+     <script>
+        function sendDelete(event, url){
+              event.preventDefault();
+              let xhttp = new XMLHttpRequest();
+              xhttp.open("DELETE", "/?id=" + url, true);
+              xhttp.onload = function () {
+                  var users = JSON.parse(xhttp.responseText);
+                  if (xhttp.readyState == 4 && xhttp.status == "200") {
+                      console.table("deu certo");
+                  } else {
+                      console.error("deu erro");
+                  }
+              }
+              console.log("/?id=" + url)
+              xhttp.send(null);
+          }
+ 
+      $.ajax({
+            dataType: "json",
+            url: '/database',
+            cache: false,  //do not cache
+            success: function(data){
+                for(var i = 0; i <  data['usersObj'].length; i++){
+
+        document.getElementById("demo").innerHTML += `<div class="card-body">
+                                                      <img class="card-img-top" src="${data['usersObj'][i]['image']}" alt="Card image cap">
+                                                      <h5 class="card-title">${data['usersObj'][i]['name']}</h5>
+                                                      <h6 class="card-subtitle mb-2 text-muted">${data['usersObj'][i]['pokemon']}</h6>
+                                                      <p class="card-text">${data['usersObj'][i]['phone']} ${data['usersObj'][i]['id']}</p>
+                                                      <a href="#" class="card-link">Editar</a>
+                                                      <a href="/" onclick="sendDelete(event, ${data['usersObj'][i]['id']})" class="card-link">Deletar</a>
+                                                    </div>`;
+        }
+            }
+        });
+
+
     </script>
    
   </body>

@@ -83,7 +83,9 @@ class HandlerDatabase:
             with open(HandlerDatabase.databaseFile, 'r+') as file:
                 HandlerDatabase.database = json.load(file)
                 size = len(HandlerDatabase.database["usersObj"])
-                lastId = HandlerDatabase.database["usersObj"][size - 1]['id']
+                lastId = 0
+                if(size != 0):
+                    lastId = HandlerDatabase.database["usersObj"][size - 1]['id']
                 return int(lastId + 1)
 
         except:
