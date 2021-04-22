@@ -89,6 +89,7 @@
               }
               console.log("/?id=" + url)
               xhttp.send(null);
+              javascript:history.go(0)
           }
  
       $.ajax({
@@ -104,7 +105,7 @@
                                                       <h6 class="card-subtitle mb-2 text-muted">${data['usersObj'][i]['pokemon']}</h6>
                                                       <p class="card-text">${data['usersObj'][i]['phone']} ${data['usersObj'][i]['id']}</p>
                                                       <a href="#" class="card-link">Editar</a>
-                                                      <a href="JavaScript: location.reload(true);" onclick="sendDelete(event, ${data['usersObj'][i]['id']})" class="card-link">Deletar</a>
+                                                      <a href="javascript:history.go(0)" onclick="sendDelete(event, ${data['usersObj'][i]['id']})" class="card-link">Deletar</a>
                                                     </div>`;
         }
             }
