@@ -25,7 +25,6 @@ class POST:
     @staticmethod
     def response(request):
         try:
-            print(request.body)
             data = json.loads(request.body)
             if data["name"] != "" and data["phone"] != "" and data["pokemon"] != "" and data["image"] != "":
                 obj = UserObj(data['name'], data['phone'], data['pokemon'], data['image'])
@@ -33,7 +32,7 @@ class POST:
                 obj.setId(HandlerDatabase.getSizeList())
 
                 status = HandlerDatabase.insertObj(obj)
-                body = "<h1>Hello World DO POST<h1>" + f"<img src=\"{data['image']}\" height=\"400\" width=\"400\"/>"
+                body = "<br><h2>Usuário adicionado com sucesso!<h2>" + f"<img src=\"{data['image']}\" style='object-fit: cover'  height=\"200\" /><br><br><br><br>"
                 header = {
                     "Content-Length": f"{len(body)}",
                     "Content-Type": "text/html; charset=utf-8",
@@ -41,7 +40,6 @@ class POST:
                     "Connection": "Closed"
                 }
                 response = Response(status_code=status, body=body, header=header)
-                print(response)
                 return response.encodeResponse()
             else:
                 raise TypeError("Invalid data")
