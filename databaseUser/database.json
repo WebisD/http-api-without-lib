@@ -1,12 +1,3 @@
 {
-    "users": [
-        {
-            "24042021172712": {
-                "name": "asdas",
-                "phone": "12313212313",
-                "pokemon": "ghjghjghjghjg",
-                "image": "https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/minion.jpg"
-            }
-        }
-    ]
+    "users": []
 }
