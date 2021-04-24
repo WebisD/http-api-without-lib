@@ -57,19 +57,19 @@
             <form id="add_pokemon_form" action="/post" method="post" enctype="text/plain">
             <div class="form-group">
               <label for="nameInputName">Nome</label>
-              <input name="name" type="text" class="form-control" id="nameInputName" placeholder="Pedrinho222">
+              <input name="name" type="text" class="form-control" id="nameInputName" placeholder="Pedrinho222" required>
             </div>
             <div class="form-group">
               <label for="phoneInputName">Telefone</label>
-              <input name="phone" type="text" class="form-control" id="phoneInputName" placeholder="(11) 11111-1111">
+              <input name="phone" type="text" class="form-control" id="phoneInputName" placeholder="(11) 11111-1111" required>
             </div>
             <div class="form-group">
               <label for="pokemonInputName">Pokemon</label>
-              <input name="pokemon" type="text" class="form-control" id="pokemonInputName" placeholder="Charmander">
+              <input name="pokemon" type="text" class="form-control" id="pokemonInputName" placeholder="Charmander" required>
             </div>
             <div class="form-group">
               <label for="imageInputName">Imagem</label>
-              <input name="image" type="text" class="form-control" id="imageInputName" placeholder="Link para imagem">
+              <input name="image" type="text" class="form-control" id="imageInputName" placeholder="Link para imagem" required>
             </div>
             <button type="submit" class="btn btn-primary">Adicionar</button>
           </form>
@@ -98,41 +98,6 @@
       feather.replace()
     </script>
     <script>
-
-    // (function() {
-    //   function toJSONString( form ) {
-    //     var obj = {};
-    //     var elements = form.querySelectorAll( "input, select, textarea" );
-    //     for( var i = 0; i < elements.length; ++i ) {
-    //       var element = elements[i];
-    //       var name = element.name;
-    //       var value = element.value;
-    //
-    //       if( name ) {
-    //         obj[ name ] = value;
-    //       }
-    //     }
-    //
-    //     return JSON.stringify( obj );
-    //   }
-    //
-    //   document.addEventListener( "DOMContentLoaded", function() {
-    //     let form = document.getElementById( "add_pokemon_form" );
-    //
-    //     form.addEventListener( "submit", function( e ) {
-    //       e.preventDefault();
-    //
-    //       let json = toJSONString( this );
-    //       let xhr = new XMLHttpRequest();
-    //       let url = "/post";
-    //
-    //       xhr.open("POST", url, true);
-    //       xhr.setRequestHeader("Content-Type", "application/json");
-    //       xhr.send(json);
-    //       }, false);
-    //   });
-    //
-    // })();
 
   </script>
   </body>

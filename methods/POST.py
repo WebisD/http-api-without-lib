@@ -49,7 +49,6 @@ class POST:
                     "Connection": "Closed"
                 }
                 response = Response(status_code=status, body=body, header=header)
-                print(response)
 
                 return response.encodeResponse()
             else:

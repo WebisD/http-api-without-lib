@@ -10,6 +10,5 @@ class HandlerErrors:
     def sendErrorCode(request, statusCode):
         response: Response = Response.Response(status_code=statusCode, body="", header={})
         response.body = "<h1>" + response.status_code.value[1] + "</h1>"
-        print(response)
 
         return response.encodeResponse()
