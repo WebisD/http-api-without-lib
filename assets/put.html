@@ -50,7 +50,7 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">Adicionar novo amigo</h1>
+                <h1 class="h2">Atualizar dados do amigo com ID: <span id="title_pokemon_id"></span></h1>
             </div>
             <div class="row">
                 <div class="col-md-6 hidden-lg float-left">
@@ -76,7 +76,7 @@
                                    placeholder="Link para imagem">
                         </div>
                         <button type="submit" onclick="sendRequest()" class="btn btn-primary">Salvar Mudanças</button>
-                        <div id="register_response"></div>
+                        <div id="update_response"></div>
                     </div>
                 </div>
             </div>
@@ -102,32 +102,40 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script>
 
-    function toJSONString(form) {
-        var obj = {};
-        var elements = form.querySelectorAll("input, select, textarea");
-        for (var i = 0; i < elements.length; ++i) {
-            var element = elements[i];
-            var name = element.name;
-            var value = element.value;
+    function toJSONString(pokemonID, form) {
+        const pokemonData = {};
+        const elements = form.querySelectorAll("input, select, textarea");
+        for (let i = 0; i < elements.length; ++i) {
+            const element = elements[i];
+            const name = element.name;
+            const value = element.value;
 
             if (name) {
-                obj[name] = value;
+                pokemonData[name] = value;
             }
         }
 
-        return JSON.stringify(obj);
+        const pokemon = {}
+
+        pokemon[pokemonID] = pokemonData
+
+        return JSON.stringify(pokemon);
     }
 
     function sendRequest() {
-        let json = toJSONString(document.getElementById("form-container"));
+        const urlQuery = window.location.search;
+        const urlParams = new URLSearchParams(urlQuery)
+        const id = urlParams.get('id')
+
+        let json = toJSONString(id, document.getElementById("form-container"));
         let xhr = new XMLHttpRequest();
-        let url = "/post";
+        let url = "/edit";
 
         xhr.onreadystatechange = function () {
             if (this.readyState === 4) {
-                document.getElementById("register_response").innerHTML = this.responseText;
+                document.getElementById("update_response").innerHTML = this.responseText;
                 setTimeout(()=>{
-                    document.getElementById("register_response").innerHTML = "";
+                    document.getElementById("update_response").innerHTML = "";
                 }, 3000)
                 console.log("READY STATE 4")
             }
@@ -138,6 +146,33 @@
         xhr.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
         xhr.send(json);
     }
+
+    $.ajax({
+        dataType: "json",
+        url: '/database',
+        cache: false,  //do not cache
+        success: function (data) {
+            const urlQuery = window.location.search;
+            const urlParams = new URLSearchParams(urlQuery)
+            const id = urlParams.get('id')
+
+            let pokemonData;
+            for (let usersElements of data["users"]) {
+                let [userID, userData] = Object.entries(usersElements)[0];
+                if (id === userID) {
+                    pokemonData = userData
+                }
+            }
+
+            console.log(pokemonData)
+
+            document.getElementById('title_pokemon_id').innerText = id
+            document.getElementById('nameInputName').value = pokemonData.name
+            document.getElementById('phoneInputName').value = pokemonData.phone
+            document.getElementById('pokemonInputName').value = pokemonData.pokemon
+            document.getElementById('imageInputName').value = pokemonData.image
+        }
+    });
 
 </script>
 </body>
