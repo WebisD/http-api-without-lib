@@ -35,7 +35,9 @@ class Handler(Thread):
     def checkTypeRequest(self, request, connectionSocket):
         response = {}
         
-        response = eval(request.type).response(request)
-      
+        try:
+            response = eval(request.type).response(request)
+        except:
+            HandlerErrors.sendErrorCode(request, StatusCode.BAD_REQUEST)
         connectionSocket.send(response)
         connectionSocket.close()
