@@ -3,6 +3,8 @@ from threading import Thread
 
 from message.ParserMessage import ParserMessage
 from message.Request import Request
+from message.StatusCode import StatusCode
+
 from methods.GET import GET
 from methods.POST import POST
 from methods.PUT import PUT
@@ -38,6 +40,6 @@ class Handler(Thread):
         try:
             response = eval(request.type).response(request)
         except:
-            HandlerErrors.sendErrorCode(request, StatusCode.BAD_REQUEST)
+            response = HandlerErrors.sendErrorCode(request, StatusCode.BAD_REQUEST)
         connectionSocket.send(response)
         connectionSocket.close()
