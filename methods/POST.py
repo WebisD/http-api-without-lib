@@ -23,6 +23,7 @@ class POST:
                 header = {
                     "Connection": "Closed"
                 }
+
                 response = Response(status_code=status, body=status.value[1], header=header)
 
                 return response.encodeResponse()
