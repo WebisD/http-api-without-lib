@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="./bootstrap-4.0.0/favicon.ico">
+    <link rel="icon" href="/favicon.ico">
 
     <title>List of friendships</title>
 
@@ -106,7 +106,7 @@
                                                       <div class="card-body">
                                                       <h5 class="card-title">${data['usersObj'][i]['name']}</h5>
                                                       <h6 class="card-subtitle mb-2 text-muted">${data['usersObj'][i]['pokemon']}</h6>
-                                                      <p class="card-text">${data['usersObj'][i]['phone']} ${data['usersObj'][i]['id']}</p>
+                                                      <p class="card-text">${data['usersObj'][i]['phone']}</p>
                                                       <a href="#" class="card-link">Editar</a>
                                                       <a href="#" onclick="sendDelete(event, '/?id=' + ${data['usersObj'][i]['id']})" class="card-link">Deletar</a>
                                                       </div>
