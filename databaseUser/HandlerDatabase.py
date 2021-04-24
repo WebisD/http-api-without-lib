@@ -1,92 +1,142 @@
-from server import *
-from threading import Thread
-from message.Request import Request
-from databaseUser.ObjectUser import UserObj
 from message.StatusCode import StatusCode
 import json
-import numpy as np
+from databaseUser.ObjectUser import UserObj
+
 
 class HandlerDatabase:
-    databaseFile = 'databaseUser/database.json'
-    database = {}
+    pokemonDatabasePath: str = 'databaseUser/database.json'
+    pokemonDatabase: dict = {}
 
     @staticmethod
-    def insertObj(obj):
-        try:
-            with open(HandlerDatabase.databaseFile, 'r+') as file:
-                HandlerDatabase.database = json.load(file)
+    def insertPokemon(obj: UserObj):
+        database: dict = HandlerDatabase.getData()
 
-                value = {
-                    "id": obj.id,
-                    "name": obj.name,
-                    "phone": obj.phone,
-                    "pokemon": obj.pokemon,
-                    "image": obj.image
-                }
-
-                # new obj
-                if obj.id == HandlerDatabase.getSizeList():
-                    HandlerDatabase.database["usersObj"].append(value)
-                # update obj
-                else:
-                    HandlerDatabase.database["usersObj"][obj.id] = value
-
-                file.seek(0)
-                json.dump(HandlerDatabase.database, file, indent=4)
-                file.truncate()
-                return StatusCode.OK
-        except:
+        if database is None:
             return StatusCode.INTERNAL_SERVER_ERROR
+
+        pokemonID = obj.id
+        pokemonData = {
+            "name": obj.name,
+            "phone": obj.phone,
+            "pokemon": obj.pokemon,
+            "image": obj.image
+        }
+
+        isPokemonRegistered, pokemonIndex = HandlerDatabase.isPokemonRegistered(pokemonID)
+        if isPokemonRegistered:
+            database["users"][pokemonIndex] = pokemonData
+        else:
+            database["users"].append({pokemonID: pokemonData})
+
+        if HandlerDatabase.setData(database):
+            return StatusCode.OK
+
+        return StatusCode.INTERNAL_SERVER_ERROR
 
     @staticmethod
-    def deleteObj(id):
-        try:
-            with open(HandlerDatabase.databaseFile, 'r+') as file:
-                HandlerDatabase.database = json.load(file)
-                
-                status = StatusCode.OK
-                idIterator = 0
-                for obj in HandlerDatabase.database["usersObj"]:
-                    if obj['id'] == id:
-                        HandlerDatabase.database["usersObj"].pop(idIterator)
-                        break
-                    idIterator+=1
-               
-                file.seek(0)
-                json.dump(HandlerDatabase.database, file, indent=4)
-                file.truncate()
-                return status
-        except:
+    def updatePokemonByID(pokemonID: str, pokemonData: UserObj):
+        print(f"pokemonID: {pokemonID}")
+        print(f"isPokemonID a string: {isinstance(pokemonID, str)}")
+        print(f"pokemonData: {pokemonData}")
+
+        database: dict = HandlerDatabase.getData()
+
+        if database is None:
             return StatusCode.INTERNAL_SERVER_ERROR
+
+        print("HERE")
+
+        status = StatusCode.OK
+
+        isPokemonRegistered, pokemonIndex = HandlerDatabase.isPokemonRegistered(pokemonID)
+        if isPokemonRegistered:
+            database["users"][pokemonIndex][pokemonIDgit ] = pokemonData.__dict__()
+        else:
+            status = StatusCode.NOT_FOUND
+
+        if HandlerDatabase.setData(database):
+            return status
+
+        return StatusCode.INTERNAL_SERVER_ERROR
 
     @staticmethod
-    def deleteAllObj():
-        try:
-            with open(HandlerDatabase.databaseFile, 'r+') as file:
-                HandlerDatabase.database = json.load(file)
+    def deletePokemonByID(pokemonID: str):
+        database = HandlerDatabase.getData()
 
-                status = StatusCode.OK
-                if not HandlerDatabase.database["usersObj"]:
-                    status = StatusCode.NOT_MODIFIED
-                HandlerDatabase.database["usersObj"] = []
-
-                file.seek(0)
-                json.dump(HandlerDatabase.database, file, indent=4)
-                file.truncate()
-                return StatusCode.OK
-        except:
+        if database is None:
             return StatusCode.INTERNAL_SERVER_ERROR
+
+        status = StatusCode.OK
+
+        isPokemonRegistered, pokemonIndex = HandlerDatabase.isPokemonRegistered(pokemonID)
+        if isPokemonRegistered:
+            database["users"].pop(pokemonIndex)
+        else:
+            status = StatusCode.NOT_FOUND
+
+        if HandlerDatabase.setData(database):
+            return status
+
+        return StatusCode.INTERNAL_SERVER_ERROR
+
+    @staticmethod
+    def deleteAllPokemons():
+        database = HandlerDatabase.getData()
+
+        if database is None:
+            return StatusCode.INTERNAL_SERVER_ERROR
+
+        database["users"] = []
+
+        if HandlerDatabase.setData(database):
+            return StatusCode.OK
+
+        return StatusCode.INTERNAL_SERVER_ERROR
+
+    @staticmethod
+    def isPokemonRegistered(pokemonID: str):
+        database = HandlerDatabase.getData()
+
+        if database is None:
+            return False, None
+
+        index: int
+        element: dict
+        for index, element in enumerate(database["users"]):
+            if pokemonID == list(element.keys())[0]:
+                return True, index
+
+        return False, None
 
     @staticmethod
     def getSizeList():
-        try:
-            with open(HandlerDatabase.databaseFile, 'r+') as file:
-                HandlerDatabase.database = json.load(file)
-                size = len(HandlerDatabase.database["usersObj"])
-                lastId = 0
-                if(size != 0):
-                    lastId = HandlerDatabase.database["usersObj"][size - 1]['id']
-                return int(lastId + 1)
+        database = HandlerDatabase.getData()
 
+        if database is None:
+            return -1
+
+        return len(database["users"])
+
+    @staticmethod
+    def getData():
+        try:
+            with open(HandlerDatabase.pokemonDatabasePath, 'r+') as file:
+                HandlerDatabase.pokemonDatabase = json.load(file)
+                return HandlerDatabase.pokemonDatabase
         except:
-            return int(-1)
+            return None
+
+    @staticmethod
+    def setData(data: dict):
+        HandlerDatabase.pokemonDatabase = data
+        print(data)
+        try:
+            with open(HandlerDatabase.pokemonDatabasePath, 'w+') as file:
+                file.seek(0)
+                json.dump(data, file, indent=4)
+                file.truncate()
+
+                return True
+        except:
+            print(f"HandlerDatabase::setData() exception")
+            return False
