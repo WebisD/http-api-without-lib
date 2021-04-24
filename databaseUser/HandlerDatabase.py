@@ -44,13 +44,11 @@ class HandlerDatabase:
         if database is None:
             return StatusCode.INTERNAL_SERVER_ERROR
 
-        print("HERE")
-
         status = StatusCode.OK
 
         isPokemonRegistered, pokemonIndex = HandlerDatabase.isPokemonRegistered(pokemonID)
         if isPokemonRegistered:
-            database["users"][pokemonIndex][pokemonIDgit ] = pokemonData.__dict__()
+            database["users"][pokemonIndex][pokemonID] = pokemonData.__dict__()
         else:
             status = StatusCode.NOT_FOUND
 
