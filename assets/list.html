@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/favicon.ico">
 
-    <title>Lista de contatos</title>
+    <title>List of friendships</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="./bootstrap.min.css" >
@@ -35,13 +35,13 @@
               <li class="nav-item">
                 <a class="nav-link active" href="/list">
                   <span data-feather="list"></span>
-                  Listar <span class="sr-only">(current)</span>
+                  List all<span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/post">
                   <span data-feather="plus"></span>
-                  Adicionar
+                  Add new
                 </a>
               </li>
             </ul>
@@ -50,13 +50,13 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-          <h1 class="h2">Sua lista de amigos</h1>
+          <h1 class="h2">Your friends list</h1>
           </div>
           <div id="cards" class="row container">
           </div>
           <br>
           <div class="container">
-            <button type="submit" class="btn btn-danger container"  onclick="sendDelete(event, '/' )" >Remover tudo</button>
+            <button type="submit" class="btn btn-danger container"  onclick="sendDelete(event, '/' )" >Delete all</button>
           <br><br><br>
           </div>
         </main>

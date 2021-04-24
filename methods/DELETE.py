@@ -3,6 +3,7 @@ from handler.HandlerErrors import HandlerErrors
 from message.Response import Response
 from message.StatusCode import StatusCode
 
+
 class DELETE:
     @staticmethod
     def response(request):

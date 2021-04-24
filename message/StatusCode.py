@@ -13,7 +13,7 @@ class StatusCode(enum.Enum):
     NOT_MODIFIED = ["304", "Not Modified"]
     # Client Error 4xx
     BAD_REQUEST = ["400", "Bad Request"]
-    NOT_FOUND = ["404", "Not Found"]
+    NOT_FOUND = ["404", "Not Found", "Page not found"]
     REQUEST_TIMEOUT = ["408", "Request Timeout"]
     UNSUPPORTED_MEDIA_TYPE = ["415", "Unsupported Media Type"]
     # Server Error 5xx
