@@ -24,24 +24,16 @@ class POST:
 
     @staticmethod
     def response(request):
-        
         try:
-            data = POST.parseRequestBody(request.body)
-            if data['name'] != "" and data['phone'] != "" and data['pokemon'] != "" and data['image'] != "":
+            print(request.body)
+            data = json.loads(request.body)
+            if data["name"] != "" and data["phone"] != "" and data["pokemon"] != "" and data["image"] != "":
                 obj = UserObj(data['name'], data['phone'], data['pokemon'], data['image'])
                 # new obj -> last index
                 obj.setId(HandlerDatabase.getSizeList())
 
                 status = HandlerDatabase.insertObj(obj)
-                body = '''
-                <!doctype html>
-                <html>
-                <head>
-                </head>
-                <body>
-                    <h1>Hello World DO POST<h1>
-                ''' + f"<img src=\"{data['image']}\" height=\"400\" width=\"400\"/>" + '''</body>
-                </html>'''
+                body = "<h1>Hello World DO POST<h1>" + f"<img src=\"{data['image']}\" height=\"400\" width=\"400\"/>"
                 header = {
                     "Content-Length": f"{len(body)}",
                     "Content-Type": "text/html; charset=utf-8",
@@ -50,7 +42,6 @@ class POST:
                 }
                 response = Response(status_code=status, body=body, header=header)
                 print(response)
-
                 return response.encodeResponse()
             else:
                 raise TypeError("Invalid data")

@@ -16,7 +16,7 @@ class GET:
         "/dashboard.css": {"type": "text/css", "filePath": "./assets/dashboard.css"},
         "/popper.min.js": {"type": "text/css", "filePath": "./assets/popper.min.js"},
         "/bootstrap.min.js": {"type": "text/css", "filePath": "./assets/bootstrap.min.js"},
-        "/favicon.ico": {"type": "image/ico", "filePath": "./assets/bootstrap-4.0.0/favicon.ico"},
+        "/favicon.ico": {"type": "image/x-icon", "filePath": "./assets/bootstrap-4.0.0/favicon.ico"},
         "/database": {"type": "application/json", "filePath": "./databaseUser/database.json"},
     }
 

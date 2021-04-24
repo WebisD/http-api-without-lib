@@ -18,7 +18,7 @@
 
   <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">PikaPika</a>
+      <a href="/" class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Pokebook</a>
     </nav>
 
     <div class="container-fluid">
@@ -34,13 +34,13 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="/list">
-                  <span data-feather="file"></span>
+                  <span data-feather="list"></span>
                   Listar <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/post">
-                  <span data-feather="shopping-cart"></span>
+                  <span data-feather="plus"></span>
                   Adicionar
                 </a>
               </li>
@@ -52,11 +52,13 @@
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
           <h1 class="h2">Sua lista de amigos</h1>
           </div>
-          <div id="cards" class="row">
-              <p id="demo"></p>
+          <div id="cards" class="row container">
           </div>
-          <button type="submit" class="btn btn-danger"  onclick="sendDelete(event, '/' )" >Remover tudo</button>
-
+          <br>
+          <div class="container">
+            <button type="submit" class="btn btn-danger container"  onclick="sendDelete(event, '/' )" >Remover tudo</button>
+          <br><br><br>
+          </div>
         </main>
       </div>
     </div>
@@ -99,13 +101,15 @@
             success: function(data){
                 for(var i = 0; i <  data['usersObj'].length; i++){
 
-        document.getElementById("demo").innerHTML += `<div class="card-body">
-                                                      <img class="card-img-top" src="${data['usersObj'][i]['image']}" alt="Card image cap">
+        document.getElementById("cards").innerHTML += `<div class="card ml-3 mt-3" style="width: 18rem;">
+                                                      <img class="card-img-top" style='object-fit: cover'  src="${data['usersObj'][i]['image']}" height="200" alt="Card image cap">
+                                                      <div class="card-body">
                                                       <h5 class="card-title">${data['usersObj'][i]['name']}</h5>
                                                       <h6 class="card-subtitle mb-2 text-muted">${data['usersObj'][i]['pokemon']}</h6>
                                                       <p class="card-text">${data['usersObj'][i]['phone']} ${data['usersObj'][i]['id']}</p>
                                                       <a href="#" class="card-link">Editar</a>
-                                                      <a onclick="sendDelete(event, '/?id=' + ${data['usersObj'][i]['id']})" class="card-link">Deletar</a>
+                                                      <a href="#" onclick="sendDelete(event, '/?id=' + ${data['usersObj'][i]['id']})" class="card-link">Deletar</a>
+                                                      </div>
                                                     </div>`;
         }
             }
