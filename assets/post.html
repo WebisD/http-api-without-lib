@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="./bootstrap-4.0.0/favicon.ico">
 
-    <title>Adicionar novo</title>
+    <title>Add new</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
@@ -18,7 +18,7 @@
 
   <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Pokebook</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">Pokebook</a>
     </nav>
 
 <div class="container-fluid">
@@ -34,14 +34,14 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/list">
-                            <span data-feather="file"></span>
-                            Listar
+                            <span data-feather="list"></span>
+                            List all
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="/post">
-                            <span data-feather="shopping-cart"></span>
-                            Adicionar <span class="sr-only">(current)</span>
+                            <span data-feather="plus"></span>
+                            Add new <span class="sr-only">(current)</span>
                         </a>
                     </li>
                 </ul>
@@ -50,18 +50,18 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">Adicionar novo amigo</h1>
+                <h1 class="h2">Add a new friend</h1>
             </div>
             <div class="row">
                 <div class="col-md-6 hidden-lg float-left">
                     <div id="form-container">
                         <div class="form-group">
-                            <label for="nameInputName">Nome</label>
+                            <label for="nameInputName">Name</label>
                             <input name="name" type="text" class="form-control" id="nameInputName"
-                                   placeholder="Pedrinho222">
+                                   placeholder="Ashe123">
                         </div>
                         <div class="form-group">
-                            <label for="phoneInputName">Telefone</label>
+                            <label for="phoneInputName">Phone</label>
                             <input name="phone" type="text" class="form-control" id="phoneInputName"
                                    placeholder="(11) 11111-1111">
                         </div>
@@ -71,11 +71,11 @@
                                    placeholder="Charmander">
                         </div>
                         <div class="form-group">
-                            <label for="imageInputName">Imagem</label>
+                            <label for="imageInputName">Image</label>
                             <input name="image" type="text" class="form-control" id="imageInputName"
-                                   placeholder="Link para imagem">
+                                   placeholder="Link to image">
                         </div>
-                        <button type="submit" onclick="sendRequest()" class="btn btn-primary">Adicionar</button>
+                        <button type="submit" onclick="sendRequest()" class="btn btn-primary">Add</button>
                         <div id="register_response"></div>
                     </div>
                 </div>
