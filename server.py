@@ -8,6 +8,7 @@ class Server:
         self.port = port
 
         serverSocket = socket(AF_INET, SOCK_STREAM)
+        serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
         serverSocket.bind((self.ip, self.port))
         serverSocket.listen(1)    
         self.serverSocket = serverSocket
