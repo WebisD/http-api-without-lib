@@ -8,6 +8,7 @@ Consiste em um API Restful feita em python, visando permitir ao usuário o acess
 
 O usuário pode adicionar novos amigos e visualizar os que já possui, além de poder edita-los ao seu modo. 
 
+![image](images/use.gif)
 
 
 
