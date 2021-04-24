@@ -3,6 +3,7 @@ from databaseUser.HandlerDatabase import HandlerDatabase
 from message.Response import Response
 
 
+
 class DELETE:
     @staticmethod
     def response(request):

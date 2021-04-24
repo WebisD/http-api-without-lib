@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="/favicon.ico">
 
-    <title>Lista de contatos</title>
+    <title>List of friendships</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
@@ -24,42 +24,41 @@
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">
-                            <span data-feather="home"></span>
-                            Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/list">
-                            <span data-feather="list"></span>
-                            Listar <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/post">
-                            <span data-feather="plus"></span>
-                            Adicionar
-                        </a>
-                    </li>
-                </ul>
-            </div>
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="/">
+                  <span data-feather="home"></span>
+                  Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="/list">
+                  <span data-feather="list"></span>
+                  List all<span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/post">
+                  <span data-feather="plus"></span>
+                  Add new
+                </a>
+              </li>
+            </ul>
+          </div>
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">Sua lista de amigos</h1>
-            </div>
-            <div id="cards" class="row container">
-            </div>
-            <br>
-            <div class="container">
-                <button type="submit" class="btn btn-danger container" onclick="sendDelete(event, '/' )">Remover tudo
-                </button>
-                <br><br><br>
-            </div>
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+          <h1 class="h2">Your friends list</h1>
+          </div>
+          <div id="cards" class="row container">
+          </div>
+          <br>
+          <div class="container">
+            <button type="submit" class="btn btn-danger container"  onclick="sendDelete(event, '/' )" >Delete all</button>
+          <br><br><br>
+          </div>
         </main>
     </div>
 </div>

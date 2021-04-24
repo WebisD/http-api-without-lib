@@ -11,12 +11,13 @@ class GET:
         "/": {"type": "text/html", "filePath": "./assets/index.html"},
         "/post": {"type": "text/html", "filePath": "./assets/post.html"},
         "/list": {"type": "text/html", "filePath": "./assets/list.html"},
+        "/database": {"type": "application/json", "filePath": "./databaseUser/database.json"},
+        "/error": {"type": "text/html", "filePath": "./assets/error.html"},
         "/bootstrap.min.css": {"type": "text/css", "filePath": "./assets/bootstrap.min.css"},
         "/dashboard.css": {"type": "text/css", "filePath": "./assets/dashboard.css"},
         "/popper.min.js": {"type": "text/css", "filePath": "./assets/popper.min.js"},
         "/bootstrap.min.js": {"type": "text/css", "filePath": "./assets/bootstrap.min.js"},
         "/favicon.ico": {"type": "image/x-icon", "filePath": "./assets/poke.ico"},
-        "/database": {"type": "application/json", "filePath": "./databaseUser/database.json"},
         "/edit": {"type": "text/html", "filePath": "./assets/put.html"},
     }
 
@@ -57,4 +58,3 @@ class GET:
             parsedParams[splitElem[0]] = splitElem[1]
 
         return parsedParams
-
