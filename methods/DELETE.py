@@ -24,7 +24,15 @@ class DELETE:
                 return response.encodeResponse()
         else:
             status = HandlerDatabase.deleteAllObj()
-            return status.encode()
+            body = '<html><head></head><body><h1>Hello World<h1></body></html>'
+            header = {
+                "Content-Length": "88",
+                "Content-Type": "text/html",
+                "Connection": "Closed",
+                "Last-Modified": "Wed, 22 Jul 2009 19:15:56 GMT"
+            }
+            response = Response(status_code=status, body=body, header=header)
+            return response.encodeResponse()
 
         return HandlerErrors.sendErrorCode(request, StatusCode.BAD_REQUEST)
 

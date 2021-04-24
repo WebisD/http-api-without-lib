@@ -55,7 +55,8 @@
           <div id="cards" class="row">
               <p id="demo"></p>
           </div>
-  
+          <button type="submit" class="btn btn-danger"  onclick="sendDelete(event, '/' )" >Remover tudo</button>
+
         </main>
       </div>
     </div>
@@ -73,30 +74,45 @@
     <script>
       feather.replace()
     </script>
-    
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script>
-      $.getJSON("/database", function(data) {
-        for(var i = 0; i <  data['usersObj'].length; i++){
+     <script>
+        function sendDelete(event, url){
+              event.preventDefault();
+              let xhttp = new XMLHttpRequest();
+              xhttp.open("DELETE", url, true);
+              xhttp.onload = function () {
+                  var users = JSON.parse(xhttp.responseText);
+                  if (xhttp.readyState == 4 && xhttp.status == "200") {
+                      console.table("deu certo");
+                  } else {
+                      console.error("deu erro");
+                  }
+              }
+              xhttp.send(null);
+              javascript:history.go(0)
+          }
+ 
+      $.ajax({
+            dataType: "json",
+            url: '/database',
+            cache: false,  //do not cache
+            success: function(data){
+                for(var i = 0; i <  data['usersObj'].length; i++){
 
-        document.getElementById("demo").innerHTML += `<div class="card-body" id="${data['usersObj'][i]['id']}">
+        document.getElementById("demo").innerHTML += `<div class="card-body">
                                                       <img class="card-img-top" src="${data['usersObj'][i]['image']}" alt="Card image cap">
                                                       <h5 class="card-title">${data['usersObj'][i]['name']}</h5>
                                                       <h6 class="card-subtitle mb-2 text-muted">${data['usersObj'][i]['pokemon']}</h6>
-                                                      <p class="card-text">${data['usersObj'][i]['phone']}</p>
+                                                      <p class="card-text">${data['usersObj'][i]['phone']} ${data['usersObj'][i]['id']}</p>
                                                       <a href="#" class="card-link">Editar</a>
-                                                      <a href="/" onclick="sendDelete(event, ${i})" class="card-link">Deletar</a>
+                                                      <a onclick="sendDelete(event, '/?id=' + ${data['usersObj'][i]['id']})" class="card-link">Deletar</a>
                                                     </div>`;
         }
-
-        function sendDelete(event, url){
-              event.preventDefault();
-              xhttp.open("DELETE", "/?id=" + url, true);
-              xhttp.send(null);
-          }
-    });
+            }
+        });
 
 
     </script>
+   
   </body>
 </html>

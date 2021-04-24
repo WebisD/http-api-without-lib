@@ -17,5 +17,5 @@ class Server:
 
 
 def startServer():
-    serverHttp = Server('localhost', 8093)
+    serverHttp = Server('localhost', 8080)
     print("Server started on " + serverHttp.ip + ":" + str(serverHttp.port))
