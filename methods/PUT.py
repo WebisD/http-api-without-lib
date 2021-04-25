@@ -4,35 +4,33 @@ from handler.HandlerErrors import HandlerErrors
 from message.Response import Response
 from message.StatusCode import StatusCode
 import json
+import datetime
 
 
 class PUT:
     @staticmethod
     def response(request):
-        data = json.loads(request.body)
+        try:
+            requestData = json.loads(request.body)
+            pokemonRequestData = list(requestData.values())[0]
+            if pokemonRequestData["name"] != ""\
+                    and pokemonRequestData["phone"] != ""\
+                    and pokemonRequestData["pokemon"] != ""\
+                    and pokemonRequestData["image"] != "":
 
-        idUrl = PUT.getIdOfUrl(request.URI)
-        lastId = HandlerDatabase.getSizeList()
-
-        if 0 <= idUrl <= lastId:
-            if data['name'] != "" and data['phone'] != "" and data['pokemon'] != "" and data['image'] != "":
-                obj = UserObj(data['name'], data['phone'], data['pokemon'], data['image'])
-                # old obj -> based on index
-                obj.setId(idUrl)
-
-                status = HandlerDatabase.insertObj(obj)
-                body = '<html><head></head><body><h1>Hello World<h1></body></html>'
+                pokemonID = str(list(requestData.keys())[0])
+                pokemonData = UserObj.fromDict(list(requestData.values())[0])
+                pokemonData.setId(pokemonID)
+                status = HandlerDatabase.updatePokemonByID(pokemonID, pokemonData)
                 header = {
-                    "Content-Length": "88",
-                    "Content-Type": "text/html",
-                    "Connection": "Closed",
-                    "Last-Modified": "Wed, 22 Jul 2009 19:15:56 GMT"
+                    "Connection": "Closed"
                 }
-                response = Response(status_code=status, body=body, header=header)
-
+                response = Response(status_code=status, body=status.value[1], header=header)
                 return response.encodeResponse()
-
-        return HandlerErrors.sendErrorCode(request, StatusCode.BAD_REQUEST)
+            else:
+                raise TypeError("Invalid data")
+        except:
+            return HandlerErrors.sendErrorCode(request, StatusCode.BAD_REQUEST)
 
     @staticmethod
     def getIdOfUrl(URI):

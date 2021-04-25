@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="./bootstrap-4.0.0/favicon.ico">
 
-    <title>Add new</title>
+    <title>Adicionar novo</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
@@ -18,7 +18,7 @@
 
   <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">Pokebook</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Pokebook</a>
     </nav>
 
 <div class="container-fluid">
@@ -34,14 +34,14 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/list">
-                            <span data-feather="list"></span>
-                            List all
+                            <span data-feather="file"></span>
+                            Listar
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="/post">
-                            <span data-feather="plus"></span>
-                            Add new <span class="sr-only">(current)</span>
+                            <span data-feather="shopping-cart"></span>
+                            Adicionar <span class="sr-only">(current)</span>
                         </a>
                     </li>
                 </ul>
@@ -50,18 +50,18 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">Add a new friend</h1>
+                <h1 class="h2">Atualizar dados do amigo com ID: <span id="title_pokemon_id"></span></h1>
             </div>
             <div class="row">
                 <div class="col-md-6 hidden-lg float-left">
                     <div id="form-container">
                         <div class="form-group">
-                            <label for="nameInputName">Name</label>
+                            <label for="nameInputName">Nome</label>
                             <input name="name" type="text" class="form-control" id="nameInputName"
-                                   placeholder="Ashe123">
+                                   placeholder="Pedrinho222">
                         </div>
                         <div class="form-group">
-                            <label for="phoneInputName">Phone</label>
+                            <label for="phoneInputName">Telefone</label>
                             <input name="phone" type="text" class="form-control" id="phoneInputName"
                                    placeholder="(11) 11111-1111">
                         </div>
@@ -71,20 +71,15 @@
                                    placeholder="Charmander">
                         </div>
                         <div class="form-group">
-                            <label for="imageInputName">Image</label>
+                            <label for="imageInputName">Imagem</label>
                             <input name="image" type="text" class="form-control" id="imageInputName"
-                                   placeholder="Link to image">
+                                   placeholder="Link para imagem">
                         </div>
-                        <button type="submit" onclick="sendRequest()" class="btn btn-primary">Add</button>
-                        <div id="register_response"></div>
+                        <button type="submit" onclick="sendRequest()" class="btn btn-primary">Salvar Mudanças</button>
+                        <div id="update_response"></div>
                     </div>
                 </div>
-                <br>
-                <div class="col-md-6 hidden-lg">
-                <img src="https://static.quizur.com/i/b/57c1c26fc0b812.5998420157c1c26fb156c9.51498011.png" class="img-responsive d-block w-100" style='object-fit: cover'  alt="logo"/>
-                </div>
             </div>
-            
         </main>
     </div>
 </div>
@@ -107,8 +102,8 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script>
 
-    function toJSONString(form) {
-        const obj = {};
+    function toJSONString(pokemonID, form) {
+        const pokemonData = {};
         const elements = form.querySelectorAll("input, select, textarea");
         for (let i = 0; i < elements.length; ++i) {
             const element = elements[i];
@@ -116,32 +111,68 @@
             const value = element.value;
 
             if (name) {
-                obj[name] = value;
+                pokemonData[name] = value;
             }
         }
 
-        return JSON.stringify(obj);
+        const pokemon = {}
+
+        pokemon[pokemonID] = pokemonData
+
+        return JSON.stringify(pokemon);
     }
 
     function sendRequest() {
-        let json = toJSONString(document.getElementById("form-container"));
+        const urlQuery = window.location.search;
+        const urlParams = new URLSearchParams(urlQuery)
+        const id = urlParams.get('id')
+
+        let json = toJSONString(id, document.getElementById("form-container"));
         let xhr = new XMLHttpRequest();
-        let url = "/post";
+        let url = "/edit";
 
         xhr.onreadystatechange = function () {
             if (this.readyState === 4) {
-                document.getElementById("register_response").innerHTML = this.responseText;
+                document.getElementById("update_response").innerHTML = this.responseText;
                 setTimeout(()=>{
-                    document.getElementById("register_response").innerHTML = "";
+                    document.getElementById("update_response").innerHTML = "";
                 }, 3000)
+                console.log("READY STATE 4")
             }
         }
 
-        xhr.open("POST", url, true);
+        xhr.open("PUT", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
         xhr.send(json);
     }
+
+    $.ajax({
+        dataType: "json",
+        url: '/database',
+        cache: false,  //do not cache
+        success: function (data) {
+            const urlQuery = window.location.search;
+            const urlParams = new URLSearchParams(urlQuery)
+            const id = urlParams.get('id')
+
+            let pokemonData;
+            for (let usersElements of data["users"]) {
+                let [userID, userData] = Object.entries(usersElements)[0];
+                if (id === userID) {
+                    pokemonData = userData
+                }
+            }
+
+            console.log(pokemonData)
+
+            document.getElementById('title_pokemon_id').innerText = id
+            document.getElementById('nameInputName').value = pokemonData.name
+            document.getElementById('phoneInputName').value = pokemonData.phone
+            document.getElementById('pokemonInputName').value = pokemonData.pokemon
+            document.getElementById('imageInputName').value = pokemonData.image
+        }
+    });
 
 </script>
 </body>

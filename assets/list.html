@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -10,19 +10,19 @@
     <title>List of friendships</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="./bootstrap.min.css" >
+    <link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="./dashboard.css">
-  </head>
+</head>
 
-  <body>
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a href="/" class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Pokebook</a>
-    </nav>
+<body>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a href="/" class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Pokebook</a>
+</nav>
 
-    <div class="container-fluid">
-      <div class="row">
+<div class="container-fluid">
+    <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
@@ -60,63 +60,70 @@
           <br><br><br>
           </div>
         </main>
-      </div>
     </div>
+</div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="./bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="./popper.min.js"></script>
-    <script src="./bootstrap.min.js"></script>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="./bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="./popper.min.js"></script>
+<script src="./bootstrap.min.js"></script>
 
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-      feather.replace()
-    </script>
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-     <script>
-        function sendDelete(event, url){
-              event.preventDefault();
-              let xhttp = new XMLHttpRequest();
-              xhttp.open("DELETE", url, true);
-              xhttp.onload = function () {
-                  var users = JSON.parse(xhttp.responseText);
-                  if (xhttp.readyState == 4 && xhttp.status == "200") {
-                      console.table("deu certo");
-                  } else {
-                      console.error("deu erro");
-                  }
-              }
-              xhttp.send(null);
-              javascript:history.go(0)
-          }
- 
-      $.ajax({
-            dataType: "json",
-            url: '/database',
-            cache: false,  //do not cache
-            success: function(data){
-                for(var i = 0; i <  data['usersObj'].length; i++){
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script>
+    function sendDelete(event, pokemonID) {
+        event.preventDefault();
+        console.log(String(pokemonID))
+        console.log(Number(pokemonID))
+        let url = (pokemonID === "/") ? "/" : String("/?id=" + pokemonID)
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", url, true);
+        xhttp.onload = function () {
+            if (xhttp.readyState === 4 && xhttp.status === 200) {
+                console.table("deu certo");
+            } else {
+                console.error("deu erro");
+            }
+        }
+        xhttp.send(pokemonID);
+        history.go(0)
+    }
 
-        document.getElementById("cards").innerHTML += `<div class="card ml-3 mt-3" style="width: 18rem;">
-                                                      <img class="card-img-top" style='object-fit: cover'  src="${data['usersObj'][i]['image']}" height="200" alt="Card image cap">
+    $.ajax({
+        dataType: "json",
+        url: '/database',
+        cache: false,  //do not cache
+        success: function (data) {
+            if ("users" in data) {
+                for (let usersElements of data["users"]) {
+                    let [pokemonID, pokemonData] = Object.entries(usersElements)[0]
+                    console.log((pokemonID))
+                    document.getElementById("cards").innerHTML += `<div class="card ml-3 mt-3" style="width: 18rem;">
+                                                      <img class="card-img-top" style='object-fit: cover'  src="${pokemonData['image']}" height="200" alt="Card image cap">
                                                       <div class="card-body">
-                                                      <h5 class="card-title">${data['usersObj'][i]['name']}</h5>
-                                                      <h6 class="card-subtitle mb-2 text-muted">${data['usersObj'][i]['pokemon']}</h6>
-                                                      <p class="card-text">${data['usersObj'][i]['phone']}</p>
-                                                      <a href="#" class="card-link">Editar</a>
-                                                      <a href="#" onclick="sendDelete(event, '/?id=' + ${data['usersObj'][i]['id']})" class="card-link">Deletar</a>
+                                                      <h5 class="card-title">${pokemonData['name']}</h5>
+                                                      <h6 class="card-subtitle mb-2 text-muted">${pokemonData['pokemon']}</h6>
+                                                      <p class="card-text">${pokemonData['phone']} ${pokemonID}</p>
+                                                      <a href="/edit?id=${pokemonID}" class="card-link">Editar</a>
+                                                      <a href="#" onclick="sendDelete(event, ${parseInt(pokemonID)})" class="card-link">Deletar</a>
                                                       </div>
                                                     </div>`;
-        }
+                }
             }
-        });
+        }
+    });
 
 
-    </script>
-   
-  </body>
+</script>
+
+</body>
 </html>
