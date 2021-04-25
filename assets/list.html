@@ -112,9 +112,9 @@
                                                       <div class="card-body">
                                                       <h5 class="card-title">${pokemonData['name']}</h5>
                                                       <h6 class="card-subtitle mb-2 text-muted">${pokemonData['pokemon']}</h6>
-                                                      <p class="card-text">${pokemonData['phone']} ${pokemonID}</p>
-                                                      <a href="/edit?id=${pokemonID}" class="card-link">Editar</a>
-                                                      <a href="#" onclick="sendDelete(event, ${parseInt(pokemonID)})" class="card-link">Deletar</a>
+                                                      <p class="card-text">${pokemonData['phone']}</p>
+                                                      <a href="/edit?id=${pokemonID}" class="card-link">Edit</a>
+                                                      <a href="#" onclick="sendDelete(event, ${parseInt(pokemonID)})" class="card-link">Delete</a>
                                                       </div>
                                                     </div>`;
                 }

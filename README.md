@@ -1,6 +1,6 @@
 # Http api without lib
 
-<img align="right" src="https://www.pngitem.com/pimgs/m/513-5136456_squirtle-pokemon-pokemon-squirtle-with-glasses-hd-png.png" width="30%" />
+<img align="right" src="https://i0.wp.com/i.pinimg.com/originals/0b/61/0e/0b610ecd593baa2a86d782cdaa2b01aa.jpg" width="25%" />
 
 ## Descrição 
 Projeto da matéria de Tópicos Avançados de Redes, ministrada no Centro Universitário FEI. 
