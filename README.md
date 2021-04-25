@@ -10,7 +10,7 @@ O usuário pode adicionar novos amigos e visualizar os que já possui, além de 
 
 ## Pokebook 
 
-![image](images/use.gif)
+![image](images/app.gif)
 
 
 
