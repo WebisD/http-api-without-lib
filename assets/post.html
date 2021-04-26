@@ -75,7 +75,7 @@
                             <input name="image" type="text" class="form-control" id="imageInputName"
                                    placeholder="Link to image">
                         </div>
-                        <button <button id="submit-button" type="submit" onclick="sendRequest()" class="btn btn-primary">Add</button>
+                        <button id="submit-button" type="submit" onclick="sendRequest()" class="btn btn-primary" style="">Add</button>
                         <br><br>
                         <div id="register_response"></div>
                     </div>
@@ -128,21 +128,39 @@
         let json = toJSONString(document.getElementById("form-container"));
         let xhr = new XMLHttpRequest();
         let url = "/post";
+        let button = document.getElementById("submit-button");
+        let responseDiv = document.getElementById("register_response")
+        let oldButtonColor = button.style.backgroundColor;
+        let oldButtonName = button.innerText;
 
         xhr.onreadystatechange = function () {
             switch (this.readyState){
                 case 1:
-                    document.getElementById('submit-button').setAttribute("disabled", "true");
+                    button.style.opacity = "1.0"
+                    button.setAttribute("disabled", "true");
                     console.log("OPENED")
                     break;
                 case 4:
-                    document.getElementById("register_response").innerHTML = this.responseText;
+                    // responseDiv.innerHTML = this.responseText;
+                    // setTimeout(() => {
+                    //     responseDiv.innerHTML = "";
+                    // }, 3000)
+
+                    if (this.status === 201){
+                        button.style.backgroundColor = "#48D40B"
+                        button.innerText = "OK";
+                    }
+                    else {
+                        button.style.backgroundColor = "#EB1C0A"
+                        button.innerText = "ERROR"
+                    }
+
                     setTimeout(()=>{
-                        document.getElementById('submit-button').removeAttribute("disabled");
+                        button.style.background = oldButtonColor;
+                        button.innerText = oldButtonName;
+                        button.removeAttribute("disabled");
                     }, 1000)
-                    setTimeout(() => {
-                        document.getElementById("register_response").innerHTML = "";
-                    }, 3000)
+
                     console.log("DONE")
                     break;
             }

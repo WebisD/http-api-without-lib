@@ -24,6 +24,7 @@ class PUT:
                 pokemonData.setId(pokemonID)
 
                 status = HandlerDatabase.updatePokemonByID(pokemonID, pokemonData)
+
                 header = {
                     "Connection": "Closed"
                 }

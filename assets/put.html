@@ -34,7 +34,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/list">
-                            <span data-feather="file"></span>
+                            <span data-feather="list"></span>
                             List all
                         </a>
                     </li>
@@ -132,29 +132,42 @@
         let xhr = new XMLHttpRequest();
         let url = "/edit";
 
+        let button = document.getElementById("submit-button");
+        let responseDiv = document.getElementById("update_response")
+        let oldButtonColor = button.style.backgroundColor;
+        let oldButtonName = button.innerText;
+
         xhr.onreadystatechange = function () {
             switch (this.readyState){
                 case 1:
-                    document.getElementById('submit-button').setAttribute("disabled", "true");
-                    console.log("OPENED")
+                    button.style.opacity = "1.0"
+                    button.setAttribute("disabled", "true");
                     break;
                 case 4:
-                    document.getElementById("update_response").innerHTML = this.responseText;
-                    setTimeout(() => {
-                        document.getElementById("update_response").innerHTML = "";
-                    }, 3000)
+                    console.log(this.responseText)
+                    console.log(this.response)
+
+                    // responseDiv.innerHTML = this.responseText;
+                    // setTimeout(() => {
+                    //     responseDiv.innerHTML = "";
+                    // }, 3000)
+
+                    if (this.status === 200 || this.status === 304){
+                        button.style.backgroundColor = "#48D40B"
+                        button.innerText = "OK";
+                    }
+                    else {
+                        button.style.backgroundColor = "#EB1C0A"
+                        button.innerText = "ERROR"
+                    }
+
                     setTimeout(()=>{
-                        document.getElementById('submit-button').removeAttribute("disabled");
+                        button.style.background = oldButtonColor;
+                        button.innerText = oldButtonName;
+                        button.removeAttribute("disabled");
                     }, 1000)
-                    console.log("READY STATE 4")
+
                     break;
-            }
-            if (this.readyState === 4) {
-                document.getElementById("update_response").innerHTML = this.responseText;
-                setTimeout(()=>{
-                    document.getElementById("update_response").innerHTML = "";
-                }, 3000)
-                console.log("READY STATE 4")
             }
         }
 

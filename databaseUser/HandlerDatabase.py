@@ -51,9 +51,11 @@ class HandlerDatabase:
             arePokemonEqual = HandlerDatabase.arePokemonsEqual(
                     database["users"][pokemonIndex][pokemonID],
                     pokemonData.__dict__())
+
             if not arePokemonEqual:
                 database["users"][pokemonIndex][pokemonID] = pokemonData.__dict__()
             else:
+                print("NOT MODIFIED")
                 status = StatusCode.NOT_MODIFIED
         else:
             status = StatusCode.NOT_FOUND
