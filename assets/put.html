@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="./bootstrap-4.0.0/favicon.ico">
 
-    <title>Adicionar novo</title>
+    <title>Add New</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
@@ -75,7 +75,7 @@
                             <input name="image" type="text" class="form-control" id="imageInputName"
                                    placeholder="Link to image">
                         </div>
-                        <button type="submit" onclick="sendRequest()" class="btn btn-primary">Save Changes</button>
+                        <button id="submit-button" type="submit" onclick="sendRequest()" class="btn btn-primary">Save Changes</button>
                         <br><br>
                         <div id="update_response"></div>
                     </div>
@@ -133,6 +133,22 @@
         let url = "/edit";
 
         xhr.onreadystatechange = function () {
+            switch (this.readyState){
+                case 1:
+                    document.getElementById('submit-button').setAttribute("disabled", "true");
+                    console.log("OPENED")
+                    break;
+                case 4:
+                    document.getElementById("update_response").innerHTML = this.responseText;
+                    setTimeout(() => {
+                        document.getElementById("update_response").innerHTML = "";
+                    }, 3000)
+                    setTimeout(()=>{
+                        document.getElementById('submit-button').removeAttribute("disabled");
+                    }, 1000)
+                    console.log("READY STATE 4")
+                    break;
+            }
             if (this.readyState === 4) {
                 document.getElementById("update_response").innerHTML = this.responseText;
                 setTimeout(()=>{

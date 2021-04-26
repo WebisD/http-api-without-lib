@@ -29,7 +29,7 @@ class HandlerDatabase:
             database["users"].append({pokemonID: pokemonData})
 
         if HandlerDatabase.setData(database):
-            return StatusCode.OK
+            return StatusCode.CREATED
 
         return StatusCode.INTERNAL_SERVER_ERROR
 
@@ -37,7 +37,7 @@ class HandlerDatabase:
     def updatePokemonByID(pokemonID: str, pokemonData: UserObj):
         print(f"pokemonID: {pokemonID}")
         print(f"isPokemonID a string: {isinstance(pokemonID, str)}")
-        print(f"pokemonData: {pokemonData}")
+        print(f"pokemonData: {pokemonData}\n")
 
         database: dict = HandlerDatabase.getData()
 
@@ -48,7 +48,13 @@ class HandlerDatabase:
 
         isPokemonRegistered, pokemonIndex = HandlerDatabase.isPokemonRegistered(pokemonID)
         if isPokemonRegistered:
-            database["users"][pokemonIndex][pokemonID] = pokemonData.__dict__()
+            arePokemonEqual = HandlerDatabase.arePokemonsEqual(
+                    database["users"][pokemonIndex][pokemonID],
+                    pokemonData.__dict__())
+            if not arePokemonEqual:
+                database["users"][pokemonIndex][pokemonID] = pokemonData.__dict__()
+            else:
+                status = StatusCode.NOT_MODIFIED
         else:
             status = StatusCode.NOT_FOUND
 
@@ -138,3 +144,10 @@ class HandlerDatabase:
         except:
             print(f"HandlerDatabase::setData() exception")
             return False
+
+    @staticmethod
+    def arePokemonsEqual(pokemonA: dict, pokemonB: dict):
+        for k, v in pokemonA.items():
+            if v != pokemonB[k]:
+                return False
+        return True

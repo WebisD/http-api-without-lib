@@ -75,7 +75,7 @@
                             <input name="image" type="text" class="form-control" id="imageInputName"
                                    placeholder="Link to image">
                         </div>
-                        <button type="submit" onclick="sendRequest()" class="btn btn-primary">Add</button>
+                        <button <button id="submit-button" type="submit" onclick="sendRequest()" class="btn btn-primary">Add</button>
                         <br><br>
                         <div id="register_response"></div>
                     </div>
@@ -130,11 +130,21 @@
         let url = "/post";
 
         xhr.onreadystatechange = function () {
-            if (this.readyState === 4) {
-                document.getElementById("register_response").innerHTML = this.responseText;
-                setTimeout(()=>{
-                    document.getElementById("register_response").innerHTML = "";
-                }, 3000)
+            switch (this.readyState){
+                case 1:
+                    document.getElementById('submit-button').setAttribute("disabled", "true");
+                    console.log("OPENED")
+                    break;
+                case 4:
+                    document.getElementById("register_response").innerHTML = this.responseText;
+                    setTimeout(()=>{
+                        document.getElementById('submit-button').removeAttribute("disabled");
+                    }, 1000)
+                    setTimeout(() => {
+                        document.getElementById("register_response").innerHTML = "";
+                    }, 3000)
+                    console.log("DONE")
+                    break;
             }
         }
 
