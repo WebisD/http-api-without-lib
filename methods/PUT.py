@@ -13,6 +13,7 @@ class PUT:
         try:
             requestData = json.loads(request.body)
             pokemonRequestData = list(requestData.values())[0]
+            print(f"pokemonRequestData: {pokemonRequestData}")
             if pokemonRequestData["name"] != ""\
                     and pokemonRequestData["phone"] != ""\
                     and pokemonRequestData["pokemon"] != ""\
@@ -21,11 +22,14 @@ class PUT:
                 pokemonID = str(list(requestData.keys())[0])
                 pokemonData = UserObj.fromDict(list(requestData.values())[0])
                 pokemonData.setId(pokemonID)
+
                 status = HandlerDatabase.updatePokemonByID(pokemonID, pokemonData)
+
                 header = {
                     "Connection": "Closed"
                 }
                 response = Response(status_code=status, body=status.value[1], header=header)
+
                 return response.encodeResponse()
             else:
                 raise TypeError("Invalid data")
