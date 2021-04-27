@@ -20,10 +20,13 @@ class GET:
         "/favicon.ico": {"type": "image/x-icon", "filePath": "./assets/poke.ico"},
         "/edit": {"type": "text/html", "filePath": "./assets/put.html"},
     }
+    imagesTable = {
+        "/deusgrego.jpeg": {"type": "image/png", "filePath": "./assets/deusgrego.jpeg"},
+    }
 
     @staticmethod
     def response(request: Request):
-
+        print(request.URI)
         if request.URI.find('database') != -1 or request.URI.find('edit') != -1 or request.URI in GET.urlTable:
             response: Response = Response(status_code=StatusCode.OK, body="", header={})
             if request.URI.find('database') != -1:
@@ -45,6 +48,16 @@ class GET:
                 response.headers["Content-Type"] = GET.urlTable[request.URI]["type"]
                 response.headers["Connection"] = "Closed"
 
+            return response.encodeResponse()
+        elif request.URI in GET.imagesTable:
+            print("HAHAHAHAHAHAHAHAQ")
+            response: Response = Response(status_code=StatusCode.OK, body=GET.imagesTable[request.URI]["filePath"],
+                                          header={})
+            response.headers["Content-Type"] = GET.imagesTable[request.URI]["type"]
+            response.headers["Content-Length"] = str(os.stat(response.body).st_size)
+            response.headers["Accept-Ranges"] = "bytes"
+            print(os.stat(response.body).st_size)
+            print(response)
             return response.encodeResponse()
 
         return HandlerErrors.sendErrorCode(request, StatusCode.NOT_FOUND)

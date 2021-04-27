@@ -13,7 +13,10 @@
     <link rel="stylesheet" type="text/css" href="./bootstrap.min.css" >
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="./dashboard.css">
+    <link rel="stylesheet" type="text/css" href="./dashboard.css">.
+
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
   </head>
 
   <body>
@@ -22,13 +25,13 @@
       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" style='object-fit: cover' src="https://i.pinimg.com/originals/8e/a5/f6/8ea5f6f631afc936948cdf4c920edb05.jpg" height="400" alt="First slide">
+      <img class="d-block w-100" style='object-fit: cover' src="" data-src="https://i.pinimg.com/originals/8e/a5/f6/8ea5f6f631afc936948cdf4c920edb05.jpg" height="400" alt="First slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" style='object-fit: cover' src="https://images7.alphacoders.com/676/676255.png" height="400" alt="Second slide">
+      <img class="d-block w-100" style='object-fit: cover' src="" data-src="https://images7.alphacoders.com/676/676255.png" height="400" alt="Second slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" style='object-fit: cover' src="https://c.wallhere.com/photos/83/89/ishmam_Pok_mon_Pikachu-68894.png!d" height="400" alt="Third slide">
+      <img class="d-block w-100" style='object-fit: cover' src="" data-src="https://c.wallhere.com/photos/83/89/ishmam_Pok_mon_Pikachu-68894.png!d" height="400" alt="Third slide">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -50,7 +53,7 @@
     <div class="row">
       <div class="col-lg-4 col-sm-6 portfolio-item">
         <div class="card h-100">
-          <a href="/list"><img class="card-img-top" src="https://i.pinimg.com/originals/3d/de/a9/3ddea959987d4c06c4cbe8a4e6204ec4.gif" width="700" height="200" alt=""></a>
+          <a href="/list"><img class="card-img-top" src="" data-src="https://i.pinimg.com/originals/3d/de/a9/3ddea959987d4c06c4cbe8a4e6204ec4.gif" width="700" height="200" alt=""></a>
           <div class="card-body">
             <h4 class="card-title">
               <a href="/list">See your friends</a>
@@ -61,7 +64,7 @@
       </div>
       <div class="col-lg-4 col-sm-6 portfolio-item">
         <div class="card h-100">
-          <a href="/post"><img class="card-img-top" src="https://media1.giphy.com/media/Zqy8kRlwfwFnq/giphy.gif" width="700" height="200" alt=""></a>
+          <a href="/post"><img class="card-img-top" src="" data-src="https://media1.giphy.com/media/Zqy8kRlwfwFnq/giphy.gif" width="700" height="200" alt=""></a>
           <div class="card-body">
             <h4 class="card-title">
               <a href="/post">Add new friends</a>
@@ -72,7 +75,7 @@
       </div>
       <div class="col-lg-4 col-sm-6 portfolio-item">
         <div class="card h-100">
-          <a href="https://github.com/WebisD/http-api-without-lib" target="_blank"><img class="card-img-top" src="https://pa1.narvii.com/5750/630af35a6706531f36e9848f320fd238a1f35184_hq.gif" width="700" height="200" alt=""></a>
+          <a href="https://github.com/WebisD/http-api-without-lib" target="_blank"><img class="card-img-top" src="" data-src="https://pa1.narvii.com/5750/630af35a6706531f36e9848f320fd238a1f35184_hq.gif" width="700" height="200" alt=""></a>
           <div class="card-body">
             <h4 class="card-title">
               <a href="https://github.com/WebisD/http-api-without-lib" target="_blank">Meet the creators</a>
@@ -108,5 +111,40 @@
     <script>
       feather.replace()
     </script>
+
+    <script>
+      function imageToUri(url, callback) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            base_image = new Image();
+            base_image.src = url;
+            base_image.onload = function() {
+                canvas.width = base_image.width;
+                canvas.height = base_image.height;
+
+                ctx.drawImage(base_image, 0, 0);
+
+                callback(canvas.toDataURL('image/png'));
+
+                canvas.remove();
+            }
+      }
+      let cara = "";
+      imageToUri('deusgrego.jpeg', function(uri) {
+        console.log("oi");
+          cara = uri;
+          console.log(uri);
+      });
+      $(document.body).ready(function(){
+        $("img").each(function(){
+          console.log($(this).attr('data-src'));
+          $(this).attr("src", cara);
+
+        });
+      });
+
+    </script>
+
   </body>
 </html>

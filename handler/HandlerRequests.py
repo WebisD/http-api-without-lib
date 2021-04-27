@@ -24,7 +24,7 @@ class Handler(Thread):
             connectionSocket, addr = self.server.serverSocket.accept()
             
             while True:
-                request = connectionSocket.recv(1024).decode()
+                request = connectionSocket.recv(32768).decode()
         
                 if not request: 
                     break
