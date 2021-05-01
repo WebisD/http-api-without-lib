@@ -59,7 +59,7 @@ class GET:
                 response.headers["Last-Modified"] = lastModified
                 response.headers["Content-Length"] = len(response.body)
                 response.headers["Content-Type"] = GET.urlTable[request.URI]["type"]
-                response.headers["Connection"] = "Closed"
+                response.headers["Connection"] = "close"
 
             return response.encodeResponse()
         elif request.URI in GET.imagesTable:

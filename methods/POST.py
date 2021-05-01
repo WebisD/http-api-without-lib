@@ -22,7 +22,7 @@ class POST:
 
                 status = HandlerDatabase.insertPokemon(obj)
                 header = {
-                    "Connection": "Closed"
+                    "Connection": "close"
                 }
 
                 response = Response(status_code=status, body=status.value[1], header=header)

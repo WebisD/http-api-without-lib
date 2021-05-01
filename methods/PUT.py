@@ -26,7 +26,7 @@ class PUT:
                 status = HandlerDatabase.updatePokemonByID(pokemonID, pokemonData)
 
                 header = {
-                    "Connection": "Closed"
+                    "Connection": "close"
                 }
                 response = Response(status_code=status, body=status.value[1], header=header)
 

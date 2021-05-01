@@ -28,6 +28,6 @@ class HandlerErrors:
 
         response.headers["Content-Length"] = len(response.body)
         response.headers["Content-Type"] = error["type"]
-        response.headers["Connection"] = "Closed"
+        response.headers["Connection"] = "close"
 
         return response.encodeResponse()

@@ -21,7 +21,7 @@ class DELETE:
             status = HandlerDatabase.deleteAllPokemons()
 
         header = {
-            "Connection": "Closed",
+            "Connection": "close",
         }
 
         print(f"Status: {status.value[0]}")
