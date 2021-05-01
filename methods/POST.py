@@ -16,11 +16,12 @@ class POST:
             if data["name"] != "" and data["phone"] != "" and data["pokemon"] != "" and data["image"] != "":
                 obj = UserObj.fromDict(data)
 
-                print(obj)
-
                 obj.setId(datetime.datetime.now().strftime("%d%m%Y%H%M%S"))
+                print(datetime.datetime.now().strftime("%d%m%Y%H%M%S"))
 
                 status = HandlerDatabase.insertPokemon(obj)
+                print(status)
+
                 header = {
                     "Connection": "Closed"
                 }

@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="/logo.ico">
+    <link rel="icon" href="./bootstrap-4.0.0/favicon.ico">
 
     <title>Add New</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="../bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="../dashboard.css">
+    <link rel="stylesheet" type="text/css" href="./dashboard.css">
 </head>
 
   <body>
@@ -71,9 +71,12 @@
                                    placeholder="Charmander">
                         </div>
                         <div class="form-group">
-                            <label for="imageInputName">Image</label>
+                            <label for="imageInputName">Image</label><br>
                             <input name="image" type="text" class="form-control" id="imageInputName"
-                                   placeholder="Link to image">
+                                   placeholder="Link to image" style="display:none">
+                            <img id="pokemonImg" class="card-img-top" style='object-fit: cover' src="" height="200" alt="Card image cap">
+                            <br>
+                            <input type="file" onchange="previewFile()"><br>
                         </div>
                         <button id="submit-button" type="submit" onclick="sendRequest()" class="btn btn-primary">Save Changes</button>
                         <br><br>
@@ -91,9 +94,9 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="../bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="../popper.min.js"></script>
-<script src="../bootstrap.min.js"></script>
+<script>window.jQuery || document.write('<script src="./bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="./popper.min.js"></script>
+<script src="./bootstrap.min.js"></script>
 
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
@@ -103,7 +106,7 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script>
 
-    function toJSONString(pokemonID, form) {
+    function toJSONString(pokemonID, image, form) {
         const pokemonData = {};
         const elements = form.querySelectorAll("input, select, textarea");
         for (let i = 0; i < elements.length; ++i) {
@@ -115,6 +118,7 @@
                 pokemonData[name] = value;
             }
         }
+        pokemonData['image'] = image;
 
         const pokemon = {}
 
@@ -123,12 +127,28 @@
         return JSON.stringify(pokemon);
     }
 
+    function previewFile() {
+      const preview = document.querySelector('img');
+      const file = document.querySelector('input[type=file]').files[0];
+      const reader = new FileReader();
+    
+      reader.addEventListener("load", function () {
+        // convert image file to base64 string
+        preview.src = reader.result;
+      }, false);
+    
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    }
+
     function sendRequest() {
         const urlQuery = window.location.search;
         const urlParams = new URLSearchParams(urlQuery)
         const id = urlParams.get('id')
+        const preview = document.querySelector('img');
 
-        let json = toJSONString(id, document.getElementById("form-container"));
+        let json = toJSONString(id, preview.src, document.getElementById("form-container"));
         let xhr = new XMLHttpRequest();
         let url = "/edit";
 
@@ -170,6 +190,7 @@
                     break;
             }
         }
+        alert(json)
 
         xhr.open("PUT", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -200,7 +221,7 @@
             document.getElementById('nameInputName').value = pokemonData.name
             document.getElementById('phoneInputName').value = pokemonData.phone
             document.getElementById('pokemonInputName').value = pokemonData.pokemon
-            document.getElementById('imageInputName').value = pokemonData.image
+            document.getElementById('pokemonImg').src = pokemonData.image
         }
     });
 

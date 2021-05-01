@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="/logo.ico">
+    <link rel="icon" href="/favicon.ico">
 
     <title>Add new</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="../bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="../dashboard.css">
+    <link rel="stylesheet" type="text/css" href="./dashboard.css">
 </head>
 
   <body>
@@ -73,7 +73,10 @@
                         <div class="form-group">
                             <label for="imageInputName">Image</label>
                             <input name="image" type="text" class="form-control" id="imageInputName"
-                                   placeholder="Link to image">
+                                   placeholder="Link to image" style="display:none"><br>
+                            <img id="imageInputName" class="card-img-top" style='object-fit: cover' src="" height="200" alt="Card image cap">
+                            <br>
+                            <input type="file" onchange="previewFile()"><br>
                         </div>
                         <button id="submit-button" type="submit" onclick="sendRequest()" class="btn btn-primary" style="">Add</button>
                         <br><br>
@@ -82,7 +85,7 @@
                 </div>
                 <br>
                 <div class="col-md-6 hidden-lg">
-                <img src="/newfriend.jpeg" class="img-responsive d-block w-100" style='object-fit: cover'  alt="logo"/>
+                <img src="https://static.quizur.com/i/b/57c1c26fc0b812.5998420157c1c26fb156c9.51498011.png" class="img-responsive d-block w-100" style='object-fit: cover'  alt="logo"/>
                 </div>
             </div>
             
@@ -96,9 +99,9 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="../bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="../popper.min.js"></script>
-<script src="../bootstrap.min.js"></script>
+<script>window.jQuery || document.write('<script src="./bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="./popper.min.js"></script>
+<script src="./bootstrap.min.js"></script>
 
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
@@ -108,7 +111,7 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script>
 
-    function toJSONString(form) {
+    function toJSONString(form, image) {
         const obj = {};
         const elements = form.querySelectorAll("input, select, textarea");
         for (let i = 0; i < elements.length; ++i) {
@@ -120,12 +123,30 @@
                 obj[name] = value;
             }
         }
+        obj['image'] = image;
 
         return JSON.stringify(obj);
     }
 
+     function previewFile() {
+      const preview = document.querySelector('img');
+      const file = document.querySelector('input[type=file]').files[0];
+      const reader = new FileReader();
+    
+      reader.addEventListener("load", function () {
+        // convert image file to base64 string
+        preview.src = reader.result;
+      }, false);
+    
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    }
+
+
     function sendRequest() {
-        let json = toJSONString(document.getElementById("form-container"));
+        const preview = document.querySelector('img');
+        let json = toJSONString(document.getElementById("form-container"), preview.src);
         let xhr = new XMLHttpRequest();
         let url = "/post";
         let button = document.getElementById("submit-button");
@@ -133,6 +154,10 @@
         let oldButtonColor = button.style.backgroundColor;
         let oldButtonName = button.innerText;
 
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
+        
         xhr.onreadystatechange = function () {
             switch (this.readyState){
                 case 1:
@@ -165,11 +190,8 @@
                     break;
             }
         }
-
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
         xhr.send(json);
+        console.log(json)
     }
 
 </script>
