@@ -40,7 +40,8 @@ class Handler(Thread):
         
         try:
             response = eval(request.type).response(request)
-        except:
+        except Exception as e:
+            print(e)
             response = HandlerErrors.sendErrorCode(request, StatusCode.BAD_REQUEST)
         connectionSocket.send(response)
         connectionSocket.close()

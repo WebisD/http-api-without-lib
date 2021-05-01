@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="./bootstrap-4.0.0/favicon.ico">
+    <link rel="icon" href="/logo.ico">
 
-    <title>Adicionar novo</title>
+    <title>Add new</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap.min.css">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="./dashboard.css">
+    <link rel="stylesheet" type="text/css" href="../dashboard.css">
 </head>
 
   <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Pokebook</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">Pokebook</a>
     </nav>
 
 <div class="container-fluid">
@@ -34,7 +34,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/list">
-                            <span data-feather="file"></span>
+                            <span data-feather="list"></span>
                             List all
                         </a>
                     </li>
@@ -50,7 +50,7 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">Update data of your friend: <span id="title_pokemon_id"></span></h1>
+                <h1 class="h2">Add a new friend</h1>
             </div>
             <div class="row">
                 <div class="col-md-6 hidden-lg float-left">
@@ -75,12 +75,17 @@
                             <input name="image" type="text" class="form-control" id="imageInputName"
                                    placeholder="Link to image">
                         </div>
-                        <button type="submit" onclick="sendRequest()" class="btn btn-primary">Save Changes</button>
+                        <button type="submit" onclick="sendRequest()" class="btn btn-primary">Add</button>
                         <br><br>
-                        <div id="update_response"></div>
+                        <div id="register_response"></div>
                     </div>
                 </div>
+                <br>
+                <div class="col-md-6 hidden-lg">
+                <img src="/newfriend.jpeg" class="img-responsive d-block w-100" style='object-fit: cover'  alt="logo"/>
+                </div>
             </div>
+            
         </main>
     </div>
 </div>
@@ -91,9 +96,9 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="./bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="./popper.min.js"></script>
-<script src="./bootstrap.min.js"></script>
+<script>window.jQuery || document.write('<script src="../bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="../popper.min.js"></script>
+<script src="../bootstrap.min.js"></script>
 
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
@@ -103,8 +108,8 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script>
 
-    function toJSONString(pokemonID, form) {
-        const pokemonData = {};
+    function toJSONString(form) {
+        const obj = {};
         const elements = form.querySelectorAll("input, select, textarea");
         for (let i = 0; i < elements.length; ++i) {
             const element = elements[i];
@@ -112,68 +117,32 @@
             const value = element.value;
 
             if (name) {
-                pokemonData[name] = value;
+                obj[name] = value;
             }
         }
 
-        const pokemon = {}
-
-        pokemon[pokemonID] = pokemonData
-
-        return JSON.stringify(pokemon);
+        return JSON.stringify(obj);
     }
 
     function sendRequest() {
-        const urlQuery = window.location.search;
-        const urlParams = new URLSearchParams(urlQuery)
-        const id = urlParams.get('id')
-
-        let json = toJSONString(id, document.getElementById("form-container"));
+        let json = toJSONString(document.getElementById("form-container"));
         let xhr = new XMLHttpRequest();
-        let url = "/edit";
+        let url = "/post";
 
         xhr.onreadystatechange = function () {
             if (this.readyState === 4) {
-                document.getElementById("update_response").innerHTML = this.responseText;
+                document.getElementById("register_response").innerHTML = this.responseText;
                 setTimeout(()=>{
-                    document.getElementById("update_response").innerHTML = "";
+                    document.getElementById("register_response").innerHTML = "";
                 }, 3000)
-                console.log("READY STATE 4")
             }
         }
 
-        xhr.open("PUT", url, true);
+        xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
         xhr.send(json);
     }
-
-    $.ajax({
-        dataType: "json",
-        url: '/database',
-        cache: false,  //do not cache
-        success: function (data) {
-            const urlQuery = window.location.search;
-            const urlParams = new URLSearchParams(urlQuery)
-            const id = urlParams.get('id')
-
-            let pokemonData;
-            for (let usersElements of data["users"]) {
-                let [userID, userData] = Object.entries(usersElements)[0];
-                if (id === userID) {
-                    pokemonData = userData
-                }
-            }
-
-            console.log(pokemonData)
-
-            document.getElementById('title_pokemon_id').innerText = id
-            document.getElementById('nameInputName').value = pokemonData.name
-            document.getElementById('phoneInputName').value = pokemonData.phone
-            document.getElementById('pokemonInputName').value = pokemonData.pokemon
-            document.getElementById('imageInputName').value = pokemonData.image
-        }
-    });
 
 </script>
 </body>

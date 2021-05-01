@@ -8,25 +8,38 @@ from databaseUser.HandlerDatabase import HandlerDatabase
 
 class GET:
     urlTable = {
-        "/": {"type": "text/html", "filePath": "./assets/index.html"},
-        "/post": {"type": "text/html", "filePath": "./assets/post.html"},
-        "/list": {"type": "text/html", "filePath": "./assets/list.html"},
+        "/": {"type": "text/html", "filePath": "./assets/public/index.html"},
+        "/post": {"type": "text/html", "filePath": "./assets/public/post.html"},
+        "/list": {"type": "text/html", "filePath": "./assets/public/list.html"},
+        "/error": {"type": "text/html", "filePath": "./assets/public/error.html"},
         "/database": {"type": "application/json", "filePath": "./databaseUser/database.json"},
-        "/error": {"type": "text/html", "filePath": "./assets/error.html"},
         "/bootstrap.min.css": {"type": "text/css", "filePath": "./assets/bootstrap.min.css"},
         "/dashboard.css": {"type": "text/css", "filePath": "./assets/dashboard.css"},
         "/popper.min.js": {"type": "text/css", "filePath": "./assets/popper.min.js"},
         "/bootstrap.min.js": {"type": "text/css", "filePath": "./assets/bootstrap.min.js"},
-        "/favicon.ico": {"type": "image/x-icon", "filePath": "./assets/poke.ico"},
         "/edit": {"type": "text/html", "filePath": "./assets/put.html"},
     }
     imagesTable = {
-        "/deusgrego.jpeg": {"type": "image/png", "filePath": "./assets/deusgrego.jpeg"},
+        "/deusgrego.jpeg": {"type": "image/jpeg", "filePath": "./assets/static/deusgrego.jpeg"},
+
+        "/slide1.jpg": {"type": "image/jpeg", "filePath": "./assets/static/slide1.jpg"},
+        "/slide2.png": {"type": "image/png", "filePath": "./assets/static/slide2.png"},
+        "/slide3.png": {"type": "image/png", "filePath": "./assets/static/slide3.png"},
+
+        "/menu1.gif": {"type": "image/gif", "filePath": "./assets/static/menu1.gif"},
+        "/menu2.gif": {"type": "image/gif", "filePath": "./assets/static/menu2.gif"},
+        "/menu3.gif": {"type": "image/gif", "filePath": "./assets/static/menu3.gif"},
+
+        "/error.gif": {"type": "image/gif", "filePath": "./assets/static/error.gif"},
+
+        "/newfriend.jpeg": {"type": "image/jpeg", "filePath": "./assets/static/newfriend.jpeg"},
+
+        "/logo.png": {"type": "image/png", "filePath": "./assets/static/logo.png"},
+        "/logo.ico": {"type": "image/x-icon", "filePath": "./assets/static/logo.ico"},
     }
 
     @staticmethod
     def response(request: Request):
-        print(request.URI)
         if request.URI.find('database') != -1 or request.URI.find('edit') != -1 or request.URI in GET.urlTable:
             response: Response = Response(status_code=StatusCode.OK, body="", header={})
             if request.URI.find('database') != -1:
@@ -50,15 +63,18 @@ class GET:
 
             return response.encodeResponse()
         elif request.URI in GET.imagesTable:
-            print("HAHAHAHAHAHAHAHAQ")
-            response: Response = Response(status_code=StatusCode.OK, body=GET.imagesTable[request.URI]["filePath"],
-                                          header={})
-            response.headers["Content-Type"] = GET.imagesTable[request.URI]["type"]
-            response.headers["Content-Length"] = str(os.stat(response.body).st_size)
-            response.headers["Accept-Ranges"] = "bytes"
-            print(os.stat(response.body).st_size)
-            print(response)
-            return response.encodeResponse()
+            response: Response = Response(status_code=StatusCode.OK, body={}, header={})
+            try:
+                image = open(GET.imagesTable[request.URI]["filePath"], "rb")
+                byte_image = image.read()
+                response.body = byte_image
+                response.headers["Content-Type"] = GET.imagesTable[request.URI]["type"]
+                response.headers["Content-Length"] = str(os.stat(GET.imagesTable[request.URI]["filePath"]).st_size)
+                response.headers["Accept-Ranges"] = "bytes"
+            except Exception as e:
+                print(e)
+
+            return response.encodeResponseImages()
 
         return HandlerErrors.sendErrorCode(request, StatusCode.NOT_FOUND)
 
