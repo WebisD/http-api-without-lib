@@ -15,6 +15,16 @@ class Response:
 
         return response.encode()
 
+    def encodeResponseImages(self):
+        response = ""
+        response += self.statusLine() + "\n"
+        response += self.headerLine()
+        response += self.server + "\n"
+        response += "\n"
+        #esponse = response.encode()
+
+        return response.encode() + self.body
+
     def statusLine(self):
         """
         :return: HTTP/1.1 200 OK
