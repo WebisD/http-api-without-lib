@@ -9939,3 +9939,7 @@ a.text-dark:hover {
     border: 1px solid #ddd !important
   }
 }
+
+#submit-button: disabled {
+  opacity: 1;
+}
