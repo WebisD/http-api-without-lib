@@ -1,7 +1,8 @@
 from message.StatusCode import StatusCode
 import json
 from databaseUser.ObjectUser import UserObj
-
+from handler.HandlerImage import HandlerImage
+import pathlib
 
 class HandlerDatabase:
     pokemonDatabasePath: str = 'databaseUser/database.json'
@@ -15,13 +16,21 @@ class HandlerDatabase:
             return StatusCode.INTERNAL_SERVER_ERROR
 
         pokemonID = obj.id
+
+        extensionImage = pathlib.Path(obj.image).suffix
+        urlImage = "/" + obj.id +  extensionImage
+
         pokemonData = {
             "name": obj.name,
             "phone": obj.phone,
             "pokemon": obj.pokemon,
-            "image": obj.image
+            "image": urlImage
         }
-
+        try:
+            HandlerImage.addLinkImage(urlImage, extensionImage)
+        except:
+            print("erro")
+        
         isPokemonRegistered, pokemonIndex = HandlerDatabase.isPokemonRegistered(pokemonID)
         if isPokemonRegistered:
             database["users"][pokemonIndex] = pokemonData
@@ -38,6 +47,18 @@ class HandlerDatabase:
         print(f"pokemonID: {pokemonID}")
         print(f"isPokemonID a string: {isinstance(pokemonID, str)}")
         print(f"pokemonData: {pokemonData}\n")
+
+        extensionImage = pathlib.Path(pokemonData.image).suffix
+        urlImage = "/" + pokemonData.id +  extensionImage
+
+        pokemonData = {
+            "name": pokemonData.name,
+            "phone": pokemonData.phone,
+            "pokemon": pokemonData.pokemon,
+            "image": urlImage
+        }
+
+        HandlerImg.addLinkImage(urlImage, extensionImage)
 
         database: dict = HandlerDatabase.getData()
 
@@ -109,7 +130,7 @@ class HandlerDatabase:
         index: int
         element: dict
         for index, element in enumerate(database["users"]):
-            if pokemonID == list(element.keys())[0]:
+            if int(pokemonID) == int(list(element.keys())[0]):
                 return True, index
 
         return False, None
@@ -135,7 +156,6 @@ class HandlerDatabase:
     @staticmethod
     def setData(data: dict):
         HandlerDatabase.pokemonDatabase = data
-        print(data)
         try:
             with open(HandlerDatabase.pokemonDatabasePath, 'w+') as file:
                 file.seek(0)

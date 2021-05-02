@@ -5,7 +5,7 @@ from message.Response import Response
 from message.StatusCode import StatusCode
 import json
 import datetime
-
+from handler.HandlerImage import HandlerImage
 
 class PUT:
     @staticmethod
@@ -13,7 +13,6 @@ class PUT:
         try:
             requestData = json.loads(request.body)
             pokemonRequestData = list(requestData.values())[0]
-            print(f"pokemonRequestData: {pokemonRequestData}")
             if pokemonRequestData["name"] != ""\
                     and pokemonRequestData["phone"] != ""\
                     and pokemonRequestData["pokemon"] != ""\
@@ -22,6 +21,8 @@ class PUT:
                 pokemonID = str(list(requestData.keys())[0])
                 pokemonData = UserObj.fromDict(list(requestData.values())[0])
                 pokemonData.setId(pokemonID)
+
+                HandlerImage.saveImg(obj)
 
                 status = HandlerDatabase.updatePokemonByID(pokemonID, pokemonData)
 

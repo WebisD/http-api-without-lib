@@ -4,7 +4,7 @@ from message.StatusCode import StatusCode
 import os
 from handler.HandlerErrors import HandlerErrors
 from databaseUser.HandlerDatabase import HandlerDatabase
-
+import json
 
 class GET:
     urlTable = {
@@ -17,8 +17,9 @@ class GET:
         "/dashboard.css": {"type": "text/css", "filePath": "./assets/dashboard.css"},
         "/popper.min.js": {"type": "text/css", "filePath": "./assets/popper.min.js"},
         "/bootstrap.min.js": {"type": "text/css", "filePath": "./assets/bootstrap.min.js"},
-        "/edit": {"type": "text/html", "filePath": "./assets/put.html"},
+        "/edit": {"type": "text/html", "filePath": "./assets/public/put.html"},
     }
+    
     imagesTable = {
         "/deusgrego.jpeg": {"type": "image/jpeg", "filePath": "./assets/static/deusgrego.jpeg"},
 
@@ -40,6 +41,13 @@ class GET:
 
     @staticmethod
     def response(request: Request):
+        #att list
+        try:
+            with open('databaseUser/imagesLink.json') as f:
+                GET.imagesTable = json.load(f)
+        except:
+            print("erro in list of links")
+
         if request.URI.find('database') != -1 or request.URI.find('edit') != -1 or request.URI in GET.urlTable:
             response: Response = Response(status_code=StatusCode.OK, body="", header={})
             if request.URI.find('database') != -1:
@@ -87,3 +95,7 @@ class GET:
             parsedParams[splitElem[0]] = splitElem[1]
 
         return parsedParams
+
+    @staticmethod
+    def addImageLinkInGetList(newImg, extension):
+        GET.imagesTable[newImg] = {"type": "image/" + extension[1:], "filePath": "./databaseUser" + newImg}

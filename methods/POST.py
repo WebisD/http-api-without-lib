@@ -2,10 +2,12 @@ import datetime
 from databaseUser.HandlerDatabase import HandlerDatabase
 from databaseUser.ObjectUser import UserObj
 from handler.HandlerErrors import HandlerErrors
+from handler.HandlerImage import HandlerImage
 from message.Response import Response
 from message.StatusCode import StatusCode
 import json
-
+import requests
+import pathlib
 
 class POST:
 
@@ -16,9 +18,9 @@ class POST:
             if data["name"] != "" and data["phone"] != "" and data["pokemon"] != "" and data["image"] != "":
                 obj = UserObj.fromDict(data)
 
-                print(obj)
-
                 obj.setId(datetime.datetime.now().strftime("%d%m%Y%H%M%S"))
+
+                HandlerImage.saveImg(obj)
 
                 status = HandlerDatabase.insertPokemon(obj)
                 header = {
