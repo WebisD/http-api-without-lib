@@ -82,8 +82,8 @@
 <script>
     function sendDelete(event, pokemonID) {
         event.preventDefault();
-        console.log(pokemonID)
-        pokemonID = (pokemonID+'').padStart(14,'0');
+        if(String(pokemonID).length == 13)
+          pokemonID = (pokemonID+'').padStart(14,'0');
         let url = (pokemonID === "/") ? "/" : String("/?id=" + pokemonID)
         let xhttp = new XMLHttpRequest();
         xhttp.open("DELETE", url, true);
