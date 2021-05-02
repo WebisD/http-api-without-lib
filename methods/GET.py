@@ -47,7 +47,6 @@ class GET:
                 GET.imagesTable = json.load(f)
         except:
             print("erro in list of links")
-
         if request.URI.find('database') != -1 or request.URI.find('edit') != -1 or request.URI in GET.urlTable:
             response: Response = Response(status_code=StatusCode.OK, body="", header={})
             if request.URI.find('database') != -1:

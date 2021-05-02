@@ -15,11 +15,12 @@ class HandlerDatabase:
         if database is None:
             return StatusCode.INTERNAL_SERVER_ERROR
 
+        obj.id = int(obj.id)
         pokemonID = obj.id
         HandlerImage.saveImg(obj)
 
         extensionImage = pathlib.Path(obj.image).suffix
-        urlImage = "/" + obj.id +  extensionImage
+        urlImage = "/" + str(obj.id) +  extensionImage
 
         pokemonData = {
             "name": obj.name,
@@ -52,7 +53,7 @@ class HandlerDatabase:
         HandlerImage.saveImg(pokemonData)
 
         extensionImage = pathlib.Path(pokemonData.image).suffix
-        urlImage = "/" + pokemonData.id +  extensionImage
+        urlImage = "/" + str(pokemonData.id) +  extensionImage
 
         pokemonData.image = urlImage
         try:
@@ -85,6 +86,7 @@ class HandlerDatabase:
 
     @staticmethod
     def deletePokemonByID(pokemonID: str):
+        #delete img
         database = HandlerDatabase.getData()
 
         if database is None:
@@ -95,7 +97,8 @@ class HandlerDatabase:
         isPokemonRegistered, pokemonIndex = HandlerDatabase.isPokemonRegistered(pokemonID)
         imageLink = ''
         if isPokemonRegistered:
-            imageLink = database["users"][pokemonIndex][pokemonID]['image']
+            print(pokemonID)
+            imageLink = database["users"][pokemonIndex][str(pokemonID)]['image']
             database["users"].pop(pokemonIndex)
             HandlerImage.deleteImg(pokemonID, imageLink)
         else:
@@ -109,6 +112,7 @@ class HandlerDatabase:
 
     @staticmethod
     def deleteAllPokemons():
+        #delete links
         database = HandlerDatabase.getData()
 
         if database is None:
@@ -122,7 +126,7 @@ class HandlerDatabase:
         return StatusCode.INTERNAL_SERVER_ERROR
 
     @staticmethod
-    def isPokemonRegistered(pokemonID: str):
+    def isPokemonRegistered(pokemonID: int):
         database = HandlerDatabase.getData()
 
         if database is None:
@@ -131,7 +135,7 @@ class HandlerDatabase:
         index: int
         element: dict
         for index, element in enumerate(database["users"]):
-            if pokemonID == list(element.keys())[0]:
+            if pokemonID == int(list(element.keys())[0]):
                 return True, index
 
         return False, None

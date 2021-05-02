@@ -13,13 +13,13 @@ import os
 class HandlerImage:
    
     @staticmethod
-    def saveImg(objUser):
+    def saveImg(objUser: UserObj):
         try:
             if(len(objUser.image) > 22):
-                #HandlerImage.deleteImg(objUser.id, "/" + objUser.id + pathlib.Path(objUser.image))
                 img_data = requests.get(objUser.image).content
-                fileImg = "databaseUser/" + objUser.id + pathlib.Path(objUser.image).suffix
+                fileName = str(objUser.id) + str((pathlib.Path(objUser.image).suffix))
 
+                fileImg = "databaseUser/" + fileName
                 with open(fileImg, 'wb') as handler:
                     handler.write(img_data)
         except:
@@ -27,17 +27,25 @@ class HandlerImage:
 
     @staticmethod
     def deleteImg(objId, imageLink):
-        print("A")
-        #try:
-        #    GET.GET.deleteImageLinkInGetList(imageLink)
-        #    os.remove('databaseUser/' + objId + ".*")
-        #except:
-        #    print("erro when delete img")
+        try:
+            HandlerImage.deleteLinkImage(imageLink)
+            os.remove('databaseUser/' + str(objId) + ".*")
+        except:
+            print("erro when delete img")
 
     @staticmethod
     def addLinkImage(urlImage, extensionImage):
         GET.GET.addImageLinkInGetList(urlImage, extensionImage)
 
+        try:
+            with open('databaseUser/imagesLink.json', 'w') as f:
+                json.dump(GET.GET.imagesTable, f)
+        except:
+            print("new image link not save")
+
+    @staticmethod
+    def deleteLinkImage(urlImage):
+        GET.GET.deleteImageLinkInGetList(urlImage)
         try:
             with open('databaseUser/imagesLink.json', 'w') as f:
                 json.dump(GET.GET.imagesTable, f)
