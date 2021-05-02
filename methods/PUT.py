@@ -22,8 +22,6 @@ class PUT:
                 pokemonData = UserObj.fromDict(list(requestData.values())[0])
                 pokemonData.setId(pokemonID)
 
-                HandlerImage.saveImg(obj)
-
                 status = HandlerDatabase.updatePokemonByID(pokemonID, pokemonData)
 
                 header = {

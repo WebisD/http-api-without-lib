@@ -20,8 +20,6 @@ class POST:
 
                 obj.setId(datetime.datetime.now().strftime("%d%m%Y%H%M%S"))
 
-                HandlerImage.saveImg(obj)
-
                 status = HandlerDatabase.insertPokemon(obj)
                 header = {
                     "Connection": "Closed"

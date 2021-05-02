@@ -16,6 +16,7 @@ class HandlerDatabase:
             return StatusCode.INTERNAL_SERVER_ERROR
 
         pokemonID = obj.id
+        HandlerImage.saveImg(obj)
 
         extensionImage = pathlib.Path(obj.image).suffix
         urlImage = "/" + obj.id +  extensionImage
@@ -29,7 +30,7 @@ class HandlerDatabase:
         try:
             HandlerImage.addLinkImage(urlImage, extensionImage)
         except:
-            print("erro")
+            print("erro in link image")
         
         isPokemonRegistered, pokemonIndex = HandlerDatabase.isPokemonRegistered(pokemonID)
         if isPokemonRegistered:
@@ -48,25 +49,21 @@ class HandlerDatabase:
         print(f"isPokemonID a string: {isinstance(pokemonID, str)}")
         print(f"pokemonData: {pokemonData}\n")
 
+        HandlerImage.saveImg(pokemonData)
+
         extensionImage = pathlib.Path(pokemonData.image).suffix
         urlImage = "/" + pokemonData.id +  extensionImage
 
-        pokemonData = {
-            "name": pokemonData.name,
-            "phone": pokemonData.phone,
-            "pokemon": pokemonData.pokemon,
-            "image": urlImage
-        }
-
-        HandlerImg.addLinkImage(urlImage, extensionImage)
-
+        pokemonData.image = urlImage
+        try:
+            HandlerImage.addLinkImage(urlImage, extensionImage)
+        except:
+            print("erro in link image")
         database: dict = HandlerDatabase.getData()
 
         if database is None:
             return StatusCode.INTERNAL_SERVER_ERROR
-
         status = StatusCode.OK
-
         isPokemonRegistered, pokemonIndex = HandlerDatabase.isPokemonRegistered(pokemonID)
         if isPokemonRegistered:
             arePokemonEqual = HandlerDatabase.arePokemonsEqual(
@@ -96,13 +93,17 @@ class HandlerDatabase:
         status = StatusCode.OK
 
         isPokemonRegistered, pokemonIndex = HandlerDatabase.isPokemonRegistered(pokemonID)
+        imageLink = ''
         if isPokemonRegistered:
+            imageLink = database["users"][pokemonIndex][pokemonID]['image']
             database["users"].pop(pokemonIndex)
+            HandlerImage.deleteImg(pokemonID, imageLink)
         else:
             status = StatusCode.NOT_FOUND
 
         if HandlerDatabase.setData(database):
             return status
+        
 
         return StatusCode.INTERNAL_SERVER_ERROR
 
@@ -130,7 +131,7 @@ class HandlerDatabase:
         index: int
         element: dict
         for index, element in enumerate(database["users"]):
-            if int(pokemonID) == int(list(element.keys())[0]):
+            if pokemonID == list(element.keys())[0]:
                 return True, index
 
         return False, None
@@ -169,6 +170,8 @@ class HandlerDatabase:
 
     @staticmethod
     def arePokemonsEqual(pokemonA: dict, pokemonB: dict):
+        print(pokemonA)
+        print(pokemonB)
         for k, v in pokemonA.items():
             if v != pokemonB[k]:
                 return False

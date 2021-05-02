@@ -99,3 +99,7 @@ class GET:
     @staticmethod
     def addImageLinkInGetList(newImg, extension):
         GET.imagesTable[newImg] = {"type": "image/" + extension[1:], "filePath": "./databaseUser" + newImg}
+    
+    @staticmethod
+    def deleteImageLinkInGetList(newImg):
+        del GET.imagesTable[newImg]

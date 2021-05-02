@@ -2,8 +2,6 @@ import enum
 from databaseUser.HandlerDatabase import HandlerDatabase
 from message.Response import Response
 
-
-
 class DELETE:
     @staticmethod
     def response(request):
@@ -32,5 +30,5 @@ class DELETE:
     @staticmethod
     def getIdOfUrl(URI):
         if len(URI) > 5 and URI.rfind("/?id=") != -1:
-            return URI[5: len(URI)]
+            return int(URI[5: len(URI)])
         return -1
