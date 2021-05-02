@@ -17,7 +17,7 @@ class GET:
         "/dashboard.css": {"type": "text/css", "filePath": "./assets/dashboard.css"},
         "/popper.min.js": {"type": "text/css", "filePath": "./assets/popper.min.js"},
         "/bootstrap.min.js": {"type": "text/css", "filePath": "./assets/bootstrap.min.js"},
-        "/edit": {"type": "text/html", "filePath": "./assets/put.html"},
+        "/edit": {"type": "text/html", "filePath": "./assets/public/put.html"},
     }
     imagesTable = {
         "/deusgrego.jpeg": {"type": "image/jpeg", "filePath": "./assets/static/deusgrego.jpeg"},
