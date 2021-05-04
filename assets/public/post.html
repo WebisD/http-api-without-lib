@@ -57,25 +57,31 @@
                     <div id="form-container">
                         <div class="form-group">
                             <label for="nameInputName">Name</label>
-                            <input name="name" type="text" class="form-control" id="nameInputName"
-                                   placeholder="Ashe123">
+                            <input class="form-control" id="nameInputName" name="name" placeholder="Ashe123"
+                                   type="text">
                         </div>
                         <div class="form-group">
                             <label for="phoneInputName">Phone</label>
-                            <input name="phone" type="text" class="form-control" id="phoneInputName"
-                                   placeholder="(11) 11111-1111">
+                            <input class="form-control" id="phoneInputName" name="phone" placeholder="(11) 11111-1111"
+                                   type="text">
                         </div>
                         <div class="form-group">
                             <label for="pokemonInputName">Pokemon</label>
-                            <input name="pokemon" type="text" class="form-control" id="pokemonInputName"
-                                   placeholder="Charmander">
+                            <input class="form-control" id="pokemonInputName" name="pokemon" placeholder="Charmander"
+                                   type="text">
                         </div>
                         <div class="form-group">
                             <label for="imageInputName">Image</label>
-                            <input name="image" type="text" class="form-control" id="imageInputName"
-                                   placeholder="Link to image">
+                            <input class="form-control" id="imageInputName" name="image" placeholder="Link to image"
+                                   style="display:none" type="text"><br>
+                            <img alt="Card image cap" class="card-img-top" height="200" id="imageTag" src=""
+                                 style='object-fit: cover'>
+                            <br>
+                            <input id="imageFileInput" onchange="previewFile()" type="file"><br>
                         </div>
-                        <button id="submit-button" type="submit" onclick="sendRequest()" class="btn btn-primary" style="">Add</button>
+                        <button class="btn btn-primary" id="submit-button" onclick="sendRequest()" style=""
+                                type="submit">Add
+                        </button>
                         <br><br>
                         <div id="register_response"></div>
                     </div>
@@ -85,7 +91,7 @@
                 <img src="/newfriend.jpeg" class="img-responsive d-block w-100" style='object-fit: cover'  alt="logo"/>
                 </div>
             </div>
-            
+
         </main>
     </div>
 </div>
@@ -108,54 +114,64 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script>
 
-    function toJSONString(form) {
+    function toJSONString(form, image) {
         const obj = {};
-        const elements = form.querySelectorAll("input, select, textarea");
-        for (let i = 0; i < elements.length; ++i) {
-            const element = elements[i];
-            const name = element.name;
-            const value = element.value;
 
-            if (name) {
-                obj[name] = value;
-            }
-        }
+        obj['name'] = document.getElementById("nameInputName").value
+        obj['phone'] = document.getElementById("phoneInputName").value
+        obj['pokemon'] = document.getElementById("pokemonInputName").value
+        obj['image'] = image;
 
         return JSON.stringify(obj);
     }
 
+    function previewFile() {
+        const preview = document.querySelector('img');
+        const file = document.querySelector('input[type=file]').files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            // convert image file to base64 string
+            preview.src = reader.result;
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+
     function sendRequest() {
-        let json = toJSONString(document.getElementById("form-container"));
+        const preview = document.querySelector('img');
+        let json = toJSONString(document.getElementById("form-container"), preview.src);
+        json = json + "\r\n\0";
         let xhr = new XMLHttpRequest();
         let url = "/post";
         let button = document.getElementById("submit-button");
-        let responseDiv = document.getElementById("register_response")
         let oldButtonColor = button.style.backgroundColor;
         let oldButtonName = button.innerText;
 
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
+
         xhr.onreadystatechange = function () {
-            switch (this.readyState){
+            switch (this.readyState) {
                 case 1:
                     button.style.opacity = "1.0"
                     button.setAttribute("disabled", "true");
                     console.log("OPENED")
                     break;
                 case 4:
-                    // responseDiv.innerHTML = this.responseText;
-                    // setTimeout(() => {
-                    //     responseDiv.innerHTML = "";
-                    // }, 3000)
-
-                    if (this.status === 201){
+                    if (this.status === 201) {
                         button.style.backgroundColor = "#48D40B"
                         button.innerText = "OK";
-                    }
-                    else {
+                    } else {
                         button.style.backgroundColor = "#EB1C0A"
                         button.innerText = "ERROR"
                     }
 
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         button.style.background = oldButtonColor;
                         button.innerText = oldButtonName;
                         button.removeAttribute("disabled");
@@ -165,11 +181,8 @@
                     break;
             }
         }
-
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
         xhr.send(json);
+        console.log("send: ", json)
     }
 
 </script>
