@@ -82,8 +82,8 @@
 <script>
     function sendDelete(event, pokemonID) {
         event.preventDefault();
-        console.log(String(pokemonID))
-        console.log(Number(pokemonID))
+        if(String(pokemonID).length == 13)
+          pokemonID = (pokemonID+'').padStart(14,'0');
         let url = (pokemonID === "/") ? "/" : String("/?id=" + pokemonID)
         let xhttp = new XMLHttpRequest();
         xhttp.open("DELETE", url, true);
@@ -106,7 +106,7 @@
             if ("users" in data) {
                 for (let usersElements of data["users"]) {
                     let [pokemonID, pokemonData] = Object.entries(usersElements)[0]
-                    console.log((pokemonID))
+                    pokemonID = '' + (pokemonID)
                     document.getElementById("cards").innerHTML += `<div class="card ml-3 mt-3" style="width: 18rem;">
                                                       <img class="card-img-top" style='object-fit: cover'  src="${pokemonData['image']}" height="200" alt="Card image cap">
                                                       <div class="card-body">
@@ -114,7 +114,7 @@
                                                       <h6 class="card-subtitle mb-2 text-muted">${pokemonData['pokemon']}</h6>
                                                       <p class="card-text">${pokemonData['phone']}</p>
                                                       <a href="/edit?id=${pokemonID}" class="card-link">Edit</a>
-                                                      <a href="#" onclick="sendDelete(event, ${parseInt(pokemonID)})" class="card-link">Delete</a>
+                                                      <a href="#" onclick="sendDelete(event, ${pokemonID})" class="card-link">Delete</a>
                                                       </div>
                                                     </div>`;
                 }
