@@ -1,4 +1,6 @@
 # IDE
 __pycache__
+node_modules/
 .vscode
 .idea
+.stylelintrc.json
