@@ -8,12 +8,12 @@ import datetime
 
 class PUT:
     @staticmethod
-    def response(request):
-        """ Executa uma atualização quando há uma requisição do tipo PUT, retornando uma resposta com
-        os headers e o body correto. Atualiza o objeto selecionado dentro do database, baseado no ID recebido.
+    def response(request) -> str:
+        """ Performs an update when there is a PUT request, returning a response with
+        the headers and the correct body. Updates the selected object within the database, based on the received ID.
 
-        :param request: Objeto da request, contendo o body e os headers dessa requisição
-        :returns: A resposta para essa requisição
+        :param request: Request object, containing the body and headers of that request
+        :returns: The answer to this request
 
         """
         try:
@@ -43,11 +43,11 @@ class PUT:
             return HandlerErrors.sendErrorCode(request, StatusCode.BAD_REQUEST)
 
     @staticmethod
-    def getIdOfUrl(URI):
-        """ Retornar o valor de id presente na URL
+    def getIdOfUrl(URI) -> int:
+        """ Return the id value present in the URL
     
-        :param URI: String da url
-        :returns: O valor do id 
+        :param URI: String of the url
+        :returns: The id value
 
         """
         if len(URI) > 5 and URI.rfind("/?id=") != -1:

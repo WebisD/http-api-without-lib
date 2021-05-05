@@ -39,12 +39,12 @@ class GET:
     }
 
     @staticmethod
-    def response(request: Request):
-        """ Executa um operação de retorno quando há uma requisição do tipo GET, retornando uma resposta com
-        os headers e o body correto. Procura dentro das URL's mapeadas, o URL recebido, retornando o recurso solicitado.
+    def response(request: Request) -> str:
+        """ Performs a return operation when there is a request of type GET, returning a response with
+        the headers and the correct body. Search within the mapped URLs, the received URL, returning the requested resource.
 
-        :param request: Objeto da request, contendo o body e os headers dessa requisição
-        :returns: A resposta para essa requisição
+        :param request: Request object, containing the body and headers of that request
+        :returns: The answer to this request
 
         """
         if request.URI.find('database') != -1 or request.URI.find('edit') != -1 or request.URI in GET.urlTable:
@@ -86,12 +86,12 @@ class GET:
         return HandlerErrors.sendErrorCode(request, StatusCode.NOT_FOUND)
 
     @staticmethod
-    def getParamsFromURL(url):
-        """ Realiza um parse dos parametros presentes na URL
+    def getParamsFromURL(url) -> dict:
+        """ Performs a parse of the parameters present in the URL
     
-        :param URI: String da url
-        :returns: Um dicionário com todos os parametros contidos na URL
-
+        :param URI: String of the url
+        :returns: A dictionary with all parameters contained in the URL
+        
         """
         parsedParams: dict = {}
         elements = url.split('?')[1].split('&')

@@ -4,12 +4,12 @@ from message.Response import Response
 
 class DELETE:
     @staticmethod
-    def response(request):
-        """ Executa uma remoção quando há uma requisição do tipo DELETE, retornando uma resposta com
-        os headers e o body correto. Remove o objeto dentro do database, baseado no ID recebido.
+    def response(request) -> str:
+        """ Performs a removal when there is a DELETE request, returning a response with
+        the headers and the correct body. Removes the object within the database, based on the received ID.
 
-        :param request: Objeto da request, contendo o body e os headers dessa requisição
-        :returns: A resposta para essa requisição
+        :param request: Request object, containing the body and headers of that request
+        :returns: The answer to this request
 
         """
         print("DELETE::response called")
@@ -35,11 +35,11 @@ class DELETE:
         return response.encodeResponse()
 
     @staticmethod
-    def getIdOfUrl(URI):
-        """ Retornar o valor de id presente na URL
+    def getIdOfUrl(URI) -> int:
+        """ Return the id value present in the URL
     
-        :param URI: String da url
-        :returns: O valor do id 
+        :param URI: String of the url
+        :returns: The id value
 
         """
         if len(URI) > 5 and URI.rfind("/?id=") != -1:

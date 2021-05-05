@@ -9,12 +9,12 @@ import json
 class POST:
 
     @staticmethod
-    def response(request):
-        """ Executa uma inserção quando há uma requisição do tipo POST, retornando uma resposta com
-        os headers e o body correto. Adiciona o objeto recebido dentro do database.
+    def response(request) -> str:
+        """ Performs an insertion when there is a POST request, returning a response with
+        the headers and the correct body. Adds the received object within the database.
 
-        :param request: Objeto da request, contendo o body e os headers dessa requisição
-        :returns: A resposta para essa requisição
+        :param request: Request object, containing the body and headers of that request
+        :returns: The answer to this request
 
         """
         try:
