@@ -30,5 +30,6 @@ class POST:
                 return response.encodeResponse()
             else:
                 raise TypeError("Invalid data")
-        except:
+        except Exception as e:
+            print(e)
             return HandlerErrors.sendErrorCode(request, StatusCode.BAD_REQUEST)

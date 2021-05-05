@@ -108,7 +108,7 @@
                     let [pokemonID, pokemonData] = Object.entries(usersElements)[0]
                     console.log((pokemonID))
                     document.getElementById("cards").innerHTML += `<div class="card ml-3 mt-3" style="width: 18rem;">
-                                                      <img class="card-img-top" style='object-fit: cover'  src="${pokemonData['image']}" height="200" alt="Card image cap">
+                                                      <img class="card-img-top" style='object-fit: cover'  src="${pokemonData['image']}" alt="Card image cap">
                                                       <div class="card-body">
                                                       <h5 class="card-title">${pokemonData['name']}</h5>
                                                       <h6 class="card-subtitle mb-2 text-muted">${pokemonData['pokemon']}</h6>

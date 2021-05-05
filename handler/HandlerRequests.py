@@ -9,23 +9,51 @@ from methods.DELETE import DELETE
 from methods.GET import GET
 from methods.POST import POST
 from methods.PUT import PUT
+import string
 
-import time
 
-
-def recv(sock, chunkSize=8192, timeout=2):
+def recv(sock, chunkSize=8192):
     fragments = []
 
     data = None
 
     while True:
+        print("Entrei no rcv")
         data = sock.recv(chunkSize)
-        print(data, end="\n\n\n\n\n\n\n")
 
-        if not data:
-            return b"".join(fragments)
+        if data is None:
+            print("Data vazia")
+            return
 
-        fragments.append(data)
+        try:
+            decoded_data = data.decode()
+            if decoded_data.find("GET /") != -1 or decoded_data.find("PUT /") != -1 or decoded_data.find(
+                    "DELETE /") != -1:
+                # Not a post, return
+                print("NAP: ")
+                print(data)
+                return data
+
+            print("É um POST")
+            #print(50 * '-')
+            print(data)
+            #print(50 * '-')
+
+            #if decoded_data[0] == '{' and decoded_data[-1] != '}':
+            #    fragments.append(data[:-1])
+            #else:
+            fragments.append(data)
+            if decoded_data[-1] == '}':
+                print("vou sair")
+
+                a = b"".join(fragments)
+
+                print("rcv() retornou:")
+                print(a)
+                return a
+
+        except Exception as e:
+            print(e)
 
 
 class Handler(Thread):
@@ -35,14 +63,18 @@ class Handler(Thread):
 
     def run(self):
         while True:
+            print("No aguardo")
             connectionSocket, addr = self.server.serverSocket.accept()
-            
+
             while True:
                 request = recv(connectionSocket, 8192).decode()
-                # request = connectionSocket.recv(100000).decode()
-                print(request)
-        
-                if not request: 
+                # request = connectionSocket.recv(8192).decode()
+
+                print("Sai do recv()")
+                ##print(request)
+
+                if not request:
+                    print("SAI")
                     break
 
                 request = Request(ParserMessage.parseRequest(request))

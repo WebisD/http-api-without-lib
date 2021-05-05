@@ -144,7 +144,7 @@
     function sendRequest() {
         const preview = document.querySelector('img');
         let json = toJSONString(document.getElementById("form-container"), preview.src);
-        json = json + "\r\n\0";
+        //json = json + "\r\n";
         let xhr = new XMLHttpRequest();
         let url = "/post";
         let button = document.getElementById("submit-button");
