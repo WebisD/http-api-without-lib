@@ -4,12 +4,11 @@ from handler.HandlerRequests import Handler
 
 class Server:
     def __init__(self, ip, port):
-        """ Realiza a criação de um objeto do tipo Server, além disso
-        irá criar um handler que eexecutará em uma thread esperando as requisições
-    
-        :param ip: IP onde o servidor ficará alocado
-        :param port: Porta onde o servidor ficará alocado
+        """ Performs the creation of an object of type Server, in addition
+        will create a handler that will execute on a thread waiting for requests
 
+        :param ip: IP where the server will be allocated
+        :param port: Port where the server will be allocated
         """
         self.ip = ip
         self.port = port
@@ -24,10 +23,10 @@ class Server:
         self.handler.start()     
 
 
-def startServer():
-    """ Realiza a intanciação de um objeto do tipo Server, alocando-o no 
-    ip local e na porta 8080
-        
+def startServer() -> None:
+    """ It performs the instantiation of an object of type Server, allocating it in the
+    local ip and port 8080
+
     """
     serverHttp = Server('localhost', 8083)
     print("Server started on " + serverHttp.ip + ":" + str(serverHttp.port))
