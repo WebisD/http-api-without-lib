@@ -1,6 +1,8 @@
 from server import startServer
 
-
+""" Chama a função que instanciará um servidor
+        
+"""
 def main():
     startServer()
 
