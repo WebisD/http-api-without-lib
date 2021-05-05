@@ -9,6 +9,12 @@ class HandlerDatabase:
 
     @staticmethod
     def insertPokemon(obj: UserObj):
+        """ Executa uma inserção de um novo objeto no database
+
+        :param obj: Objeto a ser inserido
+        :returns: O status code dessa inserção
+
+        """
         database: dict = HandlerDatabase.getData()
 
         if database is None:
@@ -35,6 +41,13 @@ class HandlerDatabase:
 
     @staticmethod
     def updatePokemonByID(pokemonID: str, pokemonData: UserObj):
+        """ Executa uma atualização de um objeto existente no database
+        
+        :param pokemonID: ID do objeto a ser atualizado
+        :param pokemonData: Informações atualizadas do objeto
+        :returns: O status code dessa atualização
+
+        """
         print(f"pokemonID: {pokemonID}")
         print(f"isPokemonID a string: {isinstance(pokemonID, str)}")
         print(f"pokemonData: {pokemonData}\n")
@@ -67,6 +80,12 @@ class HandlerDatabase:
 
     @staticmethod
     def deletePokemonByID(pokemonID: str):
+        """ Executa uma remoção de um objeto existente no database
+        
+        :param pokemonID: ID do objeto a ser deletado
+        :returns: O status code dessa remoção
+
+        """
         database = HandlerDatabase.getData()
 
         if database is None:
@@ -87,6 +106,11 @@ class HandlerDatabase:
 
     @staticmethod
     def deleteAllPokemons():
+        """ Executa uma remoção de todos os objetos existentes no database
+        
+        :returns: O status code dessa remoção
+
+        """
         database = HandlerDatabase.getData()
 
         if database is None:
@@ -101,6 +125,12 @@ class HandlerDatabase:
 
     @staticmethod
     def isPokemonRegistered(pokemonID: str):
+        """ Executa uma checagem de ID, para conferir se o objeto existe no database
+        
+        :param pokemonID: ID do objeto a ser checado
+        :returns: Se o objeto está registrado e o índice no database (caso exista)
+
+        """
         database = HandlerDatabase.getData()
 
         if database is None:
@@ -116,6 +146,11 @@ class HandlerDatabase:
 
     @staticmethod
     def getSizeList():
+        """ Executa uma leitura do database para ver o tamanho da lista
+        
+        :returns: O tamanho da lista de objetos presentes no database
+
+        """
         database = HandlerDatabase.getData()
 
         if database is None:
@@ -125,6 +160,11 @@ class HandlerDatabase:
 
     @staticmethod
     def getData():
+        """ Executa uma leitura do arquivo database JSON
+        
+        :returns: A lista de objetos presentes no arquivo JSON
+
+        """
         try:
             with open(HandlerDatabase.pokemonDatabasePath, 'r+') as file:
                 HandlerDatabase.pokemonDatabase = json.load(file)
@@ -134,6 +174,12 @@ class HandlerDatabase:
 
     @staticmethod
     def setData(data: dict):
+        """ Executa uma atualização do JSON
+
+        :param data: dicionário contendo o database
+        :returns: Se conseguiu atualizar o arquivo JSON ou não
+
+        """
         HandlerDatabase.pokemonDatabase = data
         print(data)
         try:
@@ -149,6 +195,11 @@ class HandlerDatabase:
 
     @staticmethod
     def arePokemonsEqual(pokemonA: dict, pokemonB: dict):
+        """ Executa uma comparação entre dois dicionários, referentes a dois objetos
+        
+        :returns: Se os dicionários são iguais ou não
+
+        """
         for k, v in pokemonA.items():
             if v != pokemonB[k]:
                 return False
