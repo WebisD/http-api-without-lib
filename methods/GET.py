@@ -40,6 +40,13 @@ class GET:
 
     @staticmethod
     def response(request: Request):
+        """ Executa um operação de retorno quando há uma requisição do tipo GET, retornando uma resposta com
+        os headers e o body correto. Procura dentro das URL's mapeadas, o URL recebido, retornando o recurso solicitado.
+
+        :param request: Objeto da request, contendo o body e os headers dessa requisição
+        :returns: A resposta para essa requisição
+
+        """
         if request.URI.find('database') != -1 or request.URI.find('edit') != -1 or request.URI in GET.urlTable:
             response: Response = Response(status_code=StatusCode.OK, body="", header={})
             if request.URI.find('database') != -1:
@@ -80,6 +87,12 @@ class GET:
 
     @staticmethod
     def getParamsFromURL(url):
+        """ Realiza um parse dos parametros presentes na URL
+    
+        :param URI: String da url
+        :returns: Um dicionário com todos os parametros contidos na URL
+
+        """
         parsedParams: dict = {}
         elements = url.split('?')[1].split('&')
         for elem in elements:

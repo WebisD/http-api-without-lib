@@ -6,10 +6,16 @@ from message.StatusCode import StatusCode
 import json
 import datetime
 
-
 class PUT:
     @staticmethod
     def response(request):
+        """ Executa uma atualização quando há uma requisição do tipo PUT, retornando uma resposta com
+        os headers e o body correto. Atualiza o objeto selecionado dentro do database, baseado no ID recebido.
+
+        :param request: Objeto da request, contendo o body e os headers dessa requisição
+        :returns: A resposta para essa requisição
+
+        """
         try:
             requestData = json.loads(request.body)
             pokemonRequestData = list(requestData.values())[0]
@@ -38,6 +44,12 @@ class PUT:
 
     @staticmethod
     def getIdOfUrl(URI):
+        """ Retornar o valor de id presente na URL
+    
+        :param URI: String da url
+        :returns: O valor do id 
+
+        """
         if len(URI) > 5 and URI.rfind("/?id=") != -1:
             return int(URI[5: len(URI)])
         return -1

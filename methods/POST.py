@@ -6,11 +6,17 @@ from message.Response import Response
 from message.StatusCode import StatusCode
 import json
 
-
 class POST:
 
     @staticmethod
     def response(request):
+        """ Executa uma inserção quando há uma requisição do tipo POST, retornando uma resposta com
+        os headers e o body correto. Adiciona o objeto recebido dentro do database.
+
+        :param request: Objeto da request, contendo o body e os headers dessa requisição
+        :returns: A resposta para essa requisição
+
+        """
         try:
             data = json.loads(request.body)
             if data["name"] != "" and data["phone"] != "" and data["pokemon"] != "" and data["image"] != "":
