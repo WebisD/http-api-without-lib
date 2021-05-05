@@ -39,9 +39,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/post">
+                        <a class="nav-link" href="/post">
                             <span data-feather="plus"></span>
-                            Add new <span class="sr-only">(current)</span>
+                            Add new 
                         </a>
                     </li>
                 </ul>
@@ -70,10 +70,14 @@
                             <input name="pokemon" type="text" class="form-control" id="pokemonInputName"
                                    placeholder="Charmander">
                         </div>
-                        <div class="form-group">
+                         <div class="form-group">
                             <label for="imageInputName">Image</label>
-                            <input name="image" type="text" class="form-control" id="imageInputName"
-                                   placeholder="Link to image">
+                            <input class="form-control" id="imageInputName" name="image" placeholder="Link to image"
+                                   style="display:none" type="text"><br>
+                            <img id="imagePrv" alt="Card image cap" class="card-img-top" height="200" id="imageTag" src=""
+                                 style='object-fit: cover'>
+                            <br>
+                            <input id="imageFileInput" onchange="previewFile()" type="file"><br>
                         </div>
                         <button id="submit-button" type="submit" onclick="sendRequest()" class="btn btn-primary">Save Changes</button>
                         <br><br>
@@ -103,7 +107,7 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script>
 
-    function toJSONString(pokemonID, form) {
+    function toJSONString(pokemonID, form, image) {
         const pokemonData = {};
         const elements = form.querySelectorAll("input, select, textarea");
         for (let i = 0; i < elements.length; ++i) {
@@ -114,6 +118,10 @@
             if (name) {
                 pokemonData[name] = value;
             }
+
+            if(image){
+                pokemonData['image'] = image;
+            }
         }
 
         const pokemon = {}
@@ -123,12 +131,28 @@
         return JSON.stringify(pokemon);
     }
 
+     function previewFile() {
+        const preview = document.querySelector('img');
+        const file = document.querySelector('input[type=file]').files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            // convert image file to base64 string
+            preview.src = reader.result;
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
     function sendRequest() {
         const urlQuery = window.location.search;
         const urlParams = new URLSearchParams(urlQuery)
         const id = urlParams.get('id')
 
-        let json = toJSONString(id, document.getElementById("form-container"));
+        const preview = document.querySelector('img');
+        let json = toJSONString(id, document.getElementById("form-container"), preview.src);
         let xhr = new XMLHttpRequest();
         let url = "/edit";
 
@@ -136,6 +160,10 @@
         let responseDiv = document.getElementById("update_response")
         let oldButtonColor = button.style.backgroundColor;
         let oldButtonName = button.innerText;
+
+        xhr.open("PUT", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
 
         xhr.onreadystatechange = function () {
             switch (this.readyState){
@@ -171,10 +199,8 @@
             }
         }
 
-        xhr.open("PUT", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("Cache-Control", "no-cache, no-store, max-age=0");
         xhr.send(json);
+        console.log("send: ", json);
     }
 
     $.ajax({
@@ -200,7 +226,7 @@
             document.getElementById('nameInputName').value = pokemonData.name
             document.getElementById('phoneInputName').value = pokemonData.phone
             document.getElementById('pokemonInputName').value = pokemonData.pokemon
-            document.getElementById('imageInputName').value = pokemonData.image
+            document.getElementById('imagePrv').src = pokemonData.image
         }
     });
 
