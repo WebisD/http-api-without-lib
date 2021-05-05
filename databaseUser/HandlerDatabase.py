@@ -8,11 +8,11 @@ class HandlerDatabase:
     pokemonDatabase: dict = {}
 
     @staticmethod
-    def insertPokemon(obj: UserObj):
-        """ Executa uma inserção de um novo objeto no database
+    def insertPokemon(obj: UserObj) -> StatusCode:
+        """ Insert a new object in the database
 
-        :param obj: Objeto a ser inserido
-        :returns: O status code dessa inserção
+        :param obj: Object to be inserted
+        :returns: Status code of this insertion
 
         """
         database: dict = HandlerDatabase.getData()
@@ -40,12 +40,12 @@ class HandlerDatabase:
         return StatusCode.INTERNAL_SERVER_ERROR
 
     @staticmethod
-    def updatePokemonByID(pokemonID: str, pokemonData: UserObj):
-        """ Executa uma atualização de um objeto existente no database
-        
-        :param pokemonID: ID do objeto a ser atualizado
-        :param pokemonData: Informações atualizadas do objeto
-        :returns: O status code dessa atualização
+    def updatePokemonByID(pokemonID: str, pokemonData: UserObj) -> StatusCode:
+        """ Update an object present in the database
+
+        :param pokemonID: Object ID to be updated
+        :param pokemonData: New object information
+        :returns: Status code of this update
 
         """
         print(f"pokemonID: {pokemonID}")
@@ -79,11 +79,11 @@ class HandlerDatabase:
         return StatusCode.INTERNAL_SERVER_ERROR
 
     @staticmethod
-    def deletePokemonByID(pokemonID: str):
-        """ Executa uma remoção de um objeto existente no database
-        
-        :param pokemonID: ID do objeto a ser deletado
-        :returns: O status code dessa remoção
+    def deletePokemonByID(pokemonID: str) -> StatusCode:
+        """ Delete an object present in the database
+
+        :param pokemonID: Object ID to be deleted
+        :returns: Status code of this operation
 
         """
         database = HandlerDatabase.getData()
@@ -105,10 +105,10 @@ class HandlerDatabase:
         return StatusCode.INTERNAL_SERVER_ERROR
 
     @staticmethod
-    def deleteAllPokemons():
-        """ Executa uma remoção de todos os objetos existentes no database
+    def deleteAllPokemons() -> StatusCode:
+        """ Delete all objects in the database
         
-        :returns: O status code dessa remoção
+        :returns: Status code of this operation
 
         """
         database = HandlerDatabase.getData()
@@ -124,11 +124,11 @@ class HandlerDatabase:
         return StatusCode.INTERNAL_SERVER_ERROR
 
     @staticmethod
-    def isPokemonRegistered(pokemonID: str):
-        """ Executa uma checagem de ID, para conferir se o objeto existe no database
+    def isPokemonRegistered(pokemonID: str) -> bool, int:
+        """ Check if object exists in database
         
-        :param pokemonID: ID do objeto a ser checado
-        :returns: Se o objeto está registrado e o índice no database (caso exista)
+        :param pokemonID: Object ID to be checked
+        :returns: If the object exists and the index in the database
 
         """
         database = HandlerDatabase.getData()
@@ -145,10 +145,10 @@ class HandlerDatabase:
         return False, None
 
     @staticmethod
-    def getSizeList():
-        """ Executa uma leitura do database para ver o tamanho da lista
+    def getSizeList() -> int:
+        """ Get number of objects in database
         
-        :returns: O tamanho da lista de objetos presentes no database
+        :returns: Size of object list
 
         """
         database = HandlerDatabase.getData()
@@ -159,10 +159,10 @@ class HandlerDatabase:
         return len(database["users"])
 
     @staticmethod
-    def getData():
-        """ Executa uma leitura do arquivo database JSON
+    def getData() -> dict:
+        """ Read json file and set dictionary with values
         
-        :returns: A lista de objetos presentes no arquivo JSON
+        :returns: Dictionary with the list of objects
 
         """
         try:
@@ -173,11 +173,11 @@ class HandlerDatabase:
             return None
 
     @staticmethod
-    def setData(data: dict):
-        """ Executa uma atualização do JSON
+    def setData(data: dict) -> bool:
+        """ Write json file with dictionary
 
-        :param data: dicionário contendo o database
-        :returns: Se conseguiu atualizar o arquivo JSON ou não
+        :param data: dictionary containing the database
+        :returns: If can be updated or not
 
         """
         HandlerDatabase.pokemonDatabase = data
@@ -194,10 +194,10 @@ class HandlerDatabase:
             return False
 
     @staticmethod
-    def arePokemonsEqual(pokemonA: dict, pokemonB: dict):
-        """ Executa uma comparação entre dois dicionários, referentes a dois objetos
+    def arePokemonsEqual(pokemonA: dict, pokemonB: dict) -> bool:
+        """ Compare two dicionaries
         
-        :returns: Se os dicionários são iguais ou não
+        :returns: If the dictionaries are equal or not
 
         """
         for k, v in pokemonA.items():
