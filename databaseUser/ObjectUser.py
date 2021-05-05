@@ -2,14 +2,14 @@ import datetime
 
 
 class UserObj:
-    def __init__(self, name: str, phone: str, pokemon: str, image: str):
-        """ Realiza a criação de um objeto do tipo UserObj, além disso
-        irá criar um ID baseado na data do instante de criação
+    def __init__(self, name: str, phone: str, pokemon: str, image: str) -> None:
+        """ Create an object of type UserObj, besides that
+        will be create an ID based on the date of the creation time
     
-        :param name: Nome do contato
-        :param phone: Telefone do contato
-        :param pokemon: Pokemon favorito do contato
-        :param image: DataURL do contato
+        :param name: Contact name
+        :param phone: Contact phone
+        :param pokemon: Contact's favorite Pokémon
+        :param image: Contact DataURL
 
         """
         self.name = name
@@ -25,18 +25,18 @@ class UserObj:
             datetime.datetime.now().strftime("%d %b %Y %H:%M:%S GMT")
         ))))
 
-    def setId(self, newID):
-        """ Defini o ID do objeto
+    def setId(self, newID) -> None:
+        """ Set the object ID
     
-        :param newID: Novo ID do objeto
+        :param newID: New object ID
 
         """
         self.id = newID
 
-    def __hash__(self):
-        """ Retornar o hash do UserObj 
+    def __hash__(self) -> str:
+        """ Get the UserObj hash
 
-        :returns: Hash do objeto
+        :returns: Object hash
 
         """
         return hash((
@@ -47,10 +47,10 @@ class UserObj:
             datetime.datetime.now().strftime("%d %b %Y %H:%M:%S GMT")
         ))
 
-    def __dict__(self):
-        """ Executa uma um cast de UserObj para dicionário
+    def __dict__(self) -> dict:
+        """ Make a cast from UserObj to dictionary
         
-        :returns: Um dicionário baseado no objeto UserObj 
+        :returns: A dictionary based on the UserObj object
 
         """
         return {
@@ -60,10 +60,10 @@ class UserObj:
             "image": self.image
         }
 
-    def __str__(self):
-        """ Exibir os parametros do objeto numa String
+    def __str__(self) -> str:
+        """ Add the object's parameters in a String
         
-        :returns: Uma String contendo os atributos do objeto
+        :returns: A String containing the object's attributes
 
         """
         return f"{{'{self.id}': {{" \
@@ -75,10 +75,10 @@ class UserObj:
                f"}}"
 
     @staticmethod
-    def fromDict(data: dict):
-        """ Executa uma um cast de dicionário para UserObj
-        
-        :returns: O objeto UserObj baseado no dicionário
+    def fromDict(data: dict) -> UserObj:
+        """ Make a cast from dictionary to UserObj 
+ 
+        :returns: The dictionary based on UserObj object
 
         """
         return UserObj(data['name'], data['phone'], data['pokemon'], data['image'])
