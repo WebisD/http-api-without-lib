@@ -124,7 +124,7 @@ class HandlerDatabase:
         return StatusCode.INTERNAL_SERVER_ERROR
 
     @staticmethod
-    def isPokemonRegistered(pokemonID: str) -> bool, int:
+    def isPokemonRegistered(pokemonID: str) -> (bool, int):
         """ Check if object exists in database
         
         :param pokemonID: Object ID to be checked

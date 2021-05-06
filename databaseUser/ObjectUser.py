@@ -75,7 +75,7 @@ class UserObj:
                f"}}"
 
     @staticmethod
-    def fromDict(data: dict) -> UserObj:
+    def fromDict(data: dict):
         """ Make a cast from dictionary to UserObj 
  
         :returns: The dictionary based on UserObj object

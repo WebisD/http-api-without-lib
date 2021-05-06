@@ -1,7 +1,6 @@
 from socket import *
 from handler.HandlerRequests import Handler
 
-
 class Server:
     def __init__(self, ip, port):
         """ Performs the creation of an object of type Server, in addition
