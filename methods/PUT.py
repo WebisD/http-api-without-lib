@@ -19,7 +19,6 @@ class PUT:
         try:
             requestData = json.loads(request.body)
             pokemonRequestData = list(requestData.values())[0]
-            print(f"pokemonRequestData: {pokemonRequestData}")
             if pokemonRequestData["name"] != ""\
                     and pokemonRequestData["phone"] != ""\
                     and pokemonRequestData["pokemon"] != ""\
@@ -34,6 +33,10 @@ class PUT:
                 header = {
                     "Connection": "Closed"
                 }
+
+                if(int(status.value[0]) >= 400):
+                    return HandlerErrors.sendErrorCode(request, status)
+
                 response = Response(status_code=status, body=status.value[1], header=header)
 
                 return response.encodeResponse()

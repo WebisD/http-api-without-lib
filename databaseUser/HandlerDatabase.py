@@ -54,9 +54,7 @@ class HandlerDatabase:
         :returns: Status code of this update
 
         """
-        print(f"pokemonID: {pokemonID}")
-        print(f"isPokemonID a string: {isinstance(pokemonID, str)}")
-        print(f"pokemonData: {pokemonData}\n")
+        print(f"Update pokemonID: {pokemonID}")
 
         database: dict = HandlerDatabase.getData()
 
@@ -79,7 +77,6 @@ class HandlerDatabase:
             if not arePokemonEqual:
                 database["users"][pokemonIndex][pokemonID] = new
             else:
-                print("NOT MODIFIED")
                 status = StatusCode.NOT_MODIFIED
         else:
             status = StatusCode.NOT_FOUND
@@ -110,7 +107,7 @@ class HandlerDatabase:
             deleted_image = HandlerImage.delete_image_database(image)
             database["users"].pop(pokemonIndex)
             if not deleted_image:
-                status = StatusCode.NOT_FOUND
+                status = StatusCode.OK
         else:
             status = StatusCode.NOT_FOUND
 
@@ -196,7 +193,6 @@ class HandlerDatabase:
 
         """
         HandlerDatabase.pokemonDatabase = data
-        print(data)
         try:
             with open(HandlerDatabase.pokemonDatabasePath, 'w+') as file:
                 file.seek(0)
@@ -216,8 +212,9 @@ class HandlerDatabase:
 
         """
         for k, v in pokemonA.items():
-            if v != pokemonB[k]:
-                return False
+            if k != 'image' and v != 'image':
+                if  v != pokemonB[k]:
+                    return False
         return True
 
     @staticmethod
