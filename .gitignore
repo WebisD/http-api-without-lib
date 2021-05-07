@@ -2,3 +2,6 @@
 __pycache__
 .vscode
 .idea
+node_modules
+.stylelintrc.json
+venv
