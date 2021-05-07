@@ -161,9 +161,11 @@ class HandlerDatabase:
 
     @staticmethod
     def arePokemonsEqual(pokemonA: dict, pokemonB: dict):
+
         for k, v in pokemonA.items():
-            if v != pokemonB[k]:
-                return False
+            if k != 'image' and v != 'image':
+                if  v != pokemonB[k]:
+                    return False
         return True
 
     @staticmethod

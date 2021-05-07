@@ -41,7 +41,7 @@ class HandlerImage:
         if extension == "jpg":
             extension = "jpeg"
 
-        full_path = HandlerImage.directory + image_path
+        full_path = HandlerImage.directory + image_path.replace("http://localhost:8080", "")
 
         encoded = base64.b64encode(open(full_path, "rb").read()).decode()
 
