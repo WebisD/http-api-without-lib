@@ -103,7 +103,14 @@ class GET:
         return HandlerErrors.sendErrorCode(request, StatusCode.NOT_FOUND)
 
     @staticmethod        
-    def fill_image_params(response: Response, image_params: dict, uri: str):
+    def fill_image_params(response: Response, image_params: dict, uri: str) -> None:
+        """ Add headers in response, based on image params
+    
+        :param response: Response 
+        :param image_params: Dictionary with image params
+        :param uri: String of URL 
+        
+        """
         image = open(image_params[uri]["filePath"], "rb")
         byte_image = image.read()
         response.body = byte_image

@@ -221,7 +221,12 @@ class HandlerDatabase:
         return True
 
     @staticmethod
-    def areImagesEqual(current_image, new_image):
+    def areImagesEqual(current_image, new_image) ->(bool, str):
+        """ Compare two images
+        
+        :returns: If the images are equal or not and the dataURI of image
+
+        """
         current_data = HandlerImage.image_to_data(current_image)
 
         if current_data == new_image or new_image.find("http://localhost:") != -1:
