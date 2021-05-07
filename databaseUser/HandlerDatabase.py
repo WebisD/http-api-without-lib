@@ -1,6 +1,7 @@
 from message.StatusCode import StatusCode
 import json
 from databaseUser.ObjectUser import UserObj
+from handler.HandlerImage import HandlerImage
 
 
 class HandlerDatabase:
@@ -20,12 +21,17 @@ class HandlerDatabase:
         if database is None:
             return StatusCode.INTERNAL_SERVER_ERROR
 
+        image_path = HandlerImage.insert_image_database(obj.image, obj.id)
+
+        if image_path is None:
+            return StatusCode.INTERNAL_SERVER_ERROR
+
         pokemonID = obj.id
         pokemonData = {
             "name": obj.name,
             "phone": obj.phone,
             "pokemon": obj.pokemon,
-            "image": obj.image
+            "image": image_path
         }
 
         isPokemonRegistered, pokemonIndex = HandlerDatabase.isPokemonRegistered(pokemonID)
@@ -61,12 +67,17 @@ class HandlerDatabase:
 
         isPokemonRegistered, pokemonIndex = HandlerDatabase.isPokemonRegistered(pokemonID)
         if isPokemonRegistered:
-            arePokemonEqual = HandlerDatabase.arePokemonsEqual(
-                    database["users"][pokemonIndex][pokemonID],
-                    pokemonData.__dict__())
+            current = database["users"][pokemonIndex][pokemonID]
+            new = pokemonData.__dict__()
+
+            arePokemonEqual = HandlerDatabase.arePokemonsEqual(current, new)
+            areImageEqual, data_URI = HandlerDatabase.areImagesEqual(current["image"], new["image"])
+
+            if not areImageEqual:
+                new["image"] = HandlerImage.insert_image_database(data_URI, pokemonID)
 
             if not arePokemonEqual:
-                database["users"][pokemonIndex][pokemonID] = pokemonData.__dict__()
+                database["users"][pokemonIndex][pokemonID] = new
             else:
                 print("NOT MODIFIED")
                 status = StatusCode.NOT_MODIFIED
@@ -95,7 +106,11 @@ class HandlerDatabase:
 
         isPokemonRegistered, pokemonIndex = HandlerDatabase.isPokemonRegistered(pokemonID)
         if isPokemonRegistered:
+            image = database["users"][pokemonIndex][pokemonID]["image"]
+            deleted_image = HandlerImage.delete_image_database(image)
             database["users"].pop(pokemonIndex)
+            if not deleted_image:
+                status = StatusCode.NOT_FOUND
         else:
             status = StatusCode.NOT_FOUND
 
@@ -118,7 +133,7 @@ class HandlerDatabase:
 
         database["users"] = []
 
-        if HandlerDatabase.setData(database):
+        if HandlerDatabase.setData(database) and HandlerImage.delete_all_images():
             return StatusCode.OK
 
         return StatusCode.INTERNAL_SERVER_ERROR
@@ -204,3 +219,12 @@ class HandlerDatabase:
             if v != pokemonB[k]:
                 return False
         return True
+
+    @staticmethod
+    def areImagesEqual(current_image, new_image):
+        current_data = HandlerImage.image_to_data(current_image)
+
+        if current_data == new_image or new_image.find("http://localhost:") != -1:
+            return True, None
+
+        return False, new_image

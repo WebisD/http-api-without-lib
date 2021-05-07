@@ -1,7 +1,7 @@
-HandlerErrors module
+HandlerImage module
 ====================
 
-.. automodule:: handler.HandlerImage
+.. automodule:: handler.HandlerErrors
    :members:
    :undoc-members:
    :show-inheritance:

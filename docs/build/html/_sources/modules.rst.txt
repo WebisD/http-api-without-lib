@@ -13,6 +13,11 @@ http-api-without-lib
    ObjectUser
    HandlerDatabase
    DELETE
+   HandlerImage
    HandlerErrors 
+   GET
+   POST
+   PUT
+   HandlerRequests
 
    

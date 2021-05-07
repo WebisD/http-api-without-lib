@@ -38,7 +38,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="DELETE module" href="DELETE.html" /> 
+    <link rel="next" title="GET module" href="GET.html" />
+    <link rel="prev" title="HandlerImage module" href="HandlerImage.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,7 +96,12 @@
 <li class="toctree-l2"><a class="reference internal" href="ObjectUser.html">ObjectUser module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="HandlerDatabase.html">HandlerDatabase module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="DELETE.html">DELETE module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HandlerImage.html">HandlerImage module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">HandlerErrors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GET.html">GET module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="POST.html">POST module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PUT.html">PUT module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HandlerRequests.html">HandlerRequests module</a></li>
 </ul>
 </li>
 </ul>
@@ -167,8 +173,79 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="handlererrors-module">
-<h1>HandlerErrors module<a class="headerlink" href="#handlererrors-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-handler.HandlerImage">
+<span id="handlererrors-module"></span><h1>HandlerErrors module<a class="headerlink" href="#module-handler.HandlerImage" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="handler.HandlerImage.HandlerImage">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">handler.HandlerImage.</span></code><code class="sig-name descname"><span class="pre">HandlerImage</span></code><a class="headerlink" href="#handler.HandlerImage.HandlerImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="handler.HandlerImage.HandlerImage.data_to_image">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">data_to_image</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_user</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#handler.HandlerImage.HandlerImage.data_to_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="handler.HandlerImage.HandlerImage.delete_all_images">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">delete_all_images</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#handler.HandlerImage.HandlerImage.delete_all_images" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="handler.HandlerImage.HandlerImage.delete_image_database">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">delete_image_database</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#handler.HandlerImage.HandlerImage.delete_image_database" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="handler.HandlerImage.HandlerImage.directory">
+<code class="sig-name descname"><span class="pre">directory</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'./databaseUser/Images'</span></em><a class="headerlink" href="#handler.HandlerImage.HandlerImage.directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="handler.HandlerImage.HandlerImage.getData">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">getData</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#handler.HandlerImage.HandlerImage.getData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="handler.HandlerImage.HandlerImage.imageDatabase">
+<code class="sig-name descname"><span class="pre">imageDatabase</span></code><em class="property"><span class="pre">:</span> <span class="pre">dict</span></em><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="headerlink" href="#handler.HandlerImage.HandlerImage.imageDatabase" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="handler.HandlerImage.HandlerImage.imageDatabasePath">
+<code class="sig-name descname"><span class="pre">imageDatabasePath</span></code><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><em class="property"> <span class="pre">=</span> <span class="pre">'databaseUser/Images/images.json'</span></em><a class="headerlink" href="#handler.HandlerImage.HandlerImage.imageDatabasePath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="handler.HandlerImage.HandlerImage.image_formats">
+<code class="sig-name descname"><span class="pre">image_formats</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['.jpeg',</span> <span class="pre">'.jpg',</span> <span class="pre">'.png',</span> <span class="pre">'.gif']</span></em><a class="headerlink" href="#handler.HandlerImage.HandlerImage.image_formats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="handler.HandlerImage.HandlerImage.image_to_data">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">image_to_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#handler.HandlerImage.HandlerImage.image_to_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="handler.HandlerImage.HandlerImage.insert_image_database">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">insert_image_database</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_user</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#handler.HandlerImage.HandlerImage.insert_image_database" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="handler.HandlerImage.HandlerImage.isImageRegistered">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">isImageRegistered</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#handler.HandlerImage.HandlerImage.isImageRegistered" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="handler.HandlerImage.HandlerImage.remove_img">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">remove_img</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#handler.HandlerImage.HandlerImage.remove_img" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="handler.HandlerImage.HandlerImage.setData">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">setData</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#handler.HandlerImage.HandlerImage.setData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -177,7 +254,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="DELETE.html" class="btn btn-neutral float-left" title="DELETE module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="GET.html" class="btn btn-neutral float-right" title="GET module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="HandlerImage.html" class="btn btn-neutral float-left" title="HandlerImage module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
