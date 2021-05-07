@@ -1,33 +1,31 @@
 import enum
 from databaseUser.HandlerDatabase import HandlerDatabase
 from message.Response import Response
-
-
+from message.StatusCode import StatusCode
 
 class DELETE:
     @staticmethod
     def response(request):
-        print("DELETE::response called")
-        status: enum.Enum
+        try:
+            status: enum.Enum
 
-        print(f"URL: {request.URI}\n"
-              f"body: {request.body}")
+            if request.URI != "/":
+                pokemonID = DELETE.getIdOfUrl(request.URI)
+                print(f"Delete PokemonID: {pokemonID}")
+                status = HandlerDatabase.deletePokemonByID(pokemonID)
+            else:
+                status = HandlerDatabase.deleteAllPokemons()
 
-        if request.URI != "/":
-            pokemonID = DELETE.getIdOfUrl(request.URI)
-            print(f"PokemonID: {pokemonID}")
-            status = HandlerDatabase.deletePokemonByID(pokemonID)
-        else:
-            status = HandlerDatabase.deleteAllPokemons()
+            header = {
+                "Connection": "Closed",
+            }
+            if(int(status.value[0]) >= 400):
+                return HandlerErrors.sendErrorCode(request, status)
 
-        header = {
-            "Connection": "Closed",
-        }
-
-        print(f"Status: {status.value[0]}")
-        print()
-        response = Response(status_code=status, body="", header=header)
-        return response.encodeResponse()
+            response = Response(status_code=status, body="", header=header)
+            return response.encodeResponse()
+        except:
+            return HandlerErrors.sendErrorCode(request, StatusCode.BAD_REQUEST)
 
     @staticmethod
     def getIdOfUrl(URI):

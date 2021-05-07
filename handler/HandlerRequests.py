@@ -20,29 +20,21 @@ def recv(sock, chunkSize=8192):
     data = None
 
     while True:
-        print("Entrei no rcv")
         data = sock.recv(chunkSize)
 
         if data is None:
-            print("Data vazia")
             return
 
         try:
             decoded_data = data.decode()
             if decoded_data.find("GET /") != -1 or decoded_data.find("DELETE /") != -1:
                 # Not a post, return
-                print("NAP: ")
-                print(data)
                 return data
 
             fragments.append(data)
             if decoded_data[-1] == '}':
-                print("vou sair")
 
                 a = b"".join(fragments)
-
-                print("rcv() retornou:")
-                print(a)
                 return a
 
         except Exception as e:

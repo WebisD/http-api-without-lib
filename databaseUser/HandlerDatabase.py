@@ -41,8 +41,7 @@ class HandlerDatabase:
 
     @staticmethod
     def updatePokemonByID(pokemonID: str, pokemonData: UserObj):
-        print(f"pokemonID: {pokemonID}")
-        print(f"isPokemonID a string: {isinstance(pokemonID, str)}")
+        print(f"Update pokemonID: {pokemonID}")
         print(f"pokemonData: {pokemonData}\n")
 
         database: dict = HandlerDatabase.getData()
@@ -66,7 +65,6 @@ class HandlerDatabase:
             if not arePokemonEqual:
                 database["users"][pokemonIndex][pokemonID] = new
             else:
-                print("NOT MODIFIED")
                 status = StatusCode.NOT_MODIFIED
         else:
             status = StatusCode.NOT_FOUND
@@ -91,7 +89,7 @@ class HandlerDatabase:
             deleted_image = HandlerImage.delete_image_database(image)
             database["users"].pop(pokemonIndex)
             if not deleted_image:
-                status = StatusCode.NOT_FOUND
+                status = StatusCode.OK
         else:
             status = StatusCode.NOT_FOUND
 
@@ -150,7 +148,6 @@ class HandlerDatabase:
     @staticmethod
     def setData(data: dict):
         HandlerDatabase.pokemonDatabase = data
-        print(data)
         try:
             with open(HandlerDatabase.pokemonDatabasePath, 'w+') as file:
                 file.seek(0)
@@ -164,9 +161,11 @@ class HandlerDatabase:
 
     @staticmethod
     def arePokemonsEqual(pokemonA: dict, pokemonB: dict):
+
         for k, v in pokemonA.items():
-            if v != pokemonB[k]:
-                return False
+            if k != 'image' and v != 'image':
+                if  v != pokemonB[k]:
+                    return False
         return True
 
     @staticmethod
