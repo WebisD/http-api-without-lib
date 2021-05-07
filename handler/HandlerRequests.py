@@ -29,8 +29,7 @@ def recv(sock, chunkSize=8192):
 
         try:
             decoded_data = data.decode()
-            if decoded_data.find("GET /") != -1 or decoded_data.find(
-                    "DELETE /") != -1:
+            if decoded_data.find("GET /") != -1 or decoded_data.find("DELETE /") != -1:
                 # Not a post, return
                 print("NAP: ")
                 print(data)

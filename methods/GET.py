@@ -3,7 +3,7 @@ from message.Response import Response
 from message.StatusCode import StatusCode
 import os
 from handler.HandlerErrors import HandlerErrors
-from databaseUser.HandlerDatabase import HandlerDatabase
+from handler.HandlerImage import HandlerImage
 
 
 class GET:
@@ -65,18 +65,44 @@ class GET:
         elif request.URI in GET.imagesTable:
             response: Response = Response(status_code=StatusCode.OK, body={}, header={})
             try:
-                image = open(GET.imagesTable[request.URI]["filePath"], "rb")
-                byte_image = image.read()
-                response.body = byte_image
-                response.headers["Content-Type"] = GET.imagesTable[request.URI]["type"]
-                response.headers["Content-Length"] = str(os.stat(GET.imagesTable[request.URI]["filePath"]).st_size)
-                response.headers["Accept-Ranges"] = "bytes"
+                GET.fill_image_params(response, GET.imagesTable, request.URI)
             except Exception as e:
                 print(e)
 
             return response.encodeResponseImages()
+        else:
+            response: Response = Response(status_code=StatusCode.OK, body={}, header={})
+
+            image_database = HandlerImage.getData()["images"]
+
+            if image_database is None:
+                response.status_code = StatusCode.INTERNAL_SERVER_ERROR
+                return response
+
+            image = None
+            for index, element in enumerate(image_database):
+                if request.URI == list(element.keys())[0]:
+                    image = element
+                    break
+
+            if image is not None:
+                try:
+                    GET.fill_image_params(response, image, request.URI)
+                except Exception as e:
+                    print(e)
+
+                return response.encodeResponseImages()
 
         return HandlerErrors.sendErrorCode(request, StatusCode.NOT_FOUND)
+
+    @staticmethod
+    def fill_image_params(response: Response, image_params: dict, uri: str):
+        image = open(image_params[uri]["filePath"], "rb")
+        byte_image = image.read()
+        response.body = byte_image
+        response.headers["Content-Type"] = image_params[uri]["type"]
+        response.headers["Content-Length"] = str(os.stat(image_params[uri]["filePath"]).st_size)
+        response.headers["Accept-Ranges"] = "bytes"
 
     @staticmethod
     def getParamsFromURL(url):
