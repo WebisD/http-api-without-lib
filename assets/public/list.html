@@ -92,12 +92,12 @@
         xhttp.onload = function () {
             if (xhttp.readyState === 4 && xhttp.status === 200) {
                 console.table("deu certo");
+                history.go(0)
             } else {
                 console.error("deu erro");
             }
         }
         xhttp.send(pokemonID);
-        history.go(0)
     }
 
     $.ajax({
