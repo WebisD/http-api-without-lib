@@ -24,6 +24,8 @@ class POST:
                 header = {
                     "Connection": "Closed"
                 }
+                if(int(status.value[0]) >= 400):
+                    return HandlerErrors.sendErrorCode(request, status)
 
                 response = Response(status_code=status, body=status.value[1], header=header)
 

@@ -35,8 +35,6 @@ def recv(sock, chunkSize=8192):
             if decoded_data[-1] == '}':
 
                 a = b"".join(fragments)
-
-                print(a)
                 return a
 
         except Exception as e:
