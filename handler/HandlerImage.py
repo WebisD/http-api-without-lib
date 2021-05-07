@@ -145,7 +145,6 @@ class HandlerImage:
     @staticmethod
     def setData(data: dict):
         HandlerImage.imageDatabase = data
-        print(data)
         try:
             with open(HandlerImage.imageDatabasePath, 'w+') as file:
                 file.seek(0)
@@ -155,5 +154,4 @@ class HandlerImage:
                 return True
         except Exception as e:
             print(e)
-            print(f"HandlerDatabase::setData() exception")
             return False

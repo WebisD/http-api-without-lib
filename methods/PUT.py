@@ -13,6 +13,7 @@ class PUT:
         try:
             requestData = json.loads(request.body)
             pokemonRequestData = list(requestData.values())[0]
+            print(f"Put PokemonID: {pokemonID}")
             print(f"pokemonRequestData: {pokemonRequestData}")
             if pokemonRequestData["name"] != ""\
                     and pokemonRequestData["phone"] != ""\
