@@ -1,9 +1,7 @@
-from server import *
 from threading import Thread
 from message.Request import Request
 from message import Response, StatusCode
 from string import Template
-
 
 class HandlerErrors:
     urlTable = {

@@ -6,14 +6,20 @@ from message.Response import Response
 from message.StatusCode import StatusCode
 import json
 
-
 class POST:
 
     @staticmethod
-    def response(request):
+    def response(request) -> str:
+        """ Performs an insertion when there is a POST request, returning a response with
+        the headers and the correct body. Adds the received object within the database.
+
+        :param request: Request object, containing the body and headers of that request
+        :returns: The answer to this request
+
+        """
         try:
             data = json.loads(request.body)
-            if data["name"] != "" and data["phone"] != "" and data["pokemon"] != "" and data["image"] != "" and data["image"] != "http://localhost:8080/post":
+            if data["name"] != "" and data["phone"] != "" and data["pokemon"] != "" and data["image"] != "" and data["image"] != "http://localhost:8083/post":
                 obj = UserObj.fromDict(data)
 
                 print("POST" + str(obj))

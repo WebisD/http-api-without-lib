@@ -39,7 +39,14 @@ class GET:
     }
 
     @staticmethod
-    def response(request: Request):
+    def response(request: Request) -> str:
+        """ Performs a return operation when there is a request of type GET, returning a response with
+        the headers and the correct body. Search within the mapped URLs, the received URL, returning the requested resource.
+
+        :param request: Request object, containing the body and headers of that request
+        :returns: The answer to this request
+
+        """
         if request.URI.find('database') != -1 or request.URI.find('edit') != -1 or request.URI in GET.urlTable:
             response: Response = Response(status_code=StatusCode.OK, body="", header={})
             if request.URI.find('database') != -1:
@@ -95,8 +102,15 @@ class GET:
 
         return HandlerErrors.sendErrorCode(request, StatusCode.NOT_FOUND)
 
-    @staticmethod
-    def fill_image_params(response: Response, image_params: dict, uri: str):
+    @staticmethod        
+    def fill_image_params(response: Response, image_params: dict, uri: str) -> None:
+        """ Add headers in response, based on image params
+    
+        :param response: Response 
+        :param image_params: Dictionary with image params
+        :param uri: String of URL 
+        
+        """
         image = open(image_params[uri]["filePath"], "rb")
         byte_image = image.read()
         response.body = byte_image
@@ -106,6 +120,12 @@ class GET:
 
     @staticmethod
     def getParamsFromURL(url):
+        """ Performs a parse of the parameters present in the URL
+    
+        :param URI: String of the url
+        :returns: A dictionary with all parameters contained in the URL
+        
+        """
         parsedParams: dict = {}
         elements = url.split('?')[1].split('&')
         for elem in elements:

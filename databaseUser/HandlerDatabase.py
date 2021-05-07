@@ -9,7 +9,13 @@ class HandlerDatabase:
     pokemonDatabase: dict = {}
 
     @staticmethod
-    def insertPokemon(obj: UserObj):
+    def insertPokemon(obj: UserObj) -> StatusCode:
+        """ Insert a new object in the database
+
+        :param obj: Object to be inserted
+        :returns: Status code of this insertion
+
+        """
         database: dict = HandlerDatabase.getData()
 
         if database is None:
@@ -40,9 +46,15 @@ class HandlerDatabase:
         return StatusCode.INTERNAL_SERVER_ERROR
 
     @staticmethod
-    def updatePokemonByID(pokemonID: str, pokemonData: UserObj):
+    def updatePokemonByID(pokemonID: str, pokemonData: UserObj) -> StatusCode:
+        """ Update an object present in the database
+
+        :param pokemonID: Object ID to be updated
+        :param pokemonData: New object information
+        :returns: Status code of this update
+
+        """
         print(f"Update pokemonID: {pokemonID}")
-        print(f"pokemonData: {pokemonData}\n")
 
         database: dict = HandlerDatabase.getData()
 
@@ -75,7 +87,13 @@ class HandlerDatabase:
         return StatusCode.INTERNAL_SERVER_ERROR
 
     @staticmethod
-    def deletePokemonByID(pokemonID: str):
+    def deletePokemonByID(pokemonID: str) -> StatusCode:
+        """ Delete an object present in the database
+
+        :param pokemonID: Object ID to be deleted
+        :returns: Status code of this operation
+
+        """
         database = HandlerDatabase.getData()
 
         if database is None:
@@ -99,7 +117,12 @@ class HandlerDatabase:
         return StatusCode.INTERNAL_SERVER_ERROR
 
     @staticmethod
-    def deleteAllPokemons():
+    def deleteAllPokemons() -> StatusCode:
+        """ Delete all objects in the database
+        
+        :returns: Status code of this operation
+
+        """
         database = HandlerDatabase.getData()
 
         if database is None:
@@ -113,7 +136,13 @@ class HandlerDatabase:
         return StatusCode.INTERNAL_SERVER_ERROR
 
     @staticmethod
-    def isPokemonRegistered(pokemonID: str):
+    def isPokemonRegistered(pokemonID: str) -> (bool, int):
+        """ Check if object exists in database
+        
+        :param pokemonID: Object ID to be checked
+        :returns: If the object exists and the index in the database
+
+        """
         database = HandlerDatabase.getData()
 
         if database is None:
@@ -128,7 +157,12 @@ class HandlerDatabase:
         return False, None
 
     @staticmethod
-    def getSizeList():
+    def getSizeList() -> int:
+        """ Get number of objects in database
+        
+        :returns: Size of object list
+
+        """
         database = HandlerDatabase.getData()
 
         if database is None:
@@ -137,7 +171,12 @@ class HandlerDatabase:
         return len(database["users"])
 
     @staticmethod
-    def getData():
+    def getData() -> dict:
+        """ Read json file and set dictionary with values
+        
+        :returns: Dictionary with the list of objects
+
+        """
         try:
             with open(HandlerDatabase.pokemonDatabasePath, 'r+') as file:
                 HandlerDatabase.pokemonDatabase = json.load(file)
@@ -146,7 +185,13 @@ class HandlerDatabase:
             return None
 
     @staticmethod
-    def setData(data: dict):
+    def setData(data: dict) -> bool:
+        """ Write json file with dictionary
+
+        :param data: dictionary containing the database
+        :returns: If can be updated or not
+
+        """
         HandlerDatabase.pokemonDatabase = data
         try:
             with open(HandlerDatabase.pokemonDatabasePath, 'w+') as file:
@@ -160,8 +205,12 @@ class HandlerDatabase:
             return False
 
     @staticmethod
-    def arePokemonsEqual(pokemonA: dict, pokemonB: dict):
+    def arePokemonsEqual(pokemonA: dict, pokemonB: dict) -> bool:
+        """ Compare two dicionaries
+        
+        :returns: If the dictionaries are equal or not
 
+        """
         for k, v in pokemonA.items():
             if k != 'image' and v != 'image':
                 if  v != pokemonB[k]:
@@ -169,7 +218,12 @@ class HandlerDatabase:
         return True
 
     @staticmethod
-    def areImagesEqual(current_image, new_image):
+    def areImagesEqual(current_image, new_image) ->(bool, str):
+        """ Compare two images
+        
+        :returns: If the images are equal or not and the dataURI of image
+
+        """
         current_data = HandlerImage.image_to_data(current_image)
 
         if current_data == new_image or new_image.find("http://localhost:") != -1:

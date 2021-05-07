@@ -1,11 +1,18 @@
 import enum
 from databaseUser.HandlerDatabase import HandlerDatabase
 from message.Response import Response
-from message.StatusCode import StatusCode
 
 class DELETE:
     @staticmethod
-    def response(request):
+    def response(request) -> str:
+        """ Performs a removal when there is a DELETE request, returning a response with
+        the headers and the correct body. Removes the object within the database, based on the received ID.
+
+        :param request: Request object, containing the body and headers of that request
+        :returns: The answer to this request
+
+        """
+        print("DELETE::response called")
         try:
             status: enum.Enum
 
@@ -28,7 +35,13 @@ class DELETE:
             return HandlerErrors.sendErrorCode(request, StatusCode.BAD_REQUEST)
 
     @staticmethod
-    def getIdOfUrl(URI):
+    def getIdOfUrl(URI) -> int:
+        """ Return the id value present in the URL
+    
+        :param URI: String of the url
+        :returns: The id value
+
+        """
         if len(URI) > 5 and URI.rfind("/?id=") != -1:
             return URI[5: len(URI)]
         return -1

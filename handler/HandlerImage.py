@@ -3,7 +3,6 @@ import urllib.request
 import os
 import base64
 
-
 class HandlerImage:
     imageDatabasePath: str = 'databaseUser/Images/images.json'
     imageDatabase: dict = {}
@@ -41,7 +40,7 @@ class HandlerImage:
         if extension == "jpg":
             extension = "jpeg"
 
-        full_path = HandlerImage.directory + image_path.replace("http://localhost:8080", "")
+        full_path = HandlerImage.directory + image_path.replace("http://localhost:8083", "")
 
         encoded = base64.b64encode(open(full_path, "rb").read()).decode()
 
