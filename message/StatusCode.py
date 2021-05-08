@@ -1,6 +1,9 @@
 import enum
 
+
 class StatusCode(enum.Enum):
+    """Responsible for encapsulating the different http status codes"""
+
     # Successful 2xx
     OK = ["200", "OK"]
     CREATED = ["201", "Created"]

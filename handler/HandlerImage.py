@@ -3,14 +3,25 @@ import urllib.request
 import os
 import base64
 
+
 class HandlerImage:
+    """Class responsible for handling images"""
+
     imageDatabasePath: str = 'databaseUser/Images/images.json'
     imageDatabase: dict = {}
     image_formats = [".jpeg", ".jpg", ".png", ".gif"]
     directory = "./databaseUser/Images"
 
     @staticmethod
-    def data_to_image(data: str, id_user: str):
+    def data_to_image(data: str, id_user: str) -> any:
+        """Responsible for creating an image from a data URI
+
+        :param data: A string containing the data URI
+        :param id_user: A string containing the user id
+        :returns: Three strings each containing the image name, image extension and image path. Can also return None.
+
+        """
+
         extension = ".jpg"
         for formats in HandlerImage.image_formats:
             if data.find(formats[1:], 0, 20) != -1:
@@ -32,7 +43,14 @@ class HandlerImage:
             return None
 
     @staticmethod
-    def image_to_data(image_path):
+    def image_to_data(image_path: str) -> str:
+        """Responsible for converting an image into a data URI
+
+        :param image_path: A string containing the image path
+        :returns: A string containing the dataURI from the image
+
+        """
+
         index = image_path.find('.')
         extension = image_path[index+1:]
 
@@ -48,7 +66,15 @@ class HandlerImage:
         return data_uri
 
     @staticmethod
-    def insert_image_database(data: str, id_user: str):
+    def insert_image_database(data: str, id_user: str) -> any:
+        """Responsible for inserting the image into our database
+
+        :param data: A string containing the data URI
+        :param id_user: A string containing the user id
+        :returns: A string containing the id of the registered image or None
+
+        """
+
         # Download the image
         image_id, extension, path = HandlerImage.data_to_image(data, id_user)
 
@@ -70,7 +96,14 @@ class HandlerImage:
         return None
 
     @staticmethod
-    def delete_image_database(image_id):
+    def delete_image_database(image_id: str) -> bool:
+        """Responsible for deleting an image with given id from the database
+
+        :param image_id: A string containing the image id
+        :returns: A boolean representing if the operation was successful or not
+
+        """
+
         database = HandlerImage.getData()
 
         if database is None:
@@ -86,7 +119,12 @@ class HandlerImage:
         return False
 
     @staticmethod
-    def delete_all_images():
+    def delete_all_images() -> bool:
+        """Responsible for deleting all images from the database
+
+        :returns: A boolean representing if the operation was successful or not
+        """
+
         database = HandlerImage.getData()
         if database is None:
             return False
@@ -109,7 +147,14 @@ class HandlerImage:
         return False
 
     @staticmethod
-    def remove_img(img_name):
+    def remove_img(img_name: str) -> bool:
+        """Responsible for removing a image from the images directory
+
+        :param: img_name: A string containing the image name
+        :returns: A boolean representing if the operation was successful or not
+
+        """
+
         path = HandlerImage.directory + img_name
         os.remove(path)
         # check if file exists or not
@@ -117,8 +162,16 @@ class HandlerImage:
             # file did not exists
             return False
 
+        return True
+
     @staticmethod
-    def getData():
+    def getData() -> any:
+        """Responsible for getting the images from the database
+
+        :returns: A dictionary containing the images or None.
+
+        """
+
         try:
             with open(HandlerImage.imageDatabasePath, 'r+') as file:
                 HandlerImage.imageDatabase = json.load(file)
@@ -127,7 +180,14 @@ class HandlerImage:
             return None
 
     @staticmethod
-    def isImageRegistered(image_id: str):
+    def isImageRegistered(image_id: str) -> (bool, any):
+        """Responsible for checking if the image with given id is registered
+
+        :param image_id: A string containing the id of the image to be deleted
+        :returns: A bool containing the result of the operation and the image index in case it's registered
+
+        """
+
         database = HandlerImage.getData()
 
         if database is None:
@@ -142,7 +202,14 @@ class HandlerImage:
         return False, None
 
     @staticmethod
-    def setData(data: dict):
+    def setData(data: dict) -> bool:
+        """Responsible for replacing the whole image database with the given data
+
+        :param data: a dictionary containing the new image database
+        :returns: A boolean representing if the operation was successful or not
+
+        """
+
         HandlerImage.imageDatabase = data
         try:
             with open(HandlerImage.imageDatabasePath, 'w+') as file:

@@ -3,7 +3,10 @@ from message.Request import Request
 from message import Response, StatusCode
 from string import Template
 
+
 class HandlerErrors:
+    """Class responsible for handling errors"""
+
     urlTable = {
         "/error": {"type": "text/html", "filePath": "./assets/public/error.html"},
         "/bootstrap.min.css": {"type": "text/css", "filePath": "./assets/bootstrap.min.css"},
@@ -14,7 +17,15 @@ class HandlerErrors:
     }
 
     @staticmethod
-    def sendErrorCode(request, statusCode):
+    def sendErrorCode(request: any, statusCode: StatusCode) -> bytes:
+        """Responsible for generating a page with the given status code
+
+        :param request: An object representing the request data. DEPRECATED
+        :param statusCode: A StatusCode object containing the the status soon to be shown in the page
+        :returns: A byte object containing the response header and the error page in the body.
+
+        """
+
         response: Response = Response.Response(status_code=statusCode, body="", header={})
 
         error = HandlerErrors.urlTable['/error']
