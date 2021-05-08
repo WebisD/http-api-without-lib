@@ -9,6 +9,7 @@ class StatusCode(enum.Enum):
     RESET_CONTENT = ["205", "Reset Content"]
     # Redirection 3xx
     MULTIPLE_CHOICES = ["300", "Multiple Choices"]
+    MOVED_PERMANENTLY = ["301", "Moved Permanently"]
     NOT_MODIFIED = ["304", "Not Modified"]
     # Client Error 4xx
     BAD_REQUEST = ["400", "Bad Request"]

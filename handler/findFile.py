@@ -1,4 +1,6 @@
-import os, fnmatch
+import fnmatch
+import os
+
 
 def find(pattern, path):
     result = []

@@ -21,8 +21,8 @@ def recv(sock, chunkSize=8192):
     while True:
         data = sock.recv(chunkSize)
 
-        if data is None:
-            return
+        if data is None or data == b'':
+            continue
 
         try:
             decoded_data = data.decode()
