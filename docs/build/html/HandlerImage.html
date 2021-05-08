@@ -179,10 +179,23 @@
 <dt id="handler.HandlerErrors.HandlerErrors">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">handler.HandlerErrors.</span></code><code class="sig-name descname"><span class="pre">HandlerErrors</span></code><a class="headerlink" href="#handler.HandlerErrors.HandlerErrors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class responsible for handling errors</p>
 <dl class="py method">
 <dt id="handler.HandlerErrors.HandlerErrors.sendErrorCode">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">sendErrorCode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">statusCode</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#handler.HandlerErrors.HandlerErrors.sendErrorCode" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">sendErrorCode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">request:</span> <span class="pre">any</span></em>, <em class="sig-param"><span class="pre">statusCode:</span> <span class="pre">&lt;module</span> <span class="pre">'message.StatusCode'</span> <span class="pre">from</span> <span class="pre">'/home/lucassantos/Documents/GitHub/http-api-without-lib/message/StatusCode.py'&gt;</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bytes</span><a class="headerlink" href="#handler.HandlerErrors.HandlerErrors.sendErrorCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Responsible for generating a page with the given status code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – An object representing the request data. DEPRECATED</p></li>
+<li><p><strong>statusCode</strong> – A StatusCode object containing the the status soon to be shown in the page</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A byte object containing the response header and the error page in the body.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt id="handler.HandlerErrors.HandlerErrors.urlTable">

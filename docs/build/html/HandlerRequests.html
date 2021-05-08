@@ -178,27 +178,53 @@
 <dt id="handler.HandlerRequests.Handler">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">handler.HandlerRequests.</span></code><code class="sig-name descname"><span class="pre">Handler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#handler.HandlerRequests.Handler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Thread</span></code></p>
+<p>Class responsible for handling incoming requests and sending responses</p>
 <dl class="py method">
 <dt id="handler.HandlerRequests.Handler.checkTypeRequest">
-<code class="sig-name descname"><span class="pre">checkTypeRequest</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectionSocket</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#handler.HandlerRequests.Handler.checkTypeRequest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname"><span class="pre">checkTypeRequest</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="Request.html#message.Request.Request" title="message.Request.Request"><span class="pre">message.Request.Request</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectionSocket</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">socket.socket</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#handler.HandlerRequests.Handler.checkTypeRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Responsible for checking the request type and calling the appropriate method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – A Request object</p></li>
+<li><p><strong>connectionSocket</strong> – A tcp socket</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="handler.HandlerRequests.Handler.run">
-<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#handler.HandlerRequests.Handler.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method representing the thread’s activity.</p>
-<p>You may override this method in a subclass. The standard run() method
-invokes the callable object passed to the object’s constructor as the
-target argument, if any, with sequential and keyword arguments taken
-from the args and kwargs arguments, respectively.</p>
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#handler.HandlerRequests.Handler.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Responsible for running the server</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt id="handler.HandlerRequests.recv">
-<code class="sig-prename descclassname"><span class="pre">handler.HandlerRequests.</span></code><code class="sig-name descname"><span class="pre">recv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sock</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunkSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8192</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#handler.HandlerRequests.recv" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname"><span class="pre">handler.HandlerRequests.</span></code><code class="sig-name descname"><span class="pre">recv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sock</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">socket.socket</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunkSize</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">8192</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">any</span><a class="headerlink" href="#handler.HandlerRequests.recv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Responsible for receiving all the request message chunks from the socket</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sock</strong> – the tcp socket responsible for receiving and sending messages</p></li>
+<li><p><strong>chunkSize</strong> – the size of each incoming request message fragment</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A byte object containing the whole request message or None</p>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 
