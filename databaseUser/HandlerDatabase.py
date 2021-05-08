@@ -171,10 +171,10 @@ class HandlerDatabase:
         return len(database["users"])
 
     @staticmethod
-    def getData() -> dict:
+    def getData() -> any:
         """ Read json file and set dictionary with values
         
-        :returns: Dictionary with the list of objects
+        :returns: Dictionary with the list of objects or None
 
         """
         try:

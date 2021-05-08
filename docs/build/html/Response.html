@@ -177,38 +177,55 @@
 <span id="response-module"></span><h1>Response module<a class="headerlink" href="#module-message.Response" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="message.Response.Response">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">message.Response.</span></code><code class="sig-name descname"><span class="pre">Response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#message.Response.Response" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">message.Response.</span></code><code class="sig-name descname"><span class="pre">Response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">enum.Enum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#message.Response.Response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Responsible for encapsulating the response headers and body</p>
 <dl class="py method">
 <dt id="message.Response.Response.encodeResponse">
-<code class="sig-name descname"><span class="pre">encodeResponse</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#message.Response.Response.encodeResponse" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname"><span class="pre">encodeResponse</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">bytes</span><a class="headerlink" href="#message.Response.Response.encodeResponse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Responsible for encoding the string representation of the Response class instance</p>
+<p>returns: A byte object containing the Response class instance</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="message.Response.Response.encodeResponseImages">
-<code class="sig-name descname"><span class="pre">encodeResponseImages</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#message.Response.Response.encodeResponseImages" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname"><span class="pre">encodeResponseImages</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">bytes</span><a class="headerlink" href="#message.Response.Response.encodeResponseImages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Responsible for encoding the response along with the image</p>
+<p>returns: A byte object containing the response headers and body along with the image</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="message.Response.Response.getDate">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">getDate</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#message.Response.Response.getDate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">getDate</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#message.Response.Response.getDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Responsible for creating a string with the current date</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A string containing the current date</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="message.Response.Response.getDateFromSeconds">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">getDateFromSeconds</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seconds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#message.Response.Response.getDateFromSeconds" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">getDateFromSeconds</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#message.Response.Response.getDateFromSeconds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a date from the given seconds</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>seconds</strong> – A float number containing the total date in seconds</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string containing the date created from the given second</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="message.Response.Response.headerLine">
-<code class="sig-name descname"><span class="pre">headerLine</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#message.Response.Response.headerLine" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<code class="sig-name descname"><span class="pre">headerLine</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#message.Response.Response.headerLine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Responsible for creating a string containing the headers information</p>
+<dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Date: Mon, 27 Jul 2009 12:28:53 GMT
-Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
-Content-Length: 88
-Content-Type: text/html
-Connection: Closed</p>
+<dd class="field-odd"><p>A string containing the headers information</p>
 </dd>
 </dl>
 </dd></dl>
@@ -216,9 +233,10 @@ Connection: Closed</p>
 <dl class="py method">
 <dt id="message.Response.Response.statusLine">
 <code class="sig-name descname"><span class="pre">statusLine</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#message.Response.Response.statusLine" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Responsible for creating a string with the protocol and status</p>
+<dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>HTTP/1.1 200 OK</p>
+<dd class="field-odd"><p>A string containing the protocol and the status</p>
 </dd>
 </dl>
 </dd></dl>

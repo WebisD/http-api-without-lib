@@ -70,7 +70,7 @@ class GET:
 
             return response.encodeResponse()
         elif request.URI in GET.imagesTable:
-            response: Response = Response(status_code=StatusCode.OK, body={}, header={})
+            response: Response = Response(status_code=StatusCode.OK, body="", header={})
             try:
                 GET.fill_image_params(response, GET.imagesTable, request.URI)
             except Exception as e:
