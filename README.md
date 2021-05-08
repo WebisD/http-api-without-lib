@@ -79,7 +79,7 @@ $ cd http-api-without-lib
 # Run the application
 $ python3 main.py
 
-# The application will open on the port: 8080 - go to http://localhost:8080
+# The application will open on the port: 8083 - go to http://localhost:8083
 
 ```
 
@@ -87,7 +87,7 @@ $ python3 main.py
 <!-- HOW TO RUN -->
 ## 🛠 Methods
 ### 🤲 GET
-In your browser, go to `http://localhost:8080`
+In your browser, go to `http://localhost:8083`
 
 > This page and any other you navigate through the menu symbolizes a GET on our server
 
@@ -96,7 +96,7 @@ In your browser, go to `http://localhost:8080`
 ![get](https://github.com/WebisD/http-api-without-lib/blob/master/.github/get.gif)
 
 ### 📮 POST
-In your browser, go to `http://localhost:8080` and click in `Add new friends`
+In your browser, go to `http://localhost:8083` and click in `Add new friends`
 
 Then, fill in the fields and clik in `Add`
 
@@ -107,7 +107,7 @@ Then, fill in the fields and clik in `Add`
 ![post](https://github.com/WebisD/http-api-without-lib/blob/master/.github/post.gif)
 
 ### 🔀 PUT
-In your browser, go to `http://localhost:8080` and click in `See your friends`
+In your browser, go to `http://localhost:8083` and click in `See your friends`
 
 Choose a friend you want to edit the information and click `Edit`
 
@@ -120,7 +120,7 @@ Fill in the fields and clik in `Save Changes`
 ![put](https://github.com/WebisD/http-api-without-lib/blob/master/.github/put.gif)
 
 ### 🗑️ DELETE
-In your browser, go to `http://localhost:8080` and click in `See your friends`
+In your browser, go to `http://localhost:8083` and click in `See your friends`
 
 * Delete one
 
