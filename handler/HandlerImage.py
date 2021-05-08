@@ -13,7 +13,7 @@ class HandlerImage:
     def data_to_image(data: str, id_user: str):
         extension = ".jpg"
         for formats in HandlerImage.image_formats:
-            if data.find(formats, 0, 20) != -1:
+            if data.find(formats[1:], 0, 20) != -1:
                 extension = formats
                 break
 
