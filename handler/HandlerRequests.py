@@ -6,6 +6,11 @@ from message.ParserMessage import ParserMessage
 from message.Request import Request
 from message.StatusCode import StatusCode
 
+from methods.GET import GET
+from methods.POST import POST
+from methods.PUT import PUT
+from methods.DELETE import DELETE
+
 from handler.HandlerErrors import HandlerErrors
 
 
