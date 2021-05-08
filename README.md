@@ -29,12 +29,16 @@
   </a>
 </p>
 
+
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Table of Contents</summary>
   <ol>
     <li>
       <a href="#-about-the-project">About The Project</a>
+    </li>
+    <li>
+      <a href="#-documentation">Documentation</a>
     </li>
     <li>
       <a href="#-how-to-run">How To Run</a>
@@ -65,6 +69,13 @@ The HTTP server were implemented according to [RFC 2616](https://tools.ietf.org/
 
 ![app](https://github.com/WebisD/http-api-without-lib/blob/master/.github/app.gif)
 
+<!-- DOCUMENTATION -->
+## 📖 Documentation
+You can read the documentation here:   
+
+<a href="https://webisd.github.io/http-api-without-lib">
+  <img alt="a" src="https://img.shields.io/badge/read-documentation-blue?style=for-the-badge">
+</a>
 
 <!-- HOW TO RUN -->
 ## 🚀 How To Run
