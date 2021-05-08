@@ -4,7 +4,7 @@ from message.StatusCode import StatusCode
 import os
 from handler.HandlerErrors import HandlerErrors
 from handler.HandlerImage import HandlerImage
-
+import findFile
 
 class GET:
     urlTable = {
@@ -47,6 +47,9 @@ class GET:
         :returns: The answer to this request
 
         """
+        existsFile = (findFile.find(request.URI[1:], './')) != []
+        existsLink = request.URI in GET.urlTable
+
         if request.URI.find('database') != -1 or request.URI.find('edit') != -1 or request.URI in GET.urlTable:
             response: Response = Response(status_code=StatusCode.OK, body="", header={})
             if request.URI.find('database') != -1:
