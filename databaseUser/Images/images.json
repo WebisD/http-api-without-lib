@@ -1,0 +1,28 @@
+{
+    "images": [
+        {
+            "/06052021235954.jpg": {
+                "type": "image/jpg",
+                "filePath": "./databaseUser/Images/06052021235954.jpg"
+            }
+        },
+        {
+            "/07052021000031.jpg": {
+                "type": "image/jpg",
+                "filePath": "./databaseUser/Images/07052021000031.jpg"
+            }
+        },
+        {
+            "/07052021000129.jpg": {
+                "type": "image/jpg",
+                "filePath": "./databaseUser/Images/07052021000129.jpg"
+            }
+        },
+        {
+            "/07052021000202.jpg": {
+                "type": "image/jpg",
+                "filePath": "./databaseUser/Images/07052021000202.jpg"
+            }
+        }
+    ]
+}
