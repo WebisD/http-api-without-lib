@@ -55,6 +55,9 @@
     <li>
       <a href="#-errors">Errors</a>
     </li>
+    <li>
+      <a href="#-authors">Authors</a>
+    </li>
   </ol>
 </details>
 
@@ -157,5 +160,10 @@ On this page, you can play the famous google dinosaur game or go back to the mai
 
 ![erro](https://github.com/WebisD/http-api-without-lib/blob/master/.github/erro.gif)
 
+<!-- AUTHORS -->
+## 🤖 Authors
 
-
+[Antonio Gustavo](https://github.com/antuniooh)           |  [João Vitor Dias](https://github.com/JoaoDias-223)           |  [Weverson da Silva](https://github.com/WebisD)
+:-------------------------:|:-------------------------:|:-------------------------:
+<img src="https://avatars.githubusercontent.com/u/51217271?v=4" alt="drawing" width="150"/>  |  <img src="https://avatars.githubusercontent.com/u/63318342?v=4" alt="drawing" width="150"/>| <img src="https://avatars.githubusercontent.com/u/49571908?v=4" alt="drawing" width="150"/>
+22.1190001-0 | 22.119.025-9 | 22.119.004-4
