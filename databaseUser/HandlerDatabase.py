@@ -104,18 +104,14 @@ class HandlerDatabase:
         if isPokemonRegistered:
             image = database["users"][pokemonIndex][pokemonID]["image"]
             deleted_image = HandlerImage.delete_image_database(image)
-            print("AAAAAAa") 
             database["users"].pop(pokemonIndex)
-            print("AAAAAAa") 
             if not deleted_image:
                 status = StatusCode.OK
         else:
             status = StatusCode.NOT_FOUND
-        print("AAAAAAa")        
 
         if HandlerDatabase.setData(database):
             return status
-        print("AAAAAAa")
         return StatusCode.INTERNAL_SERVER_ERROR
 
     @staticmethod
