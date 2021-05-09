@@ -38,11 +38,13 @@ class PUT:
                     return HandlerErrors.sendErrorCode(request, status)
 
                 response = Response(status_code=status, body=status.value[1], header=header)
+                print("PUT::response called " + request.URI + " -> " + status.value[1])
 
                 return response.encodeResponse()
             else:
                 raise TypeError("Invalid data")
         except:
+            print("PUT::response called " + request.URI +  " -> BAD_REQUEST")
             return HandlerErrors.sendErrorCode(request, StatusCode.BAD_REQUEST)
 
     @staticmethod

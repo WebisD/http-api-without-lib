@@ -5,7 +5,6 @@ import os
 from handler.HandlerErrors import HandlerErrors
 from handler.HandlerImage import HandlerImage
 
-
 class GET:
     urlTable = {
         "/": {"type": "text/html", "filePath": "./assets/public/index.html"},
@@ -57,6 +56,7 @@ class GET:
                     response.headers["pokemonID"] = params["id"]
                     request.URI = "/edit"
                 else:
+                    print("GET::response called " + request.URI +  " -> NOT_FOUND")
                     return HandlerErrors.sendErrorCode(request, StatusCode.NOT_FOUND)
             with open(GET.urlTable[request.URI]["filePath"], 'r', encoding='utf-8', errors='replace') as file:
                 response.status_code = StatusCode.OK
@@ -68,14 +68,17 @@ class GET:
                 response.headers["Content-Type"] = GET.urlTable[request.URI]["type"]
                 response.headers["Connection"] = "Closed"
 
+            print("GET::response called " + request.URI +  " -> " + str(response.status_code))
             return response.encodeResponse()
+
         elif request.URI in GET.imagesTable:
             response: Response = Response(status_code=StatusCode.OK, body={}, header={})
             try:
                 GET.fill_image_params(response, GET.imagesTable, request.URI)
             except Exception as e:
                 print(e)
-
+            
+            print("GET::response called " + request.URI + " -> " + response.status_code.value[1])
             return response.encodeResponseImages()
         else:
             response: Response = Response(status_code=StatusCode.OK, body={}, header={})
@@ -84,6 +87,7 @@ class GET:
 
             if image_database is None:
                 response.status_code = StatusCode.INTERNAL_SERVER_ERROR
+                print("GET::response called " + request.URI +  " -> INTERNAL_SERVER_ERROR")
                 return response
 
             image = None
@@ -97,9 +101,11 @@ class GET:
                     GET.fill_image_params(response, image, request.URI)
                 except Exception as e:
                     print(e)
-
+                
+                print("GET::response called " + request.URI +  " -> " + str(StatusCode.OK))
                 return response.encodeResponseImages()
 
+        print("GET::response called " + request.URI +  " -> NOT_FOUND")
         return HandlerErrors.sendErrorCode(request, StatusCode.NOT_FOUND)
 
     @staticmethod        
