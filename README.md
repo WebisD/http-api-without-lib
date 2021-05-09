@@ -73,7 +73,7 @@ The HTTP server were implemented according to [RFC 2616](https://tools.ietf.org/
 ## 📖 Documentation
 You can read the documentation here:   
 
-<a href="https://webisd.github.io/http-api-without-lib">
+<a href="https://webisd.github.io/http-api-without-lib" target="_blank">
   <img alt="a" src="https://img.shields.io/badge/read-documentation-blue?style=for-the-badge">
 </a>
 

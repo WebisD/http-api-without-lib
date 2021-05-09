@@ -95,7 +95,6 @@ class HandlerDatabase:
 
         """
         database = HandlerDatabase.getData()
-
         if database is None:
             return StatusCode.INTERNAL_SERVER_ERROR
 
@@ -113,7 +112,6 @@ class HandlerDatabase:
 
         if HandlerDatabase.setData(database):
             return status
-
         return StatusCode.INTERNAL_SERVER_ERROR
 
     @staticmethod

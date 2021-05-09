@@ -6,7 +6,6 @@ from handler.HandlerErrors import HandlerErrors
 from handler.HandlerImage import HandlerImage
 from handler import findFile
 
-
 class GET:
     urlTable = {
         "/": {"type": "text/html", "filePath": "./assets/public/index.html"},
@@ -59,6 +58,7 @@ class GET:
                     response.headers["pokemonID"] = params["id"]
                     request.URI = "/edit"
                 else:
+                    print("GET::response called " + request.URI +  " -> NOT_FOUND")
                     return HandlerErrors.sendErrorCode(request, StatusCode.NOT_FOUND)
             with open(GET.urlTable[request.URI]["filePath"], 'r', encoding='utf-8', errors='replace') as file:
                 response.status_code = StatusCode.OK
@@ -70,9 +70,10 @@ class GET:
                 response.headers["Content-Type"] = GET.urlTable[request.URI]["type"]
                 response.headers["Connection"] = "Closed"
 
+            print("GET::response called " + request.URI +  " -> " + str(response.status_code))
             return response.encodeResponse()
         # Page images
-        elif request.URI in GET.imagesTable:
+        elif request.URI in GET.imag_esTable:
             response: Response = Response(status_code=StatusCode.OK, body={}, header={})
             try:
                 GET.fill_image_params(response, GET.imagesTable, request.URI)
@@ -96,7 +97,7 @@ class GET:
             image_database = json_data["images"]
 
             if image_database is None:
-                HandlerErrors.sendErrorCode(request, StatusCode.INTERNAL_SERVER_ERROR)
+                return HandlerErrors.sendErrorCode(request, StatusCode.INTERNAL_SERVER_ERROR)
 
             image = None
             for index, element in enumerate(image_database):
@@ -111,7 +112,6 @@ class GET:
                     GET.fill_image_params(response, image, request.URI)
                 except Exception as e:
                     print(e)
-
                 return response.encodeResponseImages(request.URI)
             # Image exists but path is wrong
             elif image is not None and not paths_are_equal:
@@ -124,6 +124,7 @@ class GET:
                     response.status_code = StatusCode.MOVED_PERMANENTLY
                     return response.encodeResponseImages(request.URI, search_file)
 
+        print("GET::response called " + request.URI +  " -> NOT_FOUND")
         return HandlerErrors.sendErrorCode(request, StatusCode.NOT_FOUND)
 
     @staticmethod        

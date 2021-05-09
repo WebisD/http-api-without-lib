@@ -72,17 +72,14 @@ class HandlerImage:
     @staticmethod
     def delete_image_database(image_id):
         database = HandlerImage.getData()
-
         if database is None:
             return False
-
         image_already_in_database, image_index = HandlerImage.isImageRegistered(image_id)
         if image_already_in_database:
             database["images"].pop(image_index)
-
+        image_id = image_id.replace("http://localhost:8083", "")
         if HandlerImage.setData(database) and HandlerImage.remove_img(image_id):
             return True
-
         return False
 
     @staticmethod
