@@ -32,11 +32,11 @@ class Response:
 
         return response.encode()
 
-    """TODO: put the image bytes object as an argument instead of storing it in the body to keep consistency across 
-    our code """
-    def encodeResponseImages(self) -> bytes:
+    def encodeResponseImages(self, image: str, new_path: str = None) -> bytes:
         """Responsible for encoding the response along with the image
 
+        :param image: A string containing the image name
+        :param new_path: A string containing the new image path if the image was altered
         returns: A byte object containing the response headers and body along with the image
 
         """
@@ -46,6 +46,10 @@ class Response:
         response += self.headerLine()
         response += self.server + "\n"
         response += "\n"
+
+        print(f'Image -> {image}: {self.status_code.value[0]} {self.status_code.value[1]}')
+        if self.status_code.value[0] == "301" and new_path is not None:
+            print(5*" " + f"New path: {new_path}")
 
         return response.encode() + self.body
 

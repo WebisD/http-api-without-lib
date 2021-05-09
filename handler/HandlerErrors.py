@@ -7,6 +7,9 @@ from string import Template
 class HandlerErrors:
     """Class responsible for handling errors"""
 
+    def __init__(self):
+        pass
+
     urlTable = {
         "/error": {"type": "text/html", "filePath": "./assets/public/error.html"},
         "/bootstrap.min.css": {"type": "text/css", "filePath": "./assets/bootstrap.min.css"},

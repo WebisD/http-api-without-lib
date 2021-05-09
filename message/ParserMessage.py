@@ -1,5 +1,8 @@
 class ParserMessage:
 
+    def __init__(self):
+        pass
+
     @staticmethod
     def parseRequest(request: str) -> dict:
         """Parses the incoming decoded request into a convenient and easy to use dictionary

@@ -30,8 +30,8 @@ def recv(sock: socket.socket, chunkSize: int = 8192) -> any:
     while True:
         data = sock.recv(chunkSize)
 
-        if data is None:
-            return
+        if data is None or data == b'':
+            continue
 
         try:
             decoded_data = data.decode()

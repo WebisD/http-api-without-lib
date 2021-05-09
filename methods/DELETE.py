@@ -16,13 +16,11 @@ class DELETE:
         :returns: A byte object containing the response to this request
 
         """
-        print("DELETE::response called")
         try:
             status: enum.Enum
 
             if request.URI != "/":
                 pokemonID = DELETE.getIdOfUrl(request.URI)
-                print(f"Delete PokemonID: {pokemonID}")
                 status = HandlerDatabase.deletePokemonByID(pokemonID)
             else:
                 status = HandlerDatabase.deleteAllPokemons()
@@ -34,8 +32,10 @@ class DELETE:
                 return HandlerErrors.sendErrorCode(request, status)
 
             response = Response(status_code=status, body="", header=header)
+            print("DELETE::response called " + request.URI + " -> " + status.value[1])
             return response.encodeResponse()
         except:
+            print("DELETE::response called " + request.URI +  " -> BAD_REQUEST")
             return HandlerErrors.sendErrorCode(request, StatusCode.BAD_REQUEST)
 
     @staticmethod
