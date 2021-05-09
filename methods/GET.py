@@ -73,7 +73,7 @@ class GET:
             print("GET::response called " + request.URI +  " -> " + str(response.status_code))
             return response.encodeResponse()
         # Page images
-        elif request.URI in GET.imag_esTable:
+        elif request.URI in GET.imagesTable:
             response: Response = Response(status_code=StatusCode.OK, body={}, header={})
             try:
                 GET.fill_image_params(response, GET.imagesTable, request.URI)
