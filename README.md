@@ -19,7 +19,7 @@
   <h3 align="center">Pokebook</h3>
 
   <p align="center">
-    A social media for pokemons based in the HTTP protocol
+    A social media website for pokemons based on the HTTP protocol
   </p>
 </p>
 
@@ -53,7 +53,7 @@
         </ul>
     </li>
     <li>
-      <a href="#-status-code">Status Code</a>
+      <a href="#-status-code">Status Codes</a>
     </li>
     <li>
       <a href="#-authors">Authors</a>
@@ -64,17 +64,17 @@
 
 <!-- ABOUT THE PROJECT -->
 ## 💻 About The Project
-In this project, an HTTP/1.1 server were implemented, capable of interpreting some HTTP protocol commands received through requests from browsers, and respond appropriately to those requests.
+In this project, we implemented a HTTP/1.1 server capable of interpreting a few HTTP requests from browsers and respond appropriately to these requests.
 
-The commands implemented were: GET, PUT, POST and DELETE.
+The request methods implemented were: GET, PUT, POST and DELETE.
 
-The HTTP server were implemented according to [RFC 2616](https://tools.ietf.org/html/rfc2616), which defines the HTTP/1.1 protocol.
+The HTTP server was implemented according to the [RFC 2616](https://tools.ietf.org/html/rfc2616), which defines the HTTP/1.1 protocol.
 
 ![app](https://github.com/WebisD/http-api-without-lib/blob/master/.github/app.gif)
 
 <!-- DOCUMENTATION -->
 ## 📖 Documentation
-You can read the documentation here:   
+You can read the code documentation here:   
 
 <a href="https://webisd.github.io/http-api-without-lib" target="_blank">
   <img alt="a" src="https://img.shields.io/badge/read-documentation-blue?style=for-the-badge">
@@ -114,7 +114,7 @@ In your browser, go to `http://localhost:8083` and click in `Add new friends`
 
 Then, fill in the fields and clik in `Add`
 
-> This will send a post method to the server that will handle that data, store it in the databse and return a message
+> This will send a POST request to the server which will handle the data, store it in the databse and return the outcome of the operation
 
 > The image is received by the server as data-uri that downloads the image and stores it locally
 
@@ -123,11 +123,11 @@ Then, fill in the fields and clik in `Add`
 ### 🔀 PUT
 In your browser, go to `http://localhost:8083` and click in `See your friends`
 
-Choose a friend you want to edit the information and click `Edit`
+Choose the friend you want to edit the information of and click `Edit`
 
 Fill in the fields and clik in `Save Changes`
 
-> This will send a POST method to the server requesting the replacement of the information
+> This will send a PUT request to the server requesting the replacement of the information
 > > If it's an image, the server will delete the last image and replace with the new one
 
 
@@ -136,15 +136,15 @@ Fill in the fields and clik in `Save Changes`
 ### 🗑️ DELETE
 In your browser, go to `http://localhost:8083` and click in `See your friends`
 
-* Delete one
+* Delete one friend
 
-  Choose a friend you want to delete the information and click `Delete`
+  Choose a friend you want to delete the information of and click `Delete`
 
-* Delete all
+* Delete all friends
 
-  Choose a friend you want to delete the information and click `Delete All`
+  If you want to delete all of your friends' information click `Delete All`
 
-> In both cases, the button will send a DELETE method to the server that will delete the image and the info related with that friend
+> In both cases, the button will send a DELETE request to the server that will delete the image and the info related with that friend
 
 ![delete](https://github.com/WebisD/http-api-without-lib/blob/master/.github/delete.gif)
 
@@ -152,7 +152,7 @@ In your browser, go to `http://localhost:8083` and click in `See your friends`
 
 In most cases, the server will return status codes on your browser console (which you can see by pressing `F12`) saying whether the operation was successful or not
 
-Here are the most common Status codes and how you can see them
+Here are the most common status codes and how you can see them
 
 ### Successful 2xx
 
@@ -168,9 +168,9 @@ Here are the most common Status codes and how you can see them
 
 * #### 301 Moved Permanently 👉
 
-  For this state to occur it is a little more complicated. Go to our server access this folder `./databaseUser/Images`
+  For this state to occur it is a little more complicated. Go to our server and access this directory `./databaseUser/Images`
 
-  Now, feel free to move some image around (just don't take it out of the main folder of this project)
+  Now, feel free to move some of the images around (just don't take it out of the main folder of this project)
 
   If you try a GET or click on `list all friends`, you can see this status code and the new image path on the terminal
 
@@ -203,4 +203,4 @@ Here are the most common Status codes and how you can see them
 [Antonio Gustavo](https://github.com/antuniooh)           |  [João Vitor Dias](https://github.com/JoaoDias-223)           |  [Weverson da Silva](https://github.com/WebisD)
 :-------------------------:|:-------------------------:|:-------------------------:
 <img src="https://avatars.githubusercontent.com/u/51217271?v=4" alt="drawing" width="150"/>  |  <img src="https://avatars.githubusercontent.com/u/63318342?v=4" alt="drawing" width="150"/>| <img src="https://avatars.githubusercontent.com/u/49571908?v=4" alt="drawing" width="150"/>
-22.1190001-0 | 22.119.025-9 | 22.119.004-4
+22.1190001-0 | 22.119.006-9 | 22.119.004-4
