@@ -53,7 +53,7 @@
         </ul>
     </li>
     <li>
-      <a href="#-errors">Errors</a>
+      <a href="#-status-code">Status Code</a>
     </li>
     <li>
       <a href="#-authors">Authors</a>
@@ -138,27 +138,64 @@ In your browser, go to `http://localhost:8083` and click in `See your friends`
 
 * Delete one
 
-Choose a friend you want to delete the information and click `Delete`
+  Choose a friend you want to delete the information and click `Delete`
 
 * Delete all
 
-Choose a friend you want to delete the information and click `Delete All`
+  Choose a friend you want to delete the information and click `Delete All`
 
 > In both cases, the button will send a DELETE method to the server that will delete the image and the info related with that friend
 
 ![delete](https://github.com/WebisD/http-api-without-lib/blob/master/.github/delete.gif)
 
-## ❌ Errors
+## 📜 Status Code
+
 In most cases, the server will return status codes on your browser console (which you can see by pressing `F12`) saying whether the operation was successful or not
 
-Here are the most common Error codes and how you can see them
+Here are the most common Status codes and how you can see them
 
-### 404 Not Found
-If the requested page does not exist, an error will occur and will be shown in the browser
+### Successful 2xx
 
-On this page, you can play the famous google dinosaur game or go back to the main page
+* #### 200 OK 👍
 
-![erro](https://github.com/WebisD/http-api-without-lib/blob/master/.github/erro.gif)
+  This is the state that you will see the most, whenever a GET is successful this status code will be shown
+
+* #### 201 Created 🆕
+
+  This status will occur when you click `Add` to add a new friend on the `Add new friend`'s page
+
+### Redirection 3xx
+
+* #### 301 Moved Permanently 👉
+
+  For this state to occur it is a little more complicated. Go to our server access this folder `./databaseUser/Images`
+
+  Now, feel free to move some image around (just don't take it out of the main folder of this project)
+
+  If you try a GET or click on `list all friends`, you can see this status code and the new image path on the terminal
+
+  ![moved](https://github.com/WebisD/http-api-without-lib/blob/master/.github/moved.gif)
+
+### Client Error 4xx
+
+* #### 400 Bad Request 👎
+  If the fields to register a friend are not completely filled out, an error will occur and will be shown in the browser (as in the following gif) and in the terminal
+
+  ![badpost](https://github.com/WebisD/http-api-without-lib/blob/master/.github/postError.gif)
+
+* #### 404 Not Found :man_shrugging:
+  If the requested page does not exist, an error will occur and will be shown in the browser
+
+  On this page, you can play the famous google dinosaur game or go back to the main page
+
+  ![erro](https://github.com/WebisD/http-api-without-lib/blob/master/.github/erro.gif)
+
+### Server Error 5xx
+
+* #### 500 Internal Server Error
+
+  In case you see this, something happened to our server and we will resolve it soon
+
 
 <!-- AUTHORS -->
 ## 🤖 Authors
