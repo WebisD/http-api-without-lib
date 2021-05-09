@@ -31,14 +31,6 @@
                 "pokemon": "Giant",
                 "image": "/07052021000202.jpg"
             }
-        },
-        {
-            "08052021120359": {
-                "name": "Ashe",
-                "phone": "1196632651",
-                "pokemon": "Charmander",
-                "image": "/08052021120359.png"
-            }
         }
     ]
 }

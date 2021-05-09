@@ -4,6 +4,7 @@ from message.StatusCode import StatusCode
 import os
 from handler.HandlerErrors import HandlerErrors
 from handler.HandlerImage import HandlerImage
+from handler import findFile
 
 class GET:
     urlTable = {
@@ -46,6 +47,7 @@ class GET:
         :returns: The answer to this request
 
         """
+
         if request.URI.find('database') != -1 or request.URI.find('edit') != -1 or request.URI in GET.urlTable:
             response: Response = Response(status_code=StatusCode.OK, body="", header={})
             if request.URI.find('database') != -1:
@@ -70,25 +72,32 @@ class GET:
 
             print("GET::response called " + request.URI +  " -> " + str(response.status_code))
             return response.encodeResponse()
-
+        # Page images
         elif request.URI in GET.imagesTable:
             response: Response = Response(status_code=StatusCode.OK, body={}, header={})
             try:
                 GET.fill_image_params(response, GET.imagesTable, request.URI)
             except Exception as e:
                 print(e)
-            
-            print("GET::response called " + request.URI + " -> " + response.status_code.value[1])
-            return response.encodeResponseImages()
+                response.status_code = StatusCode.NOT_FOUND
+
+            return response.encodeResponseImages(request.URI)
+        # User images
         else:
             response: Response = Response(status_code=StatusCode.OK, body={}, header={})
 
-            image_database = HandlerImage.getData()["images"]
+            search_file = findFile.find(request.URI[1:], './')
+            search_file = search_file[0].replace("\\", '/')
+            exists_file = search_file != []
+
+            if not exists_file:
+                return HandlerErrors.sendErrorCode(request, StatusCode.NOT_FOUND)
+
+            json_data = HandlerImage.getData()
+            image_database = json_data["images"]
 
             if image_database is None:
-                response.status_code = StatusCode.INTERNAL_SERVER_ERROR
-                print("GET::response called " + request.URI +  " -> INTERNAL_SERVER_ERROR")
-                return response
+                return HandlerErrors.sendErrorCode(request, StatusCode.INTERNAL_SERVER_ERROR)
 
             image = None
             for index, element in enumerate(image_database):
@@ -96,14 +105,24 @@ class GET:
                     image = element
                     break
 
-            if image is not None:
+            paths_are_equal = image[request.URI]['filePath'] == search_file
+
+            if image is not None and paths_are_equal:
                 try:
                     GET.fill_image_params(response, image, request.URI)
                 except Exception as e:
                     print(e)
-                
-                print("GET::response called " + request.URI +  " -> " + str(StatusCode.OK))
-                return response.encodeResponseImages()
+                return response.encodeResponseImages(request.URI)
+            # Image exists but path is wrong
+            elif image is not None and not paths_are_equal:
+                image[request.URI]['filePath'] = search_file
+                if HandlerImage.setData(json_data):
+                    try:
+                        GET.fill_image_params(response, image, request.URI)
+                    except Exception as e:
+                        print(e)
+                    response.status_code = StatusCode.MOVED_PERMANENTLY
+                    return response.encodeResponseImages(request.URI, search_file)
 
         print("GET::response called " + request.URI +  " -> NOT_FOUND")
         return HandlerErrors.sendErrorCode(request, StatusCode.NOT_FOUND)

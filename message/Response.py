@@ -15,13 +15,16 @@ class Response:
 
         return response.encode()
 
-    def encodeResponseImages(self):
+    def encodeResponseImages(self, image, new_path=None):
         response = ""
         response += self.statusLine() + "\n"
         response += self.headerLine()
         response += self.server + "\n"
         response += "\n"
-        #esponse = response.encode()
+
+        print(f'Image -> {image}: {self.status_code.value[0]} {self.status_code.value[1]}')
+        if self.status_code.value[0] == "301" and new_path is not None:
+            print(5*" " + f"New path: {new_path}")
 
         return response.encode() + self.body
 
