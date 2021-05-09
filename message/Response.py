@@ -37,7 +37,7 @@ class Response:
 
         :param image: A string containing the image name
         :param new_path: A string containing the new image path if the image was altered
-        :returns: A byte object containing the response headers and body along with the image
+        returns: A byte object containing the response headers and body along with the image
 
         """
 
